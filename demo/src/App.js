@@ -1,7 +1,6 @@
 import React from "react";
 import Files from './file.json';
 
-
 function App() {
 return (
 	<div className="App">
