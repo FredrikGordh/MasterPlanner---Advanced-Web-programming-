@@ -1,12 +1,18 @@
 const express = require("express");
+const db = require("./database.js"); 
 const app = express();
 //const jsonData = require("./file.json")
 
 app.post("/post", (req, res) => {
-console.log("Connected to React");
-res.redirect("/");
+    console.log("Connected to React");
+    res.redirect("/");
+
 });
 
+app.get("/get", (req, res) => {
+
+
+}); 
 
 
 
