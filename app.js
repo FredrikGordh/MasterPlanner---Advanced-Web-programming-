@@ -1,7 +1,13 @@
-const express = require("express");
-const db = require("./database.js"); 
+const express = require("express")
+const bodyParser = require('body-parser')
+const compression = require('compression')
+const cors = require ('cors')
+const helmet = require ('helmet')
+const db = require("./database/vt1.db")
 const app = express();
-//const jsonData = require("./file.json")
+
+
+
 
 app.post("/post", (req, res) => {
     console.log("Connected to React");
@@ -10,6 +16,8 @@ app.post("/post", (req, res) => {
 });
 
 app.get("/get", (req, res) => {
+    console.log('connected to database')
+    db.run
 
 
 }); 

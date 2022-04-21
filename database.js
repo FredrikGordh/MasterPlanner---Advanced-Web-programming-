@@ -1,6 +1,6 @@
 var sqlite3 = require('sqlite3').verbose(); 
 
-let db = new sqlite3.Database('./database/Database.db', err => {
+let db = new sqlite3.Database('./database/vt1.db', err => {
    
     
     if (err) {
@@ -8,7 +8,7 @@ let db = new sqlite3.Database('./database/Database.db', err => {
     }
     
     console.log('connected to vt1 database'); 
-    db.each("SELECT * FROM Termin1", function(err,result){
+    db.each("SELECT * FROM vt1;", function(err,result){
         if (err) throw err.message; 
         console.log(result); 
     });
