@@ -1,11 +1,41 @@
 // import React, {useEffect, useState} from 'react' 
 // import {Link} from 'react-router-dom'; 
 
+import React from "react"
 
+//Ska detta vara en class eller function???
 
-function SignIn(){
+class SignIn extends React.Component{
+    constructor(props){
+        super(props)
+    this.state={
+        email:'',
+        password:''
+    }
+}
+    handleSubmit = (event) => {
+        alert(`${this.state.email} ${this.state.password} `)
+
+        }
+    
+
+   
+    // on change the value is captured by event.target.value
+    handleEmail = (event) => {
+        this.setState({
+            email: event.target.value
+        })
+    }
+
+     // on change the value is captured by event.target.value
+    handlePassword = (event) => {
+        this.setState({
+            password: event.target.value
+        })
+    }
+render(){
 return(
-<form style={{textAlign:"center"}}action="/action_page.php">
+<form style={{textAlign:"center"}}action="/action_page.php" onSubmit={this.handleSubmit}>
     <h1>Bli medlem</h1>
   <div class="form-group r">
       <div class="row d-flex justify-content-center">
@@ -13,7 +43,13 @@ return(
     </div>
     <div class="row d-flex justify-content-center">
         <div class="col-4 d-flex justify-content-center">
-    <input   type="email" class="form-control" placeholder="Enter email" id="email"/>
+    <input   
+    type="email" 
+    class="form-control" 
+    placeholder="Enter email" 
+    value={this.email}
+    onChange={this.handleEmail}
+    id="email"/>
     </div>
     </div>
   </div>
@@ -23,7 +59,13 @@ return(
     </div>
     <div class="row row d-flex justify-content-center">
         <div class="col-4" style={{textAlign:"center"}}>
-    <input type="password" class="form-control" placeholder="Enter password" id="pwd"/>
+    <input 
+    type="password" 
+    class="form-control" 
+    placeholder="Enter password" 
+    value={this.password}
+    onChange={this.handlePassword}
+    id="pwd"/>
         </div>
     </div>
   </div>
@@ -31,8 +73,7 @@ return(
   <button type="submit" class="btn btn-primary" >Bli medlem</button>
 </form>
 )
-
+}
 }
 
 export default SignIn
-
