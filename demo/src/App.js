@@ -1,7 +1,15 @@
 
 import React from "react";
 import Files from './file.json';
-const db = require("./database.js"); 
+import css from "./App.css";
+
+import Nav from './components/Nav.js'
+import Startsida from './components/Startsida.js'
+import Mina_kurser from './components/Mina_kurser.js'
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+
+
+// const db = require("./database.js"); 
 
 // const element = <h1>Hello World</h1>
 
@@ -11,27 +19,20 @@ const db = require("./database.js");
 // root.render('element')
 
 function App() {
-return (
-	<div className="App">
-    {
-      Files.map(file => {
-        return(
-          <div className="box">
-            {file.id}
-            <div>Heeej</div>
-          </div> 
-
-          
-        )
-      })
-    }
-  </div>
-
+  return (
+    // Router måste användas när man använder sig av Nav liknande funktioner
+    <Router> 
+    <div className="App">
   
-
-
-  );
-
-}
-
+          <Nav />
+          <Routes>
+            <Route path="/" element={<Startsida/>} />
+            <Route path="/Mina_kurser" element={<Mina_kurser/>} />
+          </Routes>
+      
+    </div>
+    </Router>
+    );
+  }
+  
 export default App;
