@@ -1,10 +1,23 @@
 const express = require("express")
 // const bodyParser = require('body-parser')
-// const compression = require('compression')
+
 // const cors = require ('cors')
 // const helmet = require ('helmet')
 // const db = require("./demo/src/database.js")
+// const compression = require('compression')
 const app = express();
+
+
+
+// app.use(cors())
+
+// // parse application json
+// app.use(bodyParser.json())
+
+// // create database connection
+// const conn = 
+
+
 
 
 
@@ -19,8 +32,12 @@ app.get("/get", (req, res) => {
     console.log('connected to database')
     db.run
 
-
 }); 
+
+app.get("http://localhost:3000/SignIn", (req, res) => {
+    console.log('You are now in the SignIn window')
+
+})
 
 
 

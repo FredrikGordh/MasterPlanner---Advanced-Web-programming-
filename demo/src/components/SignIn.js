@@ -15,8 +15,18 @@ class SignIn extends React.Component{
 }
     handleSubmit = (event) => {
         alert(`${this.state.email} ${this.state.password} `)
+   
+        // event.preventDefault()
+        // fetch('/api', {
+        //   method: 'POST',
+        //   body: JSON.stringify({this.email,password}),
+        //   headers: { 'Content-Type': 'application/json' },
+        // })
+        //   .then(res => res.json())
+        //   .then(json => setUser(json.user))
+      }
 
-        }
+        
     
 
    
@@ -75,5 +85,7 @@ return(
 )
 }
 }
+
+
 
 export default SignIn
