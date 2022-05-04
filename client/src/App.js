@@ -7,7 +7,7 @@ import Nav from './components/Nav.js'
 import Startsida from './components/Startsida.js'
 import Mina_kurser from './components/Mina_kurser.js'
 import Login from "./components/LogIn.js"
-import SignIn from "./components/SignIn.js"
+import SignIn from "./components/Signin.js"
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 
 
