@@ -15,7 +15,7 @@ class SignIn extends React.Component{
 }
     handleSubmit = (event) => {
         alert(`${this.state.email} ${this.state.password} `)
-        fetch()
+   
         // event.preventDefault()
         // fetch('/api', {
         //   method: 'POST',
@@ -88,4 +88,4 @@ return(
 
 
 
-export default SignIn
+export default SignIn;
