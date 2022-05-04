@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require('body-parser'); 
 const app = express();
-const routesHandler = require('./server/api/Mina_kurser')
+const routesHandler = require('./server/handler.js')
 
 app.use(bodyParser.urlencoded({extended:false})); 
 app.use(bodyParser.json()); 
