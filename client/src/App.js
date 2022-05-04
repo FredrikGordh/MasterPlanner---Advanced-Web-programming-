@@ -20,59 +20,36 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 //   )
 // root.render('element')
 
-class App extends Component {
-  constructor(props){
-    super(props)
-    this.state = {apiResponse: ""}
-  }
 
 
-  callAPI(){
-    fetch("http://localhost:3000/testAPI")
-      .then(res => res.text())
-      .then(res => this.setState({ apiResponse: res }))
-      .catch(err => err);
-  }
 
-  componentDidMount() {
-    this.callAPI();
-}
+function App() {
 
-render() {
   return (
+    // Router måste användas när man använder sig av Nav liknande funktioner
+    <Router> 
     <div className="App">
-                <header className="App-header">
-                    
-                    <h1 className="App-title">Welcome to React</h1>
-                </header>
-                <p className="App-intro">{this.state.apiResponse}</p>
-      </div>
-  );
+  
+          <Nav />
+          <Routes>
+            <Route path="/" element={<Startsida/>} />
+            <Route path="/Mina_kurser" element={<Mina_kurser/>} />
+            <Route path="/LogIn" element ={<Login/>}/>
+            <Route path="/SignIn" element ={<SignIn/>}/>
+          </Routes>
+      
+    </div>
+    </Router>
+    );
   }
-}
-
+  
 export default App;
 
 
 
-// function App() {
 
-//   return (
-//     // Router måste användas när man använder sig av Nav liknande funktioner
-//     <Router> 
-//     <div className="App">
-  
-//           <Nav />
-//           <Routes>
-//             <Route path="/" element={<Startsida/>} />
-//             <Route path="/Mina_kurser" element={<Mina_kurser/>} />
-//             <Route path="/LogIn" element ={<Login/>}/>
-//             <Route path="/SignIn" element ={<SignIn/>}/>
-//           </Routes>
-      
-//     </div>
-//     </Router>
-//     );
-//   }
-  
-// export default App;
+
+
+
+
+
