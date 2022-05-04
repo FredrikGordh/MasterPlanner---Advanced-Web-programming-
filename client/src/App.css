@@ -9,3 +9,16 @@ body {
 #SignInButton{
     text-align: center;
 }
+
+
+/* Mina kurser */
+
+
+#Kurs-holder{
+    font-size: small;
+    margin-left: auto; 
+    margin-right: auto;
+    justify-content: space-between;
+    height: 80%; 
+    width: 80%; 
+}
