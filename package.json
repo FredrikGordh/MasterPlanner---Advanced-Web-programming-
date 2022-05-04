@@ -2,17 +2,20 @@
   "name": "demoapp",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "node App.js",
+    "dev": "nodemon index.js",
+    "con": "concurrently --kill-others-on-fail\"npm run dev\"\"npm run start\""
   },
+  "proxy": "http://localhost:8080/",
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.3",
-    "nodemon": "^2.0.15",
-    "sqlite3": "^5.0.4"
+    "express": "^4.18.1",
+    "nodemon": "^2.0.16",
+    "react-router-dom": "^6.3.0",
+    "sqlite3": "^5.0.6"
   }
 }
