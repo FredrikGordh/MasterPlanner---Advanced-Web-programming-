@@ -1,3 +1,17 @@
+CREATE TABLE IF NOT EXISTS 	MyCourses (
+	"Kurskod"	TEXT,
+	"Kursnamn"	TEXT,
+	"HP"	TEXT,
+	"Nivå"	TEXT,
+	"Block"	TEXT,
+	"VOF"	TEXT,
+	"Säsong"	TEXT,
+	"Period"	INTEGER
+
+);
+
+
+
 CREATE TABLE IF NOT EXISTS Termin1 (
 	"Kurskod"	TEXT,
 	"Kursnamn"	TEXT,

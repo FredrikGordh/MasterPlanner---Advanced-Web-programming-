@@ -1,27 +1,48 @@
 import React, {useEffect, useState} from 'react' 
-import {Link} from 'react-router-dom'; 
 
 
  
-function Mina_kurser() {
+function Sok_kurser() {
     useEffect( () => {
         fetchItems(); 
+
     }, []); 
 
     const [items, setItems] = useState([]); 
     const [searchTerm, setSearchTerm] = useState(''); 
+    const [course, setCourse] = useState([]); 
     const fetchItems = async() => {
-        const data = await fetch('/Mina_Kurser'); 
+        const data = await fetch('/Sok_kurser'); 
         const items = await data.json(); 
         setItems(items); 
     }
     //{item.Kurskod } {item.Kursnamn} {item.HP} {item.Nivå } {item.Block} {item.VOF} {item.Säsong} {item.period}
+  
 
-
+    
+       
+    // Sending chosen courses to Mina_kurser
+    const handleSubmit = (e) => {
+        e.preventDefault(); 
+        
+        fetch('http://localhost:3000/Mina_kurser', {
+            method: 'POST', 
+            headers: {
+                'Content-Type':'application/json'
+            }, 
+            body: JSON.stringify(course)
+        }).then(() => {
+            console.log("course added")
+            //console.log(course)
+        })
+    }
+        
+ 
+    
     return(
-        <section id = "Kurs-holder">
+        <form id = "Kurs-holder" onSubmit={handleSubmit}>
             <div class = "search-wrapper">
-                <label for = "search"> Sök kurser</label>   
+                <label for = "search"> Sök kurser </label>   
                 <input type="search" id = "search" onChange={event => {setSearchTerm(event.target.value)}}></input> 
             </div> 
             <table class="table">
@@ -41,14 +62,14 @@ function Mina_kurser() {
                     { 
                     // Filtering searchbar
                     items.filter((val) =>{
-                        if (searchTerm == "") {
+                        if (searchTerm === "") {
                             return val
                         }else if (val.Kursnamn.toLowerCase().includes(searchTerm.toLowerCase())){
                             return val
                         }
                     // Displaying data in table
                     }).map(item => (
-                    <tr>
+                    <tr >
                         <td>{item.Kurskod}</td>
                         <td>{item.Kursnamn}</td>
                         <td>{item.HP}</td>
@@ -57,18 +78,18 @@ function Mina_kurser() {
                         <td>{item.VOF}</td>
                         <td>{item.Säsong}</td>
                         <td>{item.Period}</td>
-                        <td><button>Lägg till</button> </td>
+                        <td><button onClick= {() => setCourse(item)}>Lägg till</button> </td>
                     </tr>
                     ))
                 }
                 </tbody>
 
             </table>
-        </section>
+        
+        </form>
 
     );
 
-
 }
 
-export default Mina_kurser; 
+export default Sok_kurser; 

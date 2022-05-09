@@ -62,6 +62,25 @@ db.getAsync = function (sql) {
   });
 };
 
+db.insertCourse = function(sql, myCourses) {
+  let Kurskod =  myCourses.Kurskod; 
+  let Kursnamn = myCourses.Kursnamn; 
+  let HP = myCourses.HP; 
+  let Nivå = myCourses.Nivå; 
+  let Block = myCourses.Block; 
+  let VOF = myCourses.VOF; 
+  let Säsong = myCourses.Säsong; 
+  let Period = myCourses.Period; 
+
+
+  db.run(sql, [Kurskod, Kursnamn, HP, Nivå, Block, VOF, Säsong, Period], (err) => {
+    if (err) {
+      console.log("fel fö fan!"); 
+      return console.log(err); 
+    }
+  })
+
+}
 
 
 module.exports = db;
