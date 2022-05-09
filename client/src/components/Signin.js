@@ -1,5 +1,5 @@
 // import React, {useEffect, useState} from 'react' 
-// import {Link} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 import React, {useState} from "react"
 
@@ -15,16 +15,27 @@ import React, {useState} from "react"
 
 
 
+
+
+
 function SignIn(){
     const[email, setEmail] = useState('')
     const[body, setBody] = useState('')
     const[password, setPassword] = useState('')
-           
+    const navigate= useNavigate()
+
+        // Functionality after pushing submit
       const handleSubmit = (e) =>{
             e.preventDefault();
 
+            // Redirecting to homepage after click
+            navigate('/Startsida')
+            alert('Congratulations! You have now created a user, and can now log into your user ')
+
+
             const myData = {email, password}
 
+            // Sending userdata through a POST request to server
             fetch('http://localhost:3000/SignIn',{
                 method: 'POST',
                 headers: {

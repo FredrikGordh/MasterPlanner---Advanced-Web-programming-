@@ -4,13 +4,16 @@ const DBSOURCE = "db.sqlite";
 const fillsql = fs.readFileSync("./server/Database.sql").toString();
 const dataArr = fillsql.toString().split(');');
 
+
 let db = new sqlite3.Database(DBSOURCE, (err) => {
     if (err) {
         console.log(err.message); 
     } else{
-        console.log('connected to vt1 database');     
+        console.log('connected to database');     
     }
 }); 
+
+
 
 
 db.serialize(() => {
@@ -62,6 +65,23 @@ db.getAsync = function (sql) {
   });
 };
 
+
+db.insertAsync = function (sql, email,password){
+  db.serialize(() => {
+   
+    let emailQuery = '(' + email + ');'; 
+    let passwordQuery =  '(' + password + ');'
+    var insertQuery = 'INSERT or IGNORE INTO users(email, password) VALUES (?,?)'
+   
+    db.run(insertQuery, [emailQuery, passwordQuery], (err)=>{
+        if(err){
+            console.log('här är vi')
+            return console.log(err.message)
+        }
+        console.log('User was added to the database')
+    })
+  }); 
+}
 
 
 module.exports = db;
