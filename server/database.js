@@ -34,12 +34,6 @@ db.serialize(() => {
     db.run('COMMIT;');
 });
  
-// db.close((err) => {
-//     if (err) {
-//       return console.error(err.message);
-//     }
-//     console.log('Closed the database connection.');
-//   });
 
 db.allAsync = function (sql) {
   var that = this;
@@ -62,6 +56,18 @@ db.getAsync = function (sql) {
   });
 };
 
+db.runAsync = function (sql, params) {
+  var that = this;
+  return new Promise(function (resolve, reject) {
+    that.run(sql, params, function (error) {
+      if (error) reject(error);
+      else resolve(this);
+    });
+  });
+};
+
+
+
 db.insertCourse = function(sql, myCourses) {
   let Kurskod =  myCourses.Kurskod; 
   let Kursnamn = myCourses.Kursnamn; 
@@ -77,9 +83,11 @@ db.insertCourse = function(sql, myCourses) {
     if (err) {
       console.log("fel fö fan!"); 
       return console.log(err); 
+    }else{
+      let test = [Kurskod, Kursnamn, HP, Nivå, Block, VOF, Säsong, Period]; 
+      console.log(test);
     }
   })
-
 }
 
 

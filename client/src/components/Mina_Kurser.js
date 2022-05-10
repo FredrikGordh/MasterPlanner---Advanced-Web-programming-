@@ -15,14 +15,13 @@ function Mina_kurser(){
 
     const handleSubmit = (e) => {
         e.preventDefault();  
+
         fetch('http://localhost:3000/Mina_kurser', {
             method: 'DELETE', 
             headers: {
                 'Content-Type':'application/json'
             }, 
             body: JSON.stringify(singleCourse)
-        }).then(() => {
-            console.log("course deleted")
         })
         fetchItems(); 
 

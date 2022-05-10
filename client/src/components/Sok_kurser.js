@@ -31,10 +31,8 @@ function Sok_kurser() {
                 'Content-Type':'application/json'
             }, 
             body: JSON.stringify(course)
-        }).then(() => {
-            console.log("course added")
-            //console.log(course)
         })
+     
     }
         
  
