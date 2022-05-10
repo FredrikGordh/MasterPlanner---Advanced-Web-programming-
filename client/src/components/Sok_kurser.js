@@ -11,10 +11,11 @@ function Sok_kurser() {
     const [items, setItems] = useState([]); 
     const [searchTerm, setSearchTerm] = useState(''); 
     const [course, setCourse] = useState([]); 
-    const fetchItems = async() => {
+    let fetchItems = async() => {
         const data = await fetch('/Sok_kurser'); 
         const items = await data.json(); 
         setItems(items); 
+        
     }
     //{item.Kurskod } {item.Kursnamn} {item.HP} {item.Nivå } {item.Block} {item.VOF} {item.Säsong} {item.period}
   
@@ -24,7 +25,6 @@ function Sok_kurser() {
     // Sending chosen courses to Mina_kurser
     const handleSubmit = (e) => {
         e.preventDefault(); 
-        
         fetch('http://localhost:3000/Mina_kurser', {
             method: 'POST', 
             headers: {
@@ -32,6 +32,7 @@ function Sok_kurser() {
             }, 
             body: JSON.stringify(course)
         })
+
      
     }
         

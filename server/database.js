@@ -81,11 +81,7 @@ db.insertCourse = function(sql, myCourses) {
 
   db.run(sql, [Kurskod, Kursnamn, HP, Nivå, Block, VOF, Säsong, Period], (err) => {
     if (err) {
-      console.log("fel fö fan!"); 
       return console.log(err); 
-    }else{
-      let test = [Kurskod, Kursnamn, HP, Nivå, Block, VOF, Säsong, Period]; 
-      console.log(test);
     }
   })
 }

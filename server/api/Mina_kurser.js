@@ -27,26 +27,26 @@ router.delete('/Mina_kurser', async (req, res) => {
         req.body.Period
     ]
     let remove = await db.runAsync(deleteQuery, myCourses);
-    console.log(remove); 
-        
+    let database = await db.allAsync(sql);
+    res.json(database);
 
 })
 
 router.post('/Mina_kurser', async (req,res) => {
     let insertQuery = 'INSERT or IGNORE INTO MyCourses(Kurskod, Kursnamn, HP, Nivå, Block, VOF, Säsong, Period) VALUES (?,?,?,?,?,?,?,?)'  
-    const myCourses = {
-            Kurskod: req.body.Kurskod, 
-            Kursnamn: req.body.Kursnamn, 
-            HP: req.body.HP, 
-            Nivå: req.body.Nivå,
-            Block: req.body.Block, 
-            VOF: req.body.VOF,
-            Säsong: req.body.Säsong,
-            Period: req.body.Period
-        }
-
-        const insert = await db.insertCourse(insertQuery, req.body); 
-
+    const myCourses = [
+            req.body.Kurskod, 
+            req.body.Kursnamn, 
+            req.body.HP, 
+            req.body.Nivå,
+            req.body.Block, 
+            req.body.VOF,
+            req.body.Säsong,
+            req.body.Period
+    ]
+        const insert = await db.runAsync(insertQuery, myCourses);
+        let database = await db.allAsync(sql);  
+        res.json(database); 
 }); 
 
 

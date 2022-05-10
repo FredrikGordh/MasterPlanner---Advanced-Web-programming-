@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 
-function Mina_kurser(){
+function Mina_Kurser(){
     useEffect( () => {
         fetchItems(); 
     }, []); 
@@ -8,9 +8,11 @@ function Mina_kurser(){
     const [courses, setCourses] = useState([]); 
     const [singleCourse, setSingleCourse] = useState([]);
     const fetchItems = async() => {
+
         const data = await fetch('/Mina_kurser'); 
         const courses = await data.json(); 
         setCourses(courses); 
+
     }
 
     const handleSubmit = (e) => {
@@ -24,6 +26,7 @@ function Mina_kurser(){
             body: JSON.stringify(singleCourse)
         })
         fetchItems(); 
+
 
     }
         
@@ -69,4 +72,4 @@ function Mina_kurser(){
     )
 }
 
-export default Mina_kurser; 
+export default Mina_Kurser; 
