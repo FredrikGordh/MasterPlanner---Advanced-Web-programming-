@@ -29,12 +29,24 @@ function Mina_Kurser(){
 
 
     }
+
+    function calculateHP(){
+        let hp = 0; 
+        
+        courses.map(item => {
+            
+            let int = Number(item.HP);
+            hp = hp + int; 
+        });
+        
+        return hp; 
+    }
         
 
     return( 
-        <form onSubmit={handleSubmit}>
+        <form id = "form" onSubmit={handleSubmit}>
             <div class = "container-fluid">
-            <table class="table">
+            <table class="table" id = "mycourse-table">
                 <thead>
                     <tr>
                     <th scope="col">Kurskod</th>
@@ -60,14 +72,21 @@ function Mina_Kurser(){
                         <td>{item.VOF}</td>
                         <td>{item.Säsong}</td>
                         <td>{item.Period}</td>
-                        <td><button onClick={() => setSingleCourse(item)}> X </button> </td>
+                        <button onClick={() => setSingleCourse(item)}> X </button>
                     </tr>
                     ))
                 }
                 </tbody>
 
             </table>
+
             </div>
+            <div class="card" id = "total">
+                <div class="card-body"> 300 HP </div>
+                <div class="card-body"> {calculateHP()} </div>
+                
+            </div>
+            
         </form> 
     )
 }
