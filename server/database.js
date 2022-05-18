@@ -57,6 +57,7 @@ db.allAsync = function (sql) {
 
 db.getAsync = function (sql, params) {
   var that = this;
+  console.log('This is what is sent to Login DB API: ' + sql,params)
   return new Promise(function (resolve, reject) {
     that.get(sql, params, function (error, row) {
       if (error) reject(error);
@@ -68,8 +69,10 @@ db.getAsync = function (sql, params) {
 
 db.insertAsync = function (sql, email, password){
   db.serialize(() => {
-  console.log(sql, email, password)
+  console.log('This is now in the database: ' + sql, email, password)
+
    return db.run(sql, [email, password], (err)=>{
+
         if(err){
             console.log('Error')
             return console.log(err.message)
