@@ -1,21 +1,7 @@
-// import React, {useEffect, useState} from 'react' 
+import React, {useEffect, useState} from 'react' 
 import {useNavigate} from 'react-router-dom';
 
-import React, {useState} from "react"
-
-//Ska detta vara en class eller function???
-
-// class SignIn extends React.Component{
-//     constructor(props){
-//         super(props)
-//     this.state={
-//         email:'',
-//         password:''
-//     }
-
-
-
-
+// import React, {useState} from "react"
 
 
 function SignIn(){
@@ -28,11 +14,9 @@ function SignIn(){
       const handleSubmit = (e) =>{
             e.preventDefault();
 
-            // Redirecting to homepage after click
             navigate('/Startsida')
             alert('Congratulations! You have now created a user, and can now log into your user ')
-
-
+            
             const myData = {email, password}
 
             // Sending userdata through a POST request to server
@@ -44,8 +28,10 @@ function SignIn(){
                 body: JSON.stringify(myData)
                 
             }).then(() => {
-                console.log("new user added"); 
-                console.log(myData)
+
+                console.log('MyData stringified: ' + JSON.stringify(myData))
+                 // Redirecting to homepage after click
+                
             })
         }
 

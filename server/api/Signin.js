@@ -1,12 +1,9 @@
-// var sqlite3 = require('sqlite3').verbose(); 
 const sqlite3 = require('sqlite3').verbose();
 const { response } = require('express');
 const express = require('express'); 
 const { json } = require('express/lib/response');
 const router = express.Router(); 
 const db = require('../database')
-
-
 const bcrypt = require('bcrypt');
 
 
@@ -16,25 +13,23 @@ router.get('/SignIn', async(req,res) => {
 
 router.post('/SignIn', async (req,res) => {
    console.log(req.body); 
-    const newUser = {
-        email: req.body.email,
-        password: req.body.password
-    }
+    const email = req.body.email
+    const password = req.body.password
     
+    // Hashing the password
     const salt = await bcrypt.genSalt(6,)
     console.log('This is the salt: ' + salt)
-    const hashedPassword = await bcrypt.hash(newUser.password,salt)
+    const hashedPassword = await bcrypt.hash(password,salt)
     console.log('hashed password: ' + hashedPassword)
 
-    const insert = await db.insertAsync(newUser.email,hashedPassword)
-    console.log(insert)
+    const sql = 'INSERT or IGNORE INTO users(email, password) VALUES (?,?)'
+  
+    const insert = await db.insertAsync(sql, email, hashedPassword)
+    console.log('This is sent to database.js: ' + email, hashedPassword)
     
     
 })
 
-// async function comparePassword(password){
-//     const validPassword
-// }
 
 
 module.exports = router;

@@ -55,10 +55,10 @@ db.allAsync = function (sql) {
 };
 
 
-db.getAsync = function (sql) {
+db.getAsync = function (sql, params) {
   var that = this;
   return new Promise(function (resolve, reject) {
-    that.get(sql, function (error, row) {
+    that.get(sql, params, function (error, row) {
       if (error) reject(error);
       else resolve(row);
     });
@@ -66,16 +66,12 @@ db.getAsync = function (sql) {
 };
 
 
-db.insertAsync = function (sql, email,password){
+db.insertAsync = function (sql, email, password){
   db.serialize(() => {
-   
-    let emailQuery = '(' + email + ');'; 
-    let passwordQuery =  '(' + password + ');'
-    var insertQuery = 'INSERT or IGNORE INTO users(email, password) VALUES (?,?)'
-   
-    db.run(insertQuery, [emailQuery, passwordQuery], (err)=>{
+  console.log(sql, email, password)
+   return db.run(sql, [email, password], (err)=>{
         if(err){
-            console.log('här är vi')
+            console.log('Error')
             return console.log(err.message)
         }
         console.log('User was added to the database')
