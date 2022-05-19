@@ -31,14 +31,15 @@ body {
     margin: 0 auto; 
     background-color: burlywood;
     display: flex;
+    
 }
 
 #mycourse-table{
     display: flex; 
     flex-direction: column;
     background-color: blueviolet;
-    width: 50%; 
-    height: 100%; 
+    width: 800px; 
+    height: fit-content; 
     justify-content: center; 
 }
 
@@ -59,7 +60,8 @@ body {
 #total{
     width: 200px; 
     height: 100px;
-        
+    margin-left: 300px;
+    font-size: small;
 }
 
 #total div{

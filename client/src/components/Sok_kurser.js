@@ -52,6 +52,7 @@ function Sok_kurser() {
                     <th scope="col">HP</th>
                     <th scope="col">Nivå</th>
                     <th scope="col">Block</th>
+                    <th scope="col">Typ</th>
                     <th scope="col">VOF</th>
                     <th scope="col">Säsong</th>
                     <th scope="col">Period</th>
@@ -74,6 +75,7 @@ function Sok_kurser() {
                         <td>{item.HP}</td>
                         <td>{item.Nivå}</td>
                         <td>{item.Block}</td>
+                        <td>{item.typ}</td>
                         <td>{item.VOF}</td>
                         <td>{item.Säsong}</td>
                         <td>{item.Period}</td>

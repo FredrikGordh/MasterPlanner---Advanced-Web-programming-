@@ -33,8 +33,9 @@ router.delete('/Mina_kurser', async (req, res) => {
 })
 
 router.post('/Mina_kurser', async (req,res) => {
-    let insertQuery = 'INSERT or IGNORE INTO MyCourses(Kurskod, Kursnamn, HP, Nivå, Block, VOF, Säsong, Period) VALUES (?,?,?,?,?,?,?,?)'  
+    let insertQuery = 'INSERT or IGNORE INTO MyCourses(typ, Kurskod, Kursnamn, HP, Nivå, Block, VOF, Säsong, Period) VALUES (?,?,?,?,?,?,?,?,?)'  
     const myCourses = [
+            req.body.typ,
             req.body.Kurskod, 
             req.body.Kursnamn, 
             req.body.HP, 
