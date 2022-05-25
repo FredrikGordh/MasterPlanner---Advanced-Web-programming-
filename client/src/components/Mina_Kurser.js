@@ -1,13 +1,11 @@
 import React, {useEffect, useState} from 'react'
+import ReactDOM from 'react-dom/client';
 
 function Mina_Kurser(){
-    useEffect( () => {
-        fetchItems(); 
-    }, []); 
+
 
     const [courses, setCourses] = useState([]); 
     const [singleCourse, setSingleCourse] = useState([]);
-    const [button, setButton] = useState(''); 
     const fetchItems = async() => {
 
         const data = await fetch('/Mina_kurser'); 
@@ -16,9 +14,12 @@ function Mina_Kurser(){
 
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();  
+    useEffect( () => {
+        fetchItems(); 
+    }, []); 
 
+    const handleSubmit = (e) => {
+        e.preventDefault();          
         fetch('http://localhost:3000/Mina_kurser', {
             method: 'DELETE', 
             headers: {
@@ -26,9 +27,21 @@ function Mina_Kurser(){
             }, 
             body: JSON.stringify(singleCourse)
         })
+
         fetchItems(); 
 
+    }
 
+
+    // Posts the new master course to the datbase
+    const handleMaster = (master) => {
+        fetch('http://localhost:3000/Mina_kurser', {
+            method: 'POST', 
+            headers: {
+                'Content-Type':'application/json'
+            }, 
+            body: master
+        })
     }
 
     function calculateHP(){
@@ -36,7 +49,9 @@ function Mina_Kurser(){
         let Math = 0; 
         let teknisk = 0; 
         let Avancerad = 0;
-
+        let Master = 0; 
+        let AvanceradI = 0; 
+        
         courses.map(item => {
             if (item.typ === 'Matematik'){
                 Math = Math + Number(item.HP);
@@ -48,74 +63,54 @@ function Mina_Kurser(){
                 Avancerad = Avancerad + Number(item.HP); 
             }
 
+            if (item.Master === 1 && item.nivå === 'A1X'){
+                Master = Master + Number(item.HP); 
+            }
+
+            if (item.typ === "Ekonomi" && item.nivå === 'A1X'){
+                AvanceradI = AvanceradI + Number(item.HP);
+            }
+
             let int = Number(item.HP);
             hp = hp + int; 
         });
         
-        let Array = [hp, Math, teknisk, Avancerad]; 
+        let Array = [hp, Math, teknisk, Avancerad, Master, AvanceradI]; 
         return Array; 
     }
 
-    function inMaster(param) {
-        document.getElementById('dropdownMenuButton').textContent = param; 
 
+    // Updates the Master attribute and sends to handleMaster 
+    function handleInputChange(e, item){
+        const target = e.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+        console.log("Value: " + value);
+        if(value) {
+            item.Master = 1; 
+        }else{
+            item.Master = 0; 
+        }
+
+        handleMaster(JSON.stringify(item)); 
+
+    }
+
+    // Loads item master checkbox as checked or unchecked depending on previous actions
+    function handleChecked(item){
+
+        let element = document.getElementById(JSON.stringify(item)); 
+
+        if (element !== null && item.Master === 1){
+            element.checked = true; 
+        }else if(element !== null){
+            element.checked = false; 
+        }
     }
 
     return( 
         <form id = "form" onSubmit={handleSubmit}>
-            <div class = "container-fluid">
-            <table class="table" id = "mycourse-table">
-                <thead>
-                    <tr>
-                    <th scope="col">Kurskod</th>
-                    <th scope="col">Kursnamn</th>
-                    <th scope="col">HP</th>
-                    <th scope="col">Nivå</th>
-                    <th scope="col">Block</th>
-                    <th scope="col">Typ</th>
-                    <th scope="col">VOF</th>
-                    <th scope="col">Säsong</th>
-                    <th scope="col">Period</th>
-                    <th scope="col">Inom masterprofil</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    { 
-                    // Filtering searchbar
-                    courses.map(item => (
-                    <section> 
-                    <tr>
-                        <td>{item.Kurskod}</td>
-                        <td>{item.Kursnamn}</td>
-                        <td>{item.HP}</td>
-                        <td>{item.Nivå}</td>
-                        <td>{item.Block}</td>
-                        <td>{item.typ}</td>
-                        <td>{item.VOF}</td>
-                        <td>{item.Säsong}</td>
-                        <td>{item.Period}</td>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        
-                            </button>
-                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" id = "inMaster" href="#" onClick= {() => setButton(this.button)}>Ja</a>
-                                <a class="dropdown-item" id= "inMaster" href="#" onClick= {() => setButton(this.button)}>Nej</a>
-                            </div>
-                        </div>
-
-                    </tr>
-                    <button onClick={() => setSingleCourse(item)}> X </button>
-                    </section>
-                    ))
-                }
-                </tbody>
-
-            </table>
-
-            </div>
-                <div class = "container-fluid">
+             <div class = "container-fluid" id = "card-holder">
                 <div class="card" id = "total">
                     <div class="card-body"> 300 HP </div>
                     <div class="card-body"> {calculateHP()[0]} </div>
@@ -136,7 +131,67 @@ function Mina_Kurser(){
                     <div class="card-body"> {calculateHP()[3]} </div>
                     
                 </div>
+                <div class="card" id = "total">
+                    <div class="card-body"> Master 30 HP</div>
+                    <div class="card-body"> {calculateHP()[4]} </div>
+                    
+                </div>
+                <div class="card" id = "total">
+                    <div class="card-body"> Avancerade inom Industriell ekonomi 30 HP </div>
+                    <div class="card-body"> {calculateHP()[5]} </div>
+                    
+                </div>
             </div> 
+
+            <div class = "container-fluid">
+            <table class="table align-middle mb-0 bg-white" id = "mycourse-table">
+                <thead class = "bg-light">
+                    <tr>
+                        <th>Kurskod</th>
+                        <th>Kursnamn</th>
+                        <th>HP</th>
+                        <th>Nivå</th>
+                        <th>Block</th>
+                        <th>Typ</th>
+                        <th>VOF</th>
+                        <th>Säsong</th>
+                        <th>Period</th>
+                        <th>Master</th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    { 
+                    // Filtering searchbar
+                    courses.map(item => (
+                        <tr>
+                            <td>{item.Kurskod}</td>
+                            <td>{item.Kursnamn}</td>
+                            <td align='center'>{item.HP}</td>
+                            <td align='center'>{item.Nivå}</td>
+                            <td align='center'>{item.Block}</td>
+                            <td>{item.typ}</td>
+                            <td align='center'>{item.VOF}</td>
+                            <td>{item.Säsong}</td>
+                            <td align='center'>{item.Period}</td>
+                            <td align='center'>
+                            <div class="form-check form-switch">
+                                 <input class="form-check-input" type="checkbox" id={JSON.stringify(item)} onChange={(e) => handleInputChange(e, item)}>{handleChecked(item)}</input>
+                            </div> 
+                            </td>
+                            <td>
+                            <button onClick={() => setSingleCourse(item)}> X </button>
+                            </td> 
+                        </tr>
+                    ))
+                }
+                </tbody>
+
+            </table>
+
+            </div>
+               
         </form> 
     )
 }

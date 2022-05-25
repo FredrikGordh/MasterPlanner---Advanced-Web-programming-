@@ -17,11 +17,7 @@ function Sok_kurser() {
         setItems(items); 
         
     }
-    //{item.Kurskod } {item.Kursnamn} {item.HP} {item.Nivå } {item.Block} {item.VOF} {item.Säsong} {item.period}
-  
-
-    
-       
+         
     // Sending chosen courses to Mina_kurser
     const handleSubmit = (e) => {
         e.preventDefault(); 
@@ -33,10 +29,10 @@ function Sok_kurser() {
             body: JSON.stringify(course)
         })
 
-     
+ 
     }
         
- 
+
     
     return(
         <form id = "Kurs-holder" onSubmit={handleSubmit}>
@@ -69,7 +65,7 @@ function Sok_kurser() {
                         }
                     // Displaying data in table
                     }).map(item => (
-                    <tr >
+                    <tr>
                         <td>{item.Kurskod}</td>
                         <td>{item.Kursnamn}</td>
                         <td>{item.HP}</td>
@@ -79,7 +75,7 @@ function Sok_kurser() {
                         <td>{item.VOF}</td>
                         <td>{item.Säsong}</td>
                         <td>{item.Period}</td>
-                        <td><button onClick= {() => setCourse(item)}>Lägg till</button> </td>
+                        <td><button onClick= {() => setCourse(item)} class="btn btn-outline-dark">Lägg till</button> </td>
                     </tr>
                     ))
                 }

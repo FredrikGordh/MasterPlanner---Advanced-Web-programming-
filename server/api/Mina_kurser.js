@@ -33,20 +33,32 @@ router.delete('/Mina_kurser', async (req, res) => {
 })
 
 router.post('/Mina_kurser', async (req,res) => {
-    let insertQuery = 'INSERT or IGNORE INTO MyCourses(typ, Kurskod, Kursnamn, HP, Nivå, Block, VOF, Säsong, Period) VALUES (?,?,?,?,?,?,?,?,?)'  
+    let insertQuery= '';
+    let database = '';
     const myCourses = [
-            req.body.typ,
-            req.body.Kurskod, 
-            req.body.Kursnamn, 
-            req.body.HP, 
-            req.body.Nivå,
-            req.body.Block, 
-            req.body.VOF,
-            req.body.Säsong,
-            req.body.Period
+        req.body.typ,
+        req.body.Kurskod, 
+        req.body.Kursnamn, 
+        req.body.HP, 
+        req.body.Nivå,
+        req.body.Block, 
+        req.body.VOF,
+        req.body.Säsong,
+        req.body.Period,
     ]
+
+    if (req.body.Master === undefined){
+        insertQuery = 'INSERT or IGNORE INTO MyCourses(typ, Kurskod, Kursnamn, HP, Nivå, Block, VOF, Säsong, Period) VALUES (?,?,?,?,?,?,?,?,?)'  
         const insert = await db.runAsync(insertQuery, myCourses);
-        let database = await db.allAsync(sql);  
+        database = await db.allAsync(sql); 
+    }else{
+        insertQuery = 'UPDATE MyCourses set Master = (?) where (typ, Kurskod, Kursnamn, HP, Nivå, Block, VOF, Säsong, Period) = (?,?,?,?,?,?,?,?,?)';  
+        // UPDATE friends set dateAccepted = (?), isFriends=1 where id = (?)
+        const update = await db.runAsync(insertQuery, [req.body.Master, myCourses[0], myCourses[1], myCourses[2], myCourses[3], myCourses[4], myCourses[5], myCourses[6], myCourses[7], myCourses[8]]); 
+        database = await db.allAsync(sql); 
+
+    }
+
         res.json(database); 
 }); 
 

@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS 	MyCourses (
 	"Block"	TEXT,
 	"VOF"	TEXT,
 	"Säsong"	TEXT,
-	"Period"	INTEGER
+	"Period"	INTEGER,
+	"Master" INTEGER
 
 );
 

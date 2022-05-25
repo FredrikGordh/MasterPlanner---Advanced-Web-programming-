@@ -66,7 +66,13 @@ db.runAsync = function (sql, params) {
   });
 };
 
-
+db.update = function(sql, param){
+  db.run(sql, param, (err) => {
+    if (err) {
+      return console.log(err); 
+    }
+  })
+}
 
 db.insertCourse = function(sql, myCourses) {
   let Kurskod =  myCourses.Kurskod; 
