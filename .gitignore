@@ -4,3 +4,7 @@ client/node_modules/
 
 # node modules general
 node_modules/
+
+
+#
+db.sqlite

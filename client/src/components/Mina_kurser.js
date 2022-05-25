@@ -12,7 +12,7 @@ function Mina_kurser() {
         const items = await data.json(); 
         setItems(items); 
     }
-    //{item.Kurskod } {item.Kursnamn} {item.HP} {item.Nivå } {item.Block} {item.VOF} {item.Säsong} {item.period}
+    
 
     return(
         <section div = "test">

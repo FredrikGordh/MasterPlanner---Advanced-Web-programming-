@@ -1,46 +1,21 @@
-import React, {useState, useEffect} from "react"; 
-import {Link, Navigate} from 'react-router-dom'
+import React, { useEffect} from "react"; 
+import {Link} from 'react-router-dom'
 
 function Nav() {
     useEffect ( () => {
-        setLoggedInStatus(); 
+
         console.log('useeer effeeect ')
     },)
 
-const [loggedInStatus, setLoggedInStatus] = useState([false]);
-
-
-
-fetch('http://localhost:3000/LogIn/isUserAuth', {
-            method: 'GET',
-            headers: {
-                'x-access-token': localStorage.getItem("token")
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-
-            // console.log('logged in status: ' + loggedInStatus)
-            // console.log('auth: ' + data.auth)
-            // if(data.auth){
-            //     setLoggedInStatus(true)
-            //     console.log('logged in status: ' + loggedInStatus)
-            // }else{
-            //     setLoggedInStatus(false)
-
-            //     console.log('You are not authenticated')
-            // }
-            
-        })
-
-
         const handleLogout = (event) => {
             event.preventDefault()
+            alert('You have logged out')
             sessionStorage.clear()
-            Navigate("/")
+            window.location.reload()
         }
 
         if (!sessionStorage.getItem('token')) {
+
     return(
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark top">
@@ -70,7 +45,7 @@ fetch('http://localhost:3000/LogIn/isUserAuth', {
             <div class="navbar-nav ml-auto">
                 <Link to='/' className="nav-item nav-link active">Startsida</Link>
                 <Link to='/Mina_kurser' className="nav-item nav-link">Mina kurser</Link>
-                <button  className="nav-item nav-link" onClick={ (e) => handleLogout(e)}>Logga ut  </button>
+                <Link  to='/' className="nav-item nav-link" onClick={ (e) => handleLogout(e)}>Logga ut  </Link>
                 </div>
             </div>
         </nav>

@@ -48,9 +48,6 @@ router.get('/isUserAuth', async(req,res) => {
     console.log('Detta är tokenen: ' + token)
 })
 
-// router.get('/isUserAuth', verifyToken, (req,res) => {
-//     return res.json({auth: true, token: token, message: 'You are authenticated'})
-//     })
 
 router.post('/isUserAuth', verifyToken, (req,res) => {
 

@@ -6,24 +6,6 @@ class Startsida extends Component {
 
     componentDidMount() {
 
-
-    //     const config = {
-    //         headers : {
-    //             Authorization: 'Bearer ' + localStorage.getItem('token')
-    //         }
-    //     }
-        
-    //     fetch('http://localhost:3000/isUserAuth' , {
-    //         method: 'GET',
-    //         headers: {
-    //             Authorization: 'Bearer ' + localStorage.getItem('token')
-    //         },
-           
-    //     })
-    //     .then(response => response.json())
-    //     .then(actualData => console.log(actualData))
-    //     .catch(err =>{})
-
     }
 
     render() {

@@ -2,28 +2,12 @@ import React, {useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom';
 
 
-/////////// Ändring från guide
 
-import { AuthContext } from "../App.js";
 
 export const LogIn = () => {
-    const { dispatch } = React.useContext(AuthContext);
-    const initialState = {
-      email: "",
-      password: "",
-      isSubmitting: false,
-      errorMessage: null
-    };
-
-    const [data, setData] = React.useState(initialState);
     
-    const handleInputChange = event => {
-    setData({
-      ...data,
-      [event.target.name]: event.target.value
-    });
-}
-////////////////////////
+
+
     useEffect (() => { 
         fetchItems(); 
     },[])
@@ -61,37 +45,34 @@ export const LogIn = () => {
             },
             body: JSON.stringify(myData),
         })
-////////////////// Ändring från guide
-        .then(res => {
-            if (res.ok) {
-              return res.json();
-            }
-            throw res;
-          })
-          .then(resJson => {
-            dispatch({
-                type: "LOGIN",
-                payload: resJson
-            })
-            navigate('/')
-            alert('You are now Logged in!')
+.then(response => response.json())
+.then(data => {
+    fetchItems();
 
-            // sessionStorage.setItem("token",  data.token);
-            // console.log('token in session storage : ' + sessionStorage.getItem('token'))
-        })
-    
+    console.log('Authroization status: ' + data.auth)
+    console.log('The token sent from api' + data.token)
 
-        .catch(error => {
-            setData({
-                ...data,
-                isSubmitting: false,
-                errorMessage: error.message || error.statusText
-            });
-            });
-          
-        }
+    if(data.auth){
 
-///////////////////
+        sessionStorage.setItem("token", data.token);
+        setLoginStatus(true)
+        navigate('/')
+        alert('You are now Logged in!')
+        window.location.reload()
+
+    }else if (!data.auth){
+        setLoginStatus(false)
+        alert('Wrong password try again.')
+        
+    }
+})
+
+.catch(error =>{
+    alert('error: ' + error)
+})
+}
+
+
 
    
 return(
@@ -107,8 +88,7 @@ return(
     type="email" 
     className="form-control" 
     placeholder="Enter email" 
-    // value={email}
-    onChange={handleInputChange}
+    onChange={(e) => setEmail(e.target.value)}
     id="email"/>
     </div>
     </div>
@@ -123,14 +103,12 @@ return(
     type="password" 
     className="form-control" 
     placeholder="Enter password" 
-    // value={password}
-    onChange={ handleInputChange}
+    onChange={(e) => setPassword(e.target.value) }
     id="pwd"/>
         </div>
     </div>
   </div>
 
-     
   <button  type="submit" className="btn btn-primary" >Logga in</button>
 </form>
 )
@@ -145,27 +123,3 @@ export default LogIn
 
 
 
-// .then(response => response.json())
-// .then(data => {
-//     fetchItems();
-
-//     console.log('Authroization status: ' + data.auth)
-//     if(data.auth){
-
-        
-//         setLoginStatus(true)
-//         navigate('/')
-//         alert('You are now Logged in!')
-
-
-//     }else if (!data.auth){
-//         setLoginStatus(false)
-//         alert('Wrong password try again.')
-        
-//     }
-// })
-
-// .catch(error =>{
-//     alert('error: ' + error)
-// })
-// }
