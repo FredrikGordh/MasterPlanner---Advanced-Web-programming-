@@ -9,9 +9,13 @@ CREATE TABLE IF NOT EXISTS 	MyCourses (
 	"Säsong"	TEXT,
 	"Period"	INTEGER,
 	"Master" INTEGER
-
 );
 
+CREATE TABLE IF NOT EXISTS users (
+	"email"	TEXT,
+	"password"	TEXT
+
+);
 
 
 CREATE TABLE IF NOT EXISTS Termin1 (

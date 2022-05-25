@@ -1,42 +1,125 @@
 import React, {useEffect, useState} from 'react' 
-import {Link} from 'react-router-dom'; 
+import {useNavigate} from 'react-router-dom';
 
 
 
-function LogIn() {
 
-    return(
-        <form style={{textAlign:"center"}}action="/action_page.php">
-            <h1>Logga in</h1>
-          <div class="form-group r">
-              <div class="row d-flex justify-content-center">
-            <label for="email">E-post:</label>
-            </div>
-            <div class="row d-flex justify-content-center">
-                <div class="col-4 d-flex justify-content-center">
-            <input   type="email" class="form-control" placeholder="Enter email" id="email"/>
-            </div>
-            </div>
-          </div>
-          <div class="form-group ">
-            <div class="row row d-flex justify-content-center">
-            <label for="pwd">Lösenord:</label>
-            </div>
-            <div class="row row d-flex justify-content-center">
-                <div class="col-4" style={{textAlign:"center"}}>
-            <input type="password" class="form-control" placeholder="Enter password" id="pwd"/>
-                </div>
-            </div>
-          </div>
-          <div class="form-group form-check">
-            <label class="form-check-label">
-              <input class="form-check-input" type="checkbox"/> Kom ihåg mig
-            </label>
-          </div>
-          <button type="submit" class="btn btn-primary" >Logga in</button>
-        </form>
-        )
+export const LogIn = () => {
+    
+
+
+    useEffect (() => { 
+        fetchItems(); 
+    },[])
+
+    const[email, setEmail] = useState('')
+    const[body, setBody] = useState('')
+    const[password, setPassword] = useState('')
+    const[loginStatus, setLoginStatus] = useState(false)
+    const[boolean, setBoolean] = useState(false)
+    const[submit, setSubmit] = useState(false)
+    const navigate= useNavigate();
+    const [items, setItems] = useState([]); 
+
+
+    const fetchItems = async() => {
+        const data = await fetch('/LogIn'); 
+        const items = await data.json(); 
+        console.log(items); 
+        setItems(items); 
+        console.log("Data from login: " + items); 
+    }
+
+        const handleSubmit  = (e) => {
+        e.preventDefault(); 
+
+
+        const myData = {email, password}
+        console.log('myData: ' + JSON.stringify(myData))
+        
+        // Sending userdata through a POST request to server
+        fetch('http://localhost:3000/LogIn',{
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify(myData),
+        })
+.then(response => response.json())
+.then(data => {
+    fetchItems();
+
+    console.log('Authroization status: ' + data.auth)
+    console.log('The token sent from api' + data.token)
+
+    if(data.auth){
+
+        sessionStorage.setItem("token", data.token);
+        setLoginStatus(true)
+        navigate('/')
+        alert('You are now Logged in!')
+        window.location.reload()
+
+    }else if (!data.auth){
+        setLoginStatus(false)
+        alert('Wrong password try again.')
+        
+    }
+})
+
+.catch(error =>{
+    alert('error: ' + error)
+})
+}
+
+
+
+   
+return(
+<form style={{textAlign:"center"}}action="/action_page.php" onSubmit={(e) => handleSubmit(e)}>
+    <h1>Logga In</h1>
+  <div className="form-group r">
+      <div className="row d-flex justify-content-center">
+    <label for="email">E-post:</label>
+    </div>
+    <div className="row d-flex justify-content-center">
+        <div className="col-4 d-flex justify-content-center">
+    <input   
+    type="email" 
+    className="form-control" 
+    placeholder="Enter email" 
+    onChange={(e) => setEmail(e.target.value)}
+    id="email"/>
+    </div>
+    </div>
+  </div>
+  <div className="form-group ">
+    <div className="row row d-flex justify-content-center">
+    <label for="pwd">Lösenord:</label>
+    </div>
+    <div className="row row d-flex justify-content-center">
+        <div className="col-4" style={{textAlign:"center"}}>
+    <input 
+    type="password" 
+    className="form-control" 
+    placeholder="Enter password" 
+    onChange={(e) => setPassword(e.target.value) }
+    id="pwd"/>
+        </div>
+    </div>
+  </div>
+
+  <button  type="submit" className="btn btn-primary" >Logga in</button>
+</form>
+)
 
 }
 
-export default LogIn;
+
+export default LogIn
+
+
+
+
+
+

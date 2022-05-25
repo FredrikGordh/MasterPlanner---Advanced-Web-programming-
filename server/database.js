@@ -4,13 +4,16 @@ const DBSOURCE = "db.sqlite";
 const fillsql = fs.readFileSync("./server/Database.sql").toString();
 const dataArr = fillsql.toString().split(');');
 
+
 let db = new sqlite3.Database(DBSOURCE, (err) => {
     if (err) {
         console.log(err.message); 
     } else{
-        console.log('connected to vt1 database');     
+        console.log('connected to database');     
     }
 }); 
+
+
 
 
 db.serialize(() => {
@@ -46,10 +49,11 @@ db.allAsync = function (sql) {
 };
 
 
-db.getAsync = function (sql) {
+db.getAsync = function (sql, params) {
   var that = this;
+  console.log('This is what is sent to Login DB API: ' + sql,params)
   return new Promise(function (resolve, reject) {
-    that.get(sql, function (error, row) {
+    that.get(sql, params, function (error, row) {
       if (error) reject(error);
       else resolve(row);
     });
@@ -90,6 +94,21 @@ db.insertCourse = function(sql, myCourses) {
       return console.log(err); 
     }
   })
+}
+
+db.insertAsync = function (sql, email, password){
+  db.serialize(() => {
+  console.log('This is now in the database: ' + sql, email, password)
+
+   return db.run(sql, [email, password], (err)=>{
+
+        if(err){
+            console.log('Error')
+            return console.log(err.message)
+        }
+        console.log('User was added to the database')
+    })
+  }); 
 }
 
 

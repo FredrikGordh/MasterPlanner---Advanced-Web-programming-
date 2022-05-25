@@ -1,14 +1,26 @@
-
-[
-    { 
-    "id": "1",
-    "title": "Diabeteshistorik", 
-    "description": "hej å hå",
-    "forms" : [1, 2] 
+{
+    "AnswerForm" :
+    [
+        {
+            "id" : 1,
+            "survey_id" : "1",
+            "form_id" : "1",
+            "respondent_code": 1234,
+            "type": "flerval",
+            "answer" : 
+            [
+                {
+                    "id" : 1,
+                    "survey_id" : "1",
+                    "form:id" : "1",
+                    "stage_id": "1",
+                    "question_id" : "1",
+                    "answer" : "answer"   
+                }
+            ]
+        }
+    ]
 }
-]
-     
-
 
 
 
