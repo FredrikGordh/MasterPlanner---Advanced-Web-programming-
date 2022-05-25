@@ -8,7 +8,7 @@ let sql = "SELECT DISTINCT * FROM Termin1";
 
 
 router.get('/Sok_kurser', async (req,res) => {
-  
+    console.log("sök kurser get")
     var kurs = await db.allAsync(sql);
     return res.json(kurs);
 
@@ -16,7 +16,7 @@ router.get('/Sok_kurser', async (req,res) => {
 
 
 router.post('/addkurs', (req,res) => {
-
+    console.log("sök kurser post")
     res.end('NA');
 
 }); 

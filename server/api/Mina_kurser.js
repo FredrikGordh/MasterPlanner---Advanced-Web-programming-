@@ -8,12 +8,13 @@ let sql = "SELECT DISTINCT * FROM MyCourses";
 
 
 router.get('/Mina_kurser', async (req, res) => {
+    console.log("mina kurser get")
     var courses = await db.allAsync(sql); 
     return res.json(courses);  
 })
 
 router.delete('/Mina_kurser', async (req, res) => {
-
+    console.log("mina kurser delete")
     let deleteQuery = 'DELETE FROM MyCourses WHERE (Kurskod, Kursnamn, HP, Nivå, Block, VOF, Säsong, Period) = (?,?,?,?,?,?,?,?)'  
     const myCourses = [
         req.body.Kurskod, 
@@ -32,6 +33,7 @@ router.delete('/Mina_kurser', async (req, res) => {
 })
 
 router.post('/Mina_kurser', async (req,res) => {
+    console.log("mina kurser post")
     let insertQuery= '';
     let database = '';
     const myCourses = [

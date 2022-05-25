@@ -27,6 +27,8 @@ function Nav() {
                 <Link to='/' className="nav-item nav-link active">Startsida</Link>                
                 <Link to='/LogIn ' className="nav-item nav-link"> Logga in </Link>
                 <Link to='/SignIn ' className="nav-item nav-link"> Bli medlem </Link>
+                <Link to='/Mina_kurser' className="nav-item nav-link">Mina kurser</Link>
+                <Link to='/Sok_kurser' className="nav-item nav-link">Sök kurser</Link>
                 </div>
         </div>
         </nav>
@@ -45,6 +47,7 @@ function Nav() {
             <div class="navbar-nav ml-auto">
                 <Link to='/' className="nav-item nav-link active">Startsida</Link>
                 <Link to='/Mina_kurser' className="nav-item nav-link">Mina kurser</Link>
+                <Link to='/Sok_kurser' className="nav-item nav-link">Sök kurser</Link>
                 <Link  to='/' className="nav-item nav-link" onClick={ (e) => handleLogout(e)}>Logga ut  </Link>
                 </div>
             </div>

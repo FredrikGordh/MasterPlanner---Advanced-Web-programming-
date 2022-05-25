@@ -36,6 +36,8 @@ function App() {
               {/* <Route path="/Mina_kurser" element={<Mina_kurser/>} /> */}
               <Route path="/LogIn" element ={<LogIn/>}/>
             <Route path="/SignIn" element ={<SignIn/>}/>
+            <Route path="/Sok_kurser" element={<Sok_kurser/>} />
+            <Route path="/Mina_kurser" element={<Mina_kurser/>} />
               <Route
               path="*"
               element={

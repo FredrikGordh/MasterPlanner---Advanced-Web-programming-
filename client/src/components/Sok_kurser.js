@@ -11,9 +11,11 @@ function Sok_kurser() {
     const [items, setItems] = useState([]); 
     const [searchTerm, setSearchTerm] = useState(''); 
     const [course, setCourse] = useState([]); 
-    let fetchItems = async() => {
+    const fetchItems = async() => {
         const data = await fetch('/Sok_kurser'); 
+        console.log("fetchii data " + data.json()  )
         const items = await data.json(); 
+        console.log("efter items " + items)
         setItems(items); 
         
     }

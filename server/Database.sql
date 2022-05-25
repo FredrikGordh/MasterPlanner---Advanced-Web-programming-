@@ -1,3 +1,11 @@
+
+
+CREATE TABLE IF NOT EXISTS users (
+	"email"	TEXT,
+	"password"	TEXT
+
+);
+
 CREATE TABLE IF NOT EXISTS 	MyCourses (
 	"typ" TEXT,
 	"Kurskod"	TEXT,
@@ -11,13 +19,6 @@ CREATE TABLE IF NOT EXISTS 	MyCourses (
 	"Master" INTEGER
 );
 
-CREATE TABLE IF NOT EXISTS users (
-	"email"	TEXT,
-	"password"	TEXT
-
-);
-
-
 CREATE TABLE IF NOT EXISTS Termin1 (
 	"typ" TEXT,
 	"Kurskod"	TEXT,
@@ -29,6 +30,7 @@ CREATE TABLE IF NOT EXISTS Termin1 (
 	"Säsong"	TEXT,
 	"Period"	INTEGER
 );
+
 INSERT INTO "Termin1" VALUES ('Matematik','TATB01','Matematisk grundkurs*','3','G1X','-','O','HT',0);
 INSERT INTO "Termin1" VALUES ('Övrigt', 'TEII43','Teknisk kommunikation på japanska 1*','3','G1X','-','V','HT',0);
 INSERT INTO "Termin1" VALUES ('Övrigt', 'TEIK43','Teknisk kommunikation på kinesiska 1*','3','G1X','-','V','HT',0);
