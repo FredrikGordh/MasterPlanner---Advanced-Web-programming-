@@ -1,6 +1,5 @@
 //Libraries
 const sqlite3 = require('sqlite3').verbose();
-const { response } = require('express');
 const express = require('express'); 
 const { json } = require('express/lib/response');
 const router = express.Router(); 
@@ -41,23 +40,30 @@ const verifyToken = (req, res, next ) => {
         }
     }
 
+router.get('/isUserAuth', async(req,res) => {
+    console.log('Nu är vi i isUserAuth')
+    console.log('Här är headern:: ' + req.get('content-type'))
+    var token = req.headers['x-access-token'];
 
-router.get('/isUserAuth', verifyToken, (req,res) => {
-    return res.json({auth: true, token: token, message: 'You are authenticated'})
-    })
+    console.log('Detta är tokenen: ' + token)
+})
 
-router.post('/isUserAuth'), verifyToken, (req,res) => {
-    jwt.verify(req.token, 'secretkey', (err, authData) => {
+// router.get('/isUserAuth', verifyToken, (req,res) => {
+//     return res.json({auth: true, token: token, message: 'You are authenticated'})
+//     })
+
+router.post('/isUserAuth', verifyToken, (req,res) => {
+
+    var token = req.body.token
+
+    jwt.verify(token, 'secretkey', (err, authData) => {
         if(err){
             res.sendStatus(403)
         } else {
-            req.json({
-                message : 'post created',
-                authData 
-            })
-        }
-    }
-    )
-}
+            res.json({authStatus : true})
+            }
+        })
+    })
+// }
     
      

@@ -1,7 +1,33 @@
 import React, {useEffect, useState} from 'react' 
 import {useNavigate} from 'react-router-dom';
 
-function LogIn(){
+
+/////////// Ändring från guide
+
+import { AuthContext } from "../App.js";
+
+export const LogIn = () => {
+    const { dispatch } = React.useContext(AuthContext);
+    const initialState = {
+      email: "",
+      password: "",
+      isSubmitting: false,
+      errorMessage: null
+    };
+
+    const [data, setData] = React.useState(initialState);
+    
+    const handleInputChange = event => {
+    setData({
+      ...data,
+      [event.target.name]: event.target.value
+    });
+}
+////////////////////////
+    useEffect (() => { 
+        fetchItems(); 
+    },[])
+
     const[email, setEmail] = useState('')
     const[body, setBody] = useState('')
     const[password, setPassword] = useState('')
@@ -9,15 +35,24 @@ function LogIn(){
     const[boolean, setBoolean] = useState(false)
     const[submit, setSubmit] = useState(false)
     const navigate= useNavigate();
-    
-    useEffect (() => { 
+    const [items, setItems] = useState([]); 
 
-    })
 
-    const handleSubmit = () => {
+    const fetchItems = async() => {
+        const data = await fetch('/LogIn'); 
+        const items = await data.json(); 
+        console.log(items); 
+        setItems(items); 
+        console.log("Data from login: " + items); 
+    }
+
+        const handleSubmit  = (e) => {
+        e.preventDefault(); 
+
+
         const myData = {email, password}
         console.log('myData: ' + JSON.stringify(myData))
-
+        
         // Sending userdata through a POST request to server
         fetch('http://localhost:3000/LogIn',{
             method: 'POST',
@@ -26,30 +61,41 @@ function LogIn(){
             },
             body: JSON.stringify(myData),
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log('first log in status ' + loginStatus)
-            console.log('Authroization status: ' + data.auth)
-            if(data.auth){
-
-                console.log('log status ' + loginStatus + 'auth status' + data.auth)
-                navigate('/')
-                alert('You are now Logged in! Token: ' + data.token )
-                localStorage.setItem("token",  data.token)
-                console.log('token in local storage : ' + localStorage.getItem('token'))
-
-            }else if (!data.auth){
-                setLoginStatus(false)
-                alert('Wrong password try again.')
-                
-                console.log('log status ' + loginStatus + 'auth status' + data.auth )
+////////////////// Ändring från guide
+        .then(res => {
+            if (res.ok) {
+              return res.json();
             }
+            throw res;
+          })
+          .then(resJson => {
+            dispatch({
+                type: "LOGIN",
+                payload: resJson
+            })
+            navigate('/')
+            alert('You are now Logged in!')
+
+            // sessionStorage.setItem("token",  data.token);
+            // console.log('token in session storage : ' + sessionStorage.getItem('token'))
         })
-    }
+    
+
+        .catch(error => {
+            setData({
+                ...data,
+                isSubmitting: false,
+                errorMessage: error.message || error.statusText
+            });
+            });
+          
+        }
+
+///////////////////
 
    
 return(
-<form style={{textAlign:"center"}}action="/action_page.php" onSubmit={handleSubmit}>
+<form style={{textAlign:"center"}}action="/action_page.php" onSubmit={(e) => handleSubmit(e)}>
     <h1>Logga In</h1>
   <div className="form-group r">
       <div className="row d-flex justify-content-center">
@@ -62,7 +108,7 @@ return(
     className="form-control" 
     placeholder="Enter email" 
     // value={email}
-    onChange={ (e) => setEmail(e.target.value)}
+    onChange={handleInputChange}
     id="email"/>
     </div>
     </div>
@@ -78,7 +124,7 @@ return(
     className="form-control" 
     placeholder="Enter password" 
     // value={password}
-    onChange={ (e) => setPassword(e.target.value)}
+    onChange={ handleInputChange}
     id="pwd"/>
         </div>
     </div>
@@ -92,9 +138,6 @@ return(
 }
 
 
-
-
-
 export default LogIn
 
 
@@ -102,36 +145,27 @@ export default LogIn
 
 
 
-        // Functionality after pushing submit
-    //     const handleSubmit = (e) =>{
-    //         e.preventDefault();
+// .then(response => response.json())
+// .then(data => {
+//     fetchItems();
 
-    //         const myData = {email, password}
-    //             // Sending userdata through a POST request to server
-    //             fetch('http://localhost:3000/LogIn',{
-    //                 method: 'POST',
-    //                 headers: {
-    //                     'Content-Type':'application/json'
-    //                 },
-    //                 body: JSON.stringify(myData),
-    //             })
-    //             .then(response => response.json())
-    //             .then(data => {
-    //                 console.log('first log in status ' + loginStatus)
-    //                 if(data.auth){
+//     console.log('Authroization status: ' + data.auth)
+//     if(data.auth){
 
-    //                     // Setting login status to true and saving token in localStorage
-    //                     setLoginStatus(true); 
-    //                     console.log('log status ' + loginStatus + 'auth status' + data.auth)
-    //                     navigate('/')
-    //                     alert('You are now Logged in!')
-    //                     localStorage.setItem("token",  data.token)
+        
+//         setLoginStatus(true)
+//         navigate('/')
+//         alert('You are now Logged in!')
 
-    //                 }else if (!data.auth){
-    //                     setLoginStatus(false)
-    //                     alert('Wrong password try again.')
-                        
-    //                     console.log('log status ' + loginStatus + 'auth status' + data.auth)
-    //                 }
-    //             }) 
-    //   }
+
+//     }else if (!data.auth){
+//         setLoginStatus(false)
+//         alert('Wrong password try again.')
+        
+//     }
+// })
+
+// .catch(error =>{
+//     alert('error: ' + error)
+// })
+// }
