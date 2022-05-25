@@ -34,12 +34,6 @@ db.serialize(() => {
     db.run('COMMIT;');
 });
  
-// db.close((err) => {
-//     if (err) {
-//       return console.error(err.message);
-//     }
-//     console.log('Closed the database connection.');
-//   });
 
 db.allAsync = function (sql) {
   var that = this;
@@ -62,6 +56,41 @@ db.getAsync = function (sql) {
   });
 };
 
+db.runAsync = function (sql, params) {
+  var that = this;
+  return new Promise(function (resolve, reject) {
+    that.run(sql, params, function (error) {
+      if (error) reject(error);
+      else resolve(this);
+    });
+  });
+};
+
+db.update = function(sql, param){
+  db.run(sql, param, (err) => {
+    if (err) {
+      return console.log(err); 
+    }
+  })
+}
+
+db.insertCourse = function(sql, myCourses) {
+  let Kurskod =  myCourses.Kurskod; 
+  let Kursnamn = myCourses.Kursnamn; 
+  let HP = myCourses.HP; 
+  let Nivå = myCourses.Nivå; 
+  let Block = myCourses.Block; 
+  let VOF = myCourses.VOF; 
+  let Säsong = myCourses.Säsong; 
+  let Period = myCourses.Period; 
+
+
+  db.run(sql, [Kurskod, Kursnamn, HP, Nivå, Block, VOF, Säsong, Period], (err) => {
+    if (err) {
+      return console.log(err); 
+    }
+  })
+}
 
 
 module.exports = db;
