@@ -15,7 +15,7 @@ const loginAPI = require('../api/LogIn')
 
 // Verify token
 const verifyToken = (req, res, next ) => {
-
+    
     // Get auth header value
     const bearerHeader = req.headers['authorization']
 

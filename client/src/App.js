@@ -9,8 +9,9 @@ import Nav from './components/Nav.js'
 import Startsida from './components/Startsida.js'
 import Sok_kurser from './components/Sok_kurser.js'
 import SignIn from "./components/Signin.js"
-import Mina_kurser from "./components/Mina_Kurser.js"
+import Mina_kurser from "./components/Mina_kurser.js"
 import LogIn from "./components/LogIn.js"
+import Min_profil from "./components/Min_profil.js"
 
 
 
@@ -35,9 +36,8 @@ function App() {
               <Route path="/" element={<Startsida/>} onClick={console.log("nu är vi hör")} />
               {/* <Route path="/Mina_kurser" element={<Mina_kurser/>} /> */}
               <Route path="/LogIn" element ={<LogIn/>}/>
-            <Route path="/SignIn" element ={<SignIn/>}/>
-            <Route path="/Sok_kurser" element={<Sok_kurser/>} />
-            <Route path="/Mina_kurser" element={<Mina_kurser/>} />
+              <Route path="/SignIn" element ={<SignIn/>}/>
+              <Route path="/Sok_kurser" element={<Sok_kurser/>} />
               <Route
               path="*"
               element={
@@ -62,6 +62,7 @@ function App() {
             <Route path="/" element={<Startsida/>} />
             <Route path="/Sok_kurser" element={<Sok_kurser/>} />
             <Route path="/Mina_kurser" element={<Mina_kurser/>} />
+            <Route path = "/Min_profil" element={<Min_profil/>}/>
             <Route
             path="*"
             element={

@@ -4,19 +4,26 @@ const express = require('express');
 const { json } = require('express/lib/response');
 const router = express.Router(); 
 const db = require('../database')
-let sql = "SELECT DISTINCT * FROM Termin1"; 
 
 
 router.get('/Sok_kurser', async (req,res) => {
-    console.log("sök kurser get")
-    var kurs = await db.allAsync(sql);
-    return res.json(kurs);
+    var returnKurs = []; 
+    let sql = "SELECT DISTINCT * FROM Termin"
+    for (let i = 1; i <= 10; i++){
+        var kurs = await db.allAsync(sql + i);
+        kurs.forEach(element => {
+            returnKurs.push(element); 
+        });
+
+    }
+
+    return res.json(returnKurs);
 
 }); 
 
 
-router.post('/addkurs', (req,res) => {
-    console.log("sök kurser post")
+router.post('/Sok_kurser', (req,res) => {
+    //console.log("Email: " + req.body.email); 
     res.end('NA');
 
 }); 

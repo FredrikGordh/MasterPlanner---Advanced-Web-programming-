@@ -13,7 +13,6 @@ const checkAuthAPI = require('../api/IsAuthenticated');
 const { Navigate } = require('react-router-dom');
 
 
-
 router.get('/LogIn', async(req,res) => {
     console.log("req.body: " + req.body.email); 
     return res.json('LogIn route is working!');
@@ -22,8 +21,8 @@ router.get('/LogIn', async(req,res) => {
 
 // LogIn and authenticating passwords comparison route
 router.post('/LogIn', async (req,res) => {
-
     const email = req.body.email
+    user = email; 
     const password = req.body.password
     var auth = false
     var token = ' '
@@ -39,7 +38,7 @@ router.post('/LogIn', async (req,res) => {
         console.log('User undefined, try again')
         res.json({email:email, auth: false, message: 'No matching user in database'})
     }else{
-
+        
         const databasePassword = getUser.password
        
         bcrypt.compare(password, databasePassword, function(err, isMatch){
@@ -62,6 +61,7 @@ router.post('/LogIn', async (req,res) => {
                 
                 auth = true
                 console.log({auth: auth , token : token})
+
                 res.json({email:email, auth: true, token:token}) 
             }
         })

@@ -4,17 +4,15 @@ const { json } = require('express/lib/response');
 const router = express.Router(); 
 const db = require('../database')
 let sql = "SELECT DISTINCT * FROM MyCourses"; 
-
-
+let user = ''; 
 
 router.get('/Mina_kurser', async (req, res) => {
-    console.log("mina kurser get")
-    var courses = await db.allAsync(sql); 
+    let sql1 = "SELECT DISTINCT * FROM MyCourses WHERE (Owner) = (?)"
+    var courses = await db.allAsync(sql1, user); 
     return res.json(courses);  
 })
 
 router.delete('/Mina_kurser', async (req, res) => {
-    console.log("mina kurser delete")
     let deleteQuery = 'DELETE FROM MyCourses WHERE (Kurskod, Kursnamn, HP, Nivå, Block, VOF, Säsong, Period) = (?,?,?,?,?,?,?,?)'  
     const myCourses = [
         req.body.Kurskod, 
@@ -32,8 +30,12 @@ router.delete('/Mina_kurser', async (req, res) => {
 
 })
 
+router.post('/Mina_kurser/user', async (req,res) => {
+    user = req.body.email; 
+
+})
+
 router.post('/Mina_kurser', async (req,res) => {
-    console.log("mina kurser post")
     let insertQuery= '';
     let database = '';
     const myCourses = [
@@ -46,16 +48,16 @@ router.post('/Mina_kurser', async (req,res) => {
         req.body.VOF,
         req.body.Säsong,
         req.body.Period,
+        user
     ]
 
     if (req.body.Master === undefined){
-        insertQuery = 'INSERT or IGNORE INTO MyCourses(typ, Kurskod, Kursnamn, HP, Nivå, Block, VOF, Säsong, Period) VALUES (?,?,?,?,?,?,?,?,?)'  
+        insertQuery = 'INSERT or IGNORE INTO MyCourses(typ, Kurskod, Kursnamn, HP, Nivå, Block, VOF, Säsong, Period, Owner) VALUES (?,?,?,?,?,?,?,?,?,?)'  
         const insert = await db.runAsync(insertQuery, myCourses);
         database = await db.allAsync(sql); 
     }else{
-        insertQuery = 'UPDATE MyCourses set Master = (?) where (typ, Kurskod, Kursnamn, HP, Nivå, Block, VOF, Säsong, Period) = (?,?,?,?,?,?,?,?,?)';  
-        // UPDATE friends set dateAccepted = (?), isFriends=1 where id = (?)
-        const update = await db.runAsync(insertQuery, [req.body.Master, myCourses[0], myCourses[1], myCourses[2], myCourses[3], myCourses[4], myCourses[5], myCourses[6], myCourses[7], myCourses[8]]); 
+        insertQuery = 'UPDATE MyCourses set Master = (?) where (typ, Kurskod, Kursnamn, HP, Nivå, Block, VOF, Säsong, Period, Owner) = (?,?,?,?,?,?,?,?,?,?)';  
+        const update = await db.runAsync(insertQuery, [req.body.Master, myCourses[0], myCourses[1], myCourses[2], myCourses[3], myCourses[4], myCourses[5], myCourses[6], myCourses[7], myCourses[8], myCourses[9]]); 
         database = await db.allAsync(sql); 
 
     }

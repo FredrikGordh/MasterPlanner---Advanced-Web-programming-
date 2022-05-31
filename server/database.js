@@ -18,7 +18,6 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
 
 
 db.serialize(() => {
-  console.log("db serialize")
     // db.run runs your SQL query against the DB
     db.run('PRAGMA foreign_keys=OFF;');
     db.run('BEGIN TRANSACTION;');
@@ -27,13 +26,12 @@ db.serialize(() => {
         // Add the delimiter back to each query before you run them
         // In my case the it was `);`
         query += ');';
-        
         if(query[2] !== ';') {
 
 
         db.run(query, (err) => {
           
-              if(err) throw err;
+              if(err) console.log("err: " + err);
           });
         }
     });
@@ -41,20 +39,17 @@ db.serialize(() => {
 });
  
 
-db.allAsync = function (sql) {
-  console.log("db allasync")
+db.allAsync = function (sql, params) {
   var that = this;
   return new Promise(function (resolve, reject) {
-    that.all(sql, function (error, rows) {
+    that.all(sql, params, function (error, rows) {
       if (error) reject(error);
       else resolve([...rows]);
     });
   });
 };
 
-
 db.getAsync = function (sql, params) {
-  console.log("db getAsync")
   var that = this;
   console.log('This is what is sent to Login DB API: ' + sql,params)
   return new Promise(function (resolve, reject) {
@@ -66,7 +61,6 @@ db.getAsync = function (sql, params) {
 };
 
 db.runAsync = function (sql, params) {
-  console.log("db runAsync")
   var that = this;
   return new Promise(function (resolve, reject) {
     that.run(sql, params, function (error) {
@@ -77,9 +71,7 @@ db.runAsync = function (sql, params) {
 };
 
 db.update = function(sql, param){
-  console.log("db update")
   db.run(sql, param, (err) => {
-    console.log("db run")
     if (err) {
       return console.log(err); 
     }
