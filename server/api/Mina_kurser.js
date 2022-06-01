@@ -3,14 +3,15 @@ const express = require('express');
 const { json } = require('express/lib/response');
 const router = express.Router(); 
 const db = require('../database')
-let sql = "SELECT DISTINCT * FROM MyCourses"; 
+const sql = "SELECT DISTINCT * FROM MyCourses"; 
+const sql1 = "SELECT DISTINCT * FROM MyCourses WHERE (Owner) = (?)"
 let user = ''; 
 
 router.get('/Mina_kurser', async (req, res) => {
-    let sql1 = "SELECT DISTINCT * FROM MyCourses WHERE (Owner) = (?)"
     var courses = await db.allAsync(sql1, user); 
     return res.json(courses);  
 })
+
 
 router.delete('/Mina_kurser', async (req, res) => {
     let deleteQuery = 'DELETE FROM MyCourses WHERE (Kurskod, Kursnamn, HP, Nivå, Block, VOF, Säsong, Period) = (?,?,?,?,?,?,?,?)'  

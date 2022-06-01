@@ -22,7 +22,8 @@ router.post('/SignIn', async (req,res) => {
     console.log('hashed password: ' + hashedPassword)
 
     const sql = 'INSERT or IGNORE INTO users(email, password) VALUES (?,?)'
-  
+    const insertQuery = 'INSERT or IGNORE INTO userInfo(Owner) VALUES (?)';   
+    const user = await db.runAsync(insertQuery, email); 
     const insert = await db.insertAsync(sql, email, hashedPassword)
     console.log('This is sent to database.js: ' + email, hashedPassword)
     

@@ -14,7 +14,7 @@ router.post('/My_profile', async (req,res) => {
     if (database.length > 0){
         insertQuery = 'UPDATE userInfo set (Name, ProfileEmail, LiuID, Master) = (?,?,?,?) where (Owner) = (?)';  
     }else{
-        insertQuery = 'INSERT or IGNORE INTO userInfo(Name, ProfileEmail, LiuID, Master, Owner) VALUES (?,?,?,?,?)'  
+        insertQuery = 'INSERT or IGNORE INTO userInfo(Name, ProfileEmail, LiuID, Master, Owner) VALUES (?,?,?,?,?)';   
     }
     const update = await db.runAsync(insertQuery, [req.body[0], req.body[1], req.body[2], req.body[3], user]); 
     database = await db.allAsync(sql, user); 
@@ -27,6 +27,7 @@ router.post('/My_profile/user', async (req,res) => {
 
 router.get('/My_profile', async (req,res) => {
     let database = await db.allAsync(sql, user); 
+    console.log(JSON.stringify(database)); 
     res.json(database); 
  })
  
