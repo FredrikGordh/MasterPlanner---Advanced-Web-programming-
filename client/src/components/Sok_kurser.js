@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react' 
 
-
  
 function Sok_kurser() {
     useEffect( () => {
@@ -13,11 +12,8 @@ function Sok_kurser() {
     const [course, setCourse] = useState([]); 
     const fetchItems = async() => {
         const data = await fetch('/Sok_kurser'); 
-        console.log("fetchii data " + data.json()  )
-        const items = await data.json(); 
-        console.log("efter items " + items)
+        const items = await data.json();  
         setItems(items); 
-        
     }
          
     // Sending chosen courses to Mina_kurser
@@ -30,8 +26,6 @@ function Sok_kurser() {
             }, 
             body: JSON.stringify(course)
         })
-
- 
     }
         
 
@@ -54,32 +48,39 @@ function Sok_kurser() {
                     <th scope="col">VOF</th>
                     <th scope="col">Säsong</th>
                     <th scope="col">Period</th>
+                    <th scope="col">Inriktning</th>
+
                     </tr>
                 </thead>
                 <tbody>
                     { 
-                    // Filtering searchbar
-                    items.filter((val) =>{
-                        if (searchTerm === "") {
-                            return val
-                        }else if (val.Kursnamn.toLowerCase().includes(searchTerm.toLowerCase())){
-                            return val
-                        }
-                    // Displaying data in table
-                    }).map(item => (
-                    <tr>
-                        <td>{item.Kurskod}</td>
-                        <td>{item.Kursnamn}</td>
-                        <td>{item.HP}</td>
-                        <td>{item.Nivå}</td>
-                        <td>{item.Block}</td>
-                        <td>{item.typ}</td>
-                        <td>{item.VOF}</td>
-                        <td>{item.Säsong}</td>
-                        <td>{item.Period}</td>
-                        <td><button onClick= {() => setCourse(item)} class="btn btn-outline-dark">Lägg till</button> </td>
-                    </tr>
-                    ))
+                        // Filtering searchbar
+                        items.filter((val) =>{
+                            if (searchTerm === "") {
+                                return val
+                            }else if (val.Kursnamn.toLowerCase().includes(searchTerm.toLowerCase())){
+                                return val
+                            }else if (val.Inriktning.toLowerCase().includes(searchTerm.toLowerCase())){
+                                return val
+                            }
+                        // Displaying data in table
+                        }).map(item => (
+                            <tr>
+                                <td>{item.Kurskod}</td>
+                                <td>{item.Kursnamn}</td>
+                                <td>{item.HP}</td>
+                                <td>{item.Nivå}</td>
+                                <td>{item.Block}</td>
+                                <td>{item.typ}</td>
+                                <td>{item.VOF}</td>
+                                <td>{item.Säsong}</td>
+                                <td>{item.Period}</td>
+                                <td>{item.Inriktning}</td>
+                                <td><button onClick= {() => setCourse(item)} class="btn btn-outline-dark">Lägg till</button> </td>
+                            </tr>
+                            ))
+                    
+
                 }
                 </tbody>
 

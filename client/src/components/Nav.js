@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom'
 function Nav() {
     useEffect ( () => {
 
-        console.log('useeer effeeect ')
     },)
 
         const handleLogout = (event) => {
@@ -27,14 +26,13 @@ function Nav() {
                 <Link to='/' className="nav-item nav-link active">Startsida</Link>                
                 <Link to='/LogIn ' className="nav-item nav-link"> Logga in </Link>
                 <Link to='/SignIn ' className="nav-item nav-link"> Bli medlem </Link>
-                <Link to='/Mina_kurser' className="nav-item nav-link">Mina kurser</Link>
                 <Link to='/Sok_kurser' className="nav-item nav-link">Sök kurser</Link>
                 </div>
         </div>
         </nav>
         
         
-    ) 
+    )
 
 }else {
     
@@ -48,9 +46,10 @@ function Nav() {
                 <Link to='/' className="nav-item nav-link active">Startsida</Link>
                 <Link to='/Mina_kurser' className="nav-item nav-link">Mina kurser</Link>
                 <Link to='/Sok_kurser' className="nav-item nav-link">Sök kurser</Link>
-                <Link  to='/' className="nav-item nav-link" onClick={ (e) => handleLogout(e)}>Logga ut  </Link>
-                </div>
+                <Link to ='/Min_profil' className="nav-item nav-link">Min profil</Link>
+                <Link  to='/' className="nav-item nav-link" onClick={ (e) => handleLogout(e)}>Logga ut </Link>
             </div>
+        </div>
         </nav>
     )
 }

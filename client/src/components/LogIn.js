@@ -4,12 +4,13 @@ import {useNavigate} from 'react-router-dom';
 
 
 
-export const LogIn = () => {
+export const LogIn = ( props ) => {
     
 
 
     useEffect (() => { 
         fetchItems(); 
+ 
     },[])
 
     const[email, setEmail] = useState('')
@@ -27,10 +28,27 @@ export const LogIn = () => {
         const items = await data.json(); 
         console.log(items); 
         setItems(items); 
-        console.log("Data from login: " + items); 
     }
 
-        const handleSubmit  = (e) => {
+    const handleUser = (data) => {
+        fetch('http://localhost:3000/Mina_kurser/user',{
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+
+        fetch('http://localhost:3000/My_profile/user',{
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+    }
+
+    const handleSubmit  = (e) => {
         e.preventDefault(); 
 
 
@@ -45,26 +63,24 @@ export const LogIn = () => {
             },
             body: JSON.stringify(myData),
         })
-.then(response => response.json())
-.then(data => {
-    fetchItems();
+        .then(response => response.json())
+        .then(data => {
+            fetchItems();
 
-    console.log('Authroization status: ' + data.auth)
-    console.log('The token sent from api' + data.token)
+        if(data.auth){
 
-    if(data.auth){
+            sessionStorage.setItem("token", data.token);
+            setLoginStatus(true)
+            navigate('/Startsida')
+            alert('You are now Logged in!')
+            handleUser(myData); 
+            window.location.reload()
 
-        sessionStorage.setItem("token", data.token);
-        setLoginStatus(true)
-        navigate('/')
-        alert('You are now Logged in!')
-        window.location.reload()
-
-    }else if (!data.auth){
-        setLoginStatus(false)
-        alert('Wrong password try again.')
-        
-    }
+        }else if (!data.auth){
+            setLoginStatus(false)
+            alert('Wrong password try again.')
+            
+        }
 })
 
 .catch(error =>{
@@ -116,7 +132,8 @@ return(
 }
 
 
-export default LogIn
+export default LogIn;
+
 
 
 
