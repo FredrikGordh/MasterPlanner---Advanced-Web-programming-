@@ -14,11 +14,8 @@ export const LogIn = ( props ) => {
     },[])
 
     const[email, setEmail] = useState('')
-    const[body, setBody] = useState('')
     const[password, setPassword] = useState('')
     const[loginStatus, setLoginStatus] = useState(false)
-    const[boolean, setBoolean] = useState(false)
-    const[submit, setSubmit] = useState(false)
     const navigate= useNavigate();
     const [items, setItems] = useState([]); 
 
@@ -72,12 +69,16 @@ export const LogIn = ( props ) => {
             sessionStorage.setItem("token", data.token);
             setLoginStatus(true)
             handleUser(myData); 
-            navigate('/')
-            window.location.reload()
+            navigate('/', 
+            {
+                state: {
+                        id: data.email 
+            }}); 
+            window.location.reload();
 
         }else if (!data.auth){
-            setLoginStatus(false)
-            alert('Wrong password try again.')
+            setLoginStatus(false); 
+            alert('Wrong password try again.'); 
             
         }
 })

@@ -4,7 +4,6 @@ import {useNavigate} from 'react-router-dom';
 
 function Nav() {
     useEffect ( () => {
-
     },)
         const navigate= useNavigate()
         const handleLogout = (event) => {
@@ -12,9 +11,10 @@ function Nav() {
             sessionStorage.clear()
             navigate('/')
             window.location.reload()
+
         }
 
-        if (!sessionStorage.getItem('token')) {
+    if (!sessionStorage.getItem('token')) {
 
     return(
 

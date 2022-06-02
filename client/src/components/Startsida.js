@@ -1,7 +1,12 @@
 
 import React, {useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom';
+import {useLocation} from 'react-router-dom'; 
+
+
 function Startsida(){
+
+    const location = useLocation(); 
     const [users, setUsers] = useState([]); 
     const [owner, setOwner] = useState(); 
     const [course, setCourses] = useState([]); 
@@ -20,7 +25,7 @@ function Startsida(){
 
     const handleCourses = async(e) => {
         e.preventDefault(); 
-        console.log(JSON.stringify(owner)); 
+
         const dataCourses = await fetch(`/Startsida/${owner}`); 
         const userCourses = await dataCourses.json(); 
         setCourses(userCourses); 
@@ -39,13 +44,40 @@ function Startsida(){
         })
     }
 
+    function displayButton(){
+        const holder = location.state; 
+        const element = document.getElementById("Welcome-header"); 
+        if (holder !== null){
+            if (element !== null){
+                element.textContent = "Välkommen till MasterPlanner " + holder.id
+            }
+            return "Lägg till kurser";
+        }else{
+
+            if (element !== null){
+                element.textContent = "Välkommen till MasterPlanner"
+            }
+
+            return "Bli medlem";
+        }
+    }
+
+    function buttonAction(){
+        const holder = location.state; 
+        if (holder !== null){
+            navigate('/Sok_kurser'); 
+        }else{
+            navigate('/SignIn')
+        }
+    }
+
    
     if (users.length > 0){
         return (
             <form onSubmit={handleCourses}>
                 <div id = "background"> 
-                    <h3> Välkommen till MasterPlanner</h3>
-                    <button class="btn btn-info" onClick={() => navigate('/Signin')}> Bli medlem </button>
+                    <h3 id = "Welcome-header"> Välkommen till MasterPlanner</h3>
+                    <button class="btn btn-info" onClick={() => buttonAction()}> {displayButton()}</button>
                 </div>                 
                 <div className="container" style={{marginTop: "30px"}}> 
                     <div class="form-outline" style={{marginBottom: "20px", display: "flex", justifyContent: "center"}}>

@@ -8,7 +8,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Nav from './components/Nav.js'
 import Startsida from './components/Startsida.js'
 import Sok_kurser from './components/Sok_kurser.js'
-import SignIn from "./components/Signin.js"
+import SignIn from "./components/SignIn.js"
 import Mina_kurser from "./components/Mina_Kurser.js"
 import LogIn from "./components/LogIn.js"
 import Min_profil from "./components/Min_profil.js"
@@ -35,7 +35,6 @@ function App() {
             <Nav />
             <Routes>
               <Route path="/" element={<Startsida/>} onClick={console.log("nu är vi hör")} />
-              {/* <Route path="/Mina_kurser" element={<Mina_kurser/>} /> */}
               <Route path="/LogIn" element ={<LogIn/>}/>
               <Route path="/SignIn" element ={<SignIn/>}/>
               <Route path="/Sok_kurser" element={<Sok_kurser/>} />
