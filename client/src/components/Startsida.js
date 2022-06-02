@@ -52,8 +52,8 @@ function Startsida(){
                         <input type= "search" id="search" placeholder="Sök användare" onChange={event => {setSearchTerm(event.target.value)}} style={{marginLeft: "10px"}}/>
                     </div>
                     <div className= "main-body">
-                        <div class="row gutters-sm"> 
-                            <div class ="col-md-12 mb-3" style= {{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                        <div class="col"> 
+                            <div class ="row" style={{display: "flex", justifyContent: "space-evenly"}}>
                                 {
                                 users.filter((val) =>{
                                 if (searchTerm === "") {
@@ -65,7 +65,7 @@ function Startsida(){
                                 }
                                 }).map(user => {
                                     return (
-                                <div class= "card" style={{width: "300px"}}>
+                                <div class= "card" style={{width: "300px", marginBottom: "20px"}}>
                                     <div class= "card-body" >
                                         <div class="d-flex flex-column align-items-center text-center">
                                             <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150"/>
@@ -87,6 +87,21 @@ function Startsida(){
                 </div>
             </form>
         )
+    }else{
+        return(
+        <form onSubmit={handleCourses}>
+            <div id = "background"> 
+                <h3> Välkommen till MasterPlanner</h3>
+                <button class="btn btn-outline-dark" onClick={() => navigate('/Signin')}> Bli medlem </button>
+            </div>                 
+            <div className="container" style={{marginTop: "30px"}}> 
+                <div id = "input-field"> 
+                    <input type= "search" id="search" placeholder="Sök användare" onChange={event => {setSearchTerm(event.target.value)}} style={{marginLeft: "10px"}}/>
+                </div>
+            </div> 
+        </form>
+        )
+
     }
 }
 

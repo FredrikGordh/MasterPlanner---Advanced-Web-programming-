@@ -57,6 +57,8 @@ function Mina_Kurser(){
             }else if(holder.length === 3){
                 holder = holder[0] + holder[1]; 
                 holder = Number(holder)/2
+            }else{
+                holder = Number(item.HP)
             }
 
             if (item.typ === 'Matematik'){

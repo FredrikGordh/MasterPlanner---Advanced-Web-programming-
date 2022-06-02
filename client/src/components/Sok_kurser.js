@@ -36,7 +36,7 @@ function Sok_kurser() {
                 <label for = "search"> Sök kurser </label>   
                 <input type="search" id = "search" onChange={event => {setSearchTerm(event.target.value)}}></input> 
             </div> 
-            <table class="table">
+            <table class="table align-middle mb-0 bg-white" id="mycourse-table" >
                 <thead>
                     <tr>
                     <th scope="col">Kurskod</th>
@@ -65,7 +65,7 @@ function Sok_kurser() {
                             }
                         // Displaying data in table
                         }).map(item => (
-                            <tr>
+                            <tr> 
                                 <td>{item.Kurskod}</td>
                                 <td>{item.Kursnamn}</td>
                                 <td>{item.HP}</td>
