@@ -45,12 +45,13 @@ function Startsida(){
             <form onSubmit={handleCourses}>
                 <div id = "background"> 
                     <h3> Välkommen till MasterPlanner</h3>
-                    <button class="btn btn-outline-dark" onClick={() => navigate('/Signin')}> Bli medlem </button>
+                    <button class="btn btn-info" onClick={() => navigate('/Signin')}> Bli medlem </button>
                 </div>                 
                 <div className="container" style={{marginTop: "30px"}}> 
-                    <div id = "input-field"> 
-                        <input type= "search" id="search" placeholder="Sök användare" onChange={event => {setSearchTerm(event.target.value)}} style={{marginLeft: "10px"}}/>
+                    <div class="form-outline" style={{marginBottom: "20px", display: "flex", justifyContent: "center"}}>
+                        <input type="search" id="form1" class="form-control" onChange={event => {setSearchTerm(event.target.value)}} style={{marginLeft: "10px", width: "80%"}} placeholder="Sök användare/inriktning" aria-label="Search" />
                     </div>
+
                     <div className= "main-body">
                         <div class="col"> 
                             <div class ="row" style={{display: "flex", justifyContent: "space-evenly"}}>
@@ -66,7 +67,7 @@ function Startsida(){
                                 }).map(user => {
                                     return (
                                 <div class= "card" style={{width: "300px", marginBottom: "20px"}}>
-                                    <div class= "card-body" >
+                                    <div class= "card-body">
                                         <div class="d-flex flex-column align-items-center text-center">
                                             <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150"/>
                                             <div class= "mt-3">
@@ -74,7 +75,7 @@ function Startsida(){
                                                 <p> {user.ProfileEmail}</p>
                                                 <p> {user.LiuID}</p>
                                                 <p> {user.Master}</p>
-                                                <button onClick = {() => {setOwner(user.Owner)}}> Visa kurser </button>
+                                                <button class= "btn btn-outline-info" onClick = {() => {setOwner(user.Owner)}}> Visa kurser </button>
                                             </div>
                                         </div>
                                     </div>

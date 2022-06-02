@@ -153,9 +153,9 @@ function Mina_Kurser(){
                 </div>
             </div> 
 
-            <div class = "container-fluid">
-                <table class="table align-middle mb-0 bg-white" id = "mycourse-table">
-                    <thead class = "bg-light">
+            <div class = "container-fluid" style={{overflowX: "auto", width: "90%"}}>
+                <table class="table align-middle mb-0 bg-white" id = "mycourse-table" style={{fontSize: "small"}}>
+                    <thead>
                         <tr>
                             <th>Kurskod</th>
                             <th>Kursnamn</th>
@@ -191,7 +191,7 @@ function Mina_Kurser(){
                                 </div> 
                                 </td>
                                 <td>
-                                <button onClick={() => setSingleCourse(item)}> X </button>
+                                <button class = "btn btn-outline-info" onClick={() => setSingleCourse(item)}> X </button>
                                 </td> 
                             </tr>
                         ))

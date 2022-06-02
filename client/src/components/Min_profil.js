@@ -170,7 +170,7 @@ function Min_profil(){
                         <div class="row gutters-sm">
                             <div class="col-md-12">
                                 <div class="card mb-3" >
-                                    <div class="card-body" style={{width: "100%"}}>
+                                    <div class="card-body" style={{width: "100%", overflowX: "auto"}}>
                                         <table class="table align-middle mb-0 bg-white" style={{fontSize: "13px"}}>
                                             <thead class = "bg-light">
                                                 <tr>
