@@ -1,15 +1,16 @@
 import React, { useEffect} from "react"; 
-import {Link} from 'react-router-dom'
+import {Link, Navigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom';
 
 function Nav() {
     useEffect ( () => {
 
     },)
-
+        const navigate= useNavigate()
         const handleLogout = (event) => {
             event.preventDefault()
-            alert('You have logged out')
             sessionStorage.clear()
+            navigate('/')
             window.location.reload()
         }
 

@@ -71,9 +71,8 @@ export const LogIn = ( props ) => {
 
             sessionStorage.setItem("token", data.token);
             setLoginStatus(true)
-            navigate('/Startsida')
-            alert('You are now Logged in!')
             handleUser(myData); 
+            navigate('/')
             window.location.reload()
 
         }else if (!data.auth){

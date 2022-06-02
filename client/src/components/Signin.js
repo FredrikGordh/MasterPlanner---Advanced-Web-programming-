@@ -14,9 +14,7 @@ function SignIn(){
       const handleSubmit = (e) =>{
             e.preventDefault();
 
-            navigate('/Startsida')
-            alert('Congratulations! You have now created a user, and can now log into your user ')
-            
+            navigate('/')            
             const myData = {email, password}
 
             // Sending userdata through a POST request to server
