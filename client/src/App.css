@@ -61,6 +61,28 @@ body {
     border-color: lightgray;
 }
 
+.imgPreview{
+    width: 100%; 
+    height: 460px; 
+    display: flex; 
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+}
+
+.imgPreview input[type="file"]{
+    display: none; 
+}
+
+.imgPreview .customFileUpload{
+    color: #55d6d6;
+    font-size: 22px;
+    font-weight: 500;
+    padding: 6px 12px; 
+    cursor: pointer;
+
+}
+
 /* Startsida */
 #background{
     display: flex; 

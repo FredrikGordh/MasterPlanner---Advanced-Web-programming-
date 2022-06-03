@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react'
 
 function Min_profil(){
 
-
-
+    const [error, setError] = useState(false); 
+    const [imgPreview, setImgPreview] = useState(null);
     const [edit, setEdit] = useState(true); 
     const [items, setItems] = useState([]); 
     const [display, setDisplay] = useState(false); 
@@ -23,6 +23,19 @@ function Min_profil(){
     }, []); 
 
    
+    const handleImageChange = (e) => {
+        const selected = e.target.files[0]; 
+        const ALLOWED_TYPES = ["image/png", "image/jpeg", "image/jpg"]; 
+         if (selected && ALLOWED_TYPES.includes(selected.type)){
+            let reader = new FileReader(); 
+            reader.onloadend = () => {
+                setImgPreview(reader.result);
+            } 
+            reader.readAsDataURL(selected);           
+         }else{
+             setError(true); 
+         }
+    }
 
     const handleEdit = (e) => {
         const button = document.getElementById("edit-button"); 
@@ -84,6 +97,23 @@ function Min_profil(){
                             <div class="card-body">
                                 <div class="d-flex flex-column align-items-center text-center">
                                     <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150"/>
+                                    <div class = "container">
+                                        {error && <p className='errorMsg'> File not supported</p>}
+                                    </div>
+                                    <div className='imgPreview' style={{background: imgPreview ? `url("${imgPreview}") no-repeat center/cover` : "#131313"}}>
+                                        
+                                        {!imgPreview && (
+                                            <>
+                                                <p> Add an image </p>
+                                                <label htmlFor='fileUpload' className="customFileUpload"> Choose file</label>
+                                                <input type="file" id = "fileUpload" onChange={handleImageChange}/>
+                                            </>
+                                        )}
+                                        
+                                    </div>
+                                    {imgPreview && (
+                                    <button onClick={() => setImgPreview(null)}>Remove image</button>
+                                    )}
                                     <div class="mt-3">
                                         <h4>{setValues('Name')}</h4>
                                         <button class="btn btn-outline-primary">Message</button>
