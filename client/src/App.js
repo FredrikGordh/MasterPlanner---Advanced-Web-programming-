@@ -14,18 +14,14 @@ import LogIn from "./components/LogIn.js"
 import Min_profil from "./components/Min_profil.js"
 import Profiles from "./components/Profiles.js"
 import Chat from "./components/Chat.js"
+import Channel from "./components/Channel.js"
 
 import io from "socket.io-client";
 
 const socket = io.connect("http://localhost:8080");
 
-
-
-
 function App() {
   
-
-
 
   if (!sessionStorage.getItem('token')) {
   return (
@@ -70,7 +66,7 @@ function App() {
             <Route path="/Mina_kurser" element={<Mina_kurser/>} />
             <Route path = "/Min_profil" element={<Min_profil/>}/>
             <Route path="/Profiles" element={<Profiles/>}/>
-            <Route path="/Chat" element={<Chat socket={socket}/>}/>
+            <Route path="/Channel" element={<Channel/>}/>
             <Route
             path="*"
             element={

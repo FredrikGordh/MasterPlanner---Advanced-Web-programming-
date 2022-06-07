@@ -9,6 +9,7 @@ const my_profile = require('./server/api/My_profile')
 const startsida = require('./server/api/Startsida')
 const chat = require('./server/api/Chat')
 
+
 // Chat and socket functionality
 const cors = require("cors")
 app.use(cors())
@@ -36,15 +37,22 @@ app.use('/', chat);
 
 // Chat and socket functionality
 io.on('connection', (socket) => {
-    console.log('a user connected');
+    console.log(`User ${socket.id} is connected`);
 
-    socket.on('message', (msg) => {
-        socket.emit('recieve_message', msg)
-        console.log("Nu har meddelande emittats: " + msg)
+    socket.on('join_room', (data) => {
+        socket.join(data)
+        console.log(`User with id ${socket.id} joined room number ${data}  `)
+    })
+
+    socket.on('send_message', (data) => {
+        socket.to(data.room).emit("receive_message", data)
+        console.log(data)
+        
+        
     })
     
     socket.on('disconnect',(reason)=>{
-        console.log('User is disconnected')
+        console.log(` User ${socket.id} was disconnected `)
         console.log(reason)
       })
     

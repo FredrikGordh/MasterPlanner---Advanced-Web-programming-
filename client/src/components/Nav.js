@@ -47,7 +47,7 @@ function Nav() {
                 <Link to='/Mina_kurser' className="nav-item nav-link">Mina kurser</Link>
                 <Link to='/Sok_kurser' className="nav-item nav-link">Sök kurser</Link>
                 <Link to ='/Min_profil' className="nav-item nav-link">Min profil</Link>
-                <Link to='/Chat' className="nav-item nav-link">Chatt</Link>
+                <Link to='/Channel' className="nav-item nav-link">Chatt</Link>
                 <Link  to='/' className="nav-item nav-link" onClick={ (e) => handleLogout(e)}>Logga ut </Link>
             </div>
         </div>
