@@ -13,7 +13,11 @@ import Mina_kurser from "./components/Mina_kurser.js"
 import LogIn from "./components/LogIn.js"
 import Min_profil from "./components/Min_profil.js"
 import Profiles from "./components/Profiles.js"
+import Chat from "./components/Chat.js"
 
+import io from "socket.io-client";
+
+const socket = io.connect("http://localhost:8080");
 
 
 
@@ -66,6 +70,7 @@ function App() {
             <Route path="/Mina_kurser" element={<Mina_kurser/>} />
             <Route path = "/Min_profil" element={<Min_profil/>}/>
             <Route path="/Profiles" element={<Profiles/>}/>
+            <Route path="/Chat" element={<Chat socket={socket}/>}/>
             <Route
             path="*"
             element={
