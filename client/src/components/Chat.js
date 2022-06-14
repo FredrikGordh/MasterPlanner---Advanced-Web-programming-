@@ -49,18 +49,21 @@ function Chat ({socket, username, room}){
           {messageList.map((messageContent) => {
             return (
               
-              <div className="message" id={username === messageContent.author ? "you" : "other"}>
-                <div>
-                  <div class="row">
-                  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="portrait-message"></img>
-                  <p className="message-content">
-                    {messageContent.message}
-                  </p>
+              <div id={username === messageContent.author ? "you" : "other"} >
+                <div class="message-row row col-12 ">
+                  <div class="message-block row">
+                      <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="portrait-message col-4 "></img>
+                      <p class="message-text col-4">{messageContent.message}</p>
+                      <div class="col-1 "id="time ">{messageContent.time}</div>
                   </div>
-                  <div className="message-meta">
-                    <p id="time">{messageContent.time}</p>
-                    {/* <p id="author">{messageContent.author}</p> */}
+
+                  {/* 
+                  <div className="message-content">
+                    
                   </div>
+                  
+                  <p id="author ">{username === messageContent.author ? "" : messageContent.author }</p> */}
+
                 </div>
               </div>
             );
@@ -86,6 +89,59 @@ function Chat ({socket, username, room}){
   );
 }
 
+//     const {currentMessage, setCurrentMessage} =useState("")
+//     const {messageList, setMessageList} = useState([])
+    
+//     const sendMessage = async () => {
+//         if (currentMessage !== ""){
+//             const MessageData = {
+//                 room : room,
+//                 author : username,
+//                 message : currentMessage,
+//                 time: 
+//                     new Date(Date.now()).getHours() +
+//                         ":" +
+//                     new Date(Date.now()).getMinutes(),
+//             } 
+//             await socket.emit("send_message", MessageData)
+//             setMessageList((list) => [...list, MessageData])
+//             setCurrentMessage("")
+//         }
+//     }
+
+//     useEffect(() => {
+//         socket.on("receive_message", (data) => {
+//             setMessageList((list) => [...list, data])
+//             console.log(data)
+//         })
+//     }, [socket])
+
+
+//     return(
+//         <div>
+//             <div className='chat-window'>
+//                 <center>
+//                     <div className="chat-header">
+//                         <p>Live Chatt</p>
+//                     </div>
+//                     <div className="chat-body">
+//                         {messageList.map((messageContent) => {
+//                             return <h1>{messageContent.message}</h1>
+//                         })}
+//                     </div>
+//                     <div className="chat-footer">
+//                         <input 
+//                         type="text" 
+//                         placeholder="Skriv ditt meddelande..." 
+//                         onChange={(event) => setCurrentMessage(event.target.value) }>
+//                         </input>
+//                         <button onClick={sendMessage}> Skicka</button>
+//                     </div>
+//                 </center>
+//             </div>
+//         </div>
+//     )
+// }
 
 export default Chat; 
 

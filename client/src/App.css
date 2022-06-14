@@ -148,11 +148,22 @@ body {
     font-weight: 500;
 }
 
-
-/* Chat-messenger */
+/* Chat-message-window */
 .message-container{
     background-color: white;
     border-radius: 20px;
+}
+
+#you .message-row{
+    justify-content: end;
+}
+
+#other .messaage-row{
+    justify-content: start;
+}
+
+.message-block{
+    position: relative;
 }
 
 .portrait-message{
@@ -165,13 +176,24 @@ body {
     margin-right: 20px;
 }
 
-.message-content{
-    display:flex;
+.message-text{
     padding: 10px;
     border-radius: 20px;
-    background-color: lightblue;
+    
+}
 
+#you .message-text{
+    background-color: lightcyan
+}
 
+#other .message-text{
+    background-color: rgb(242, 240, 240)
+}
+
+#time {
+    display: inline-block;
+    margin: 5px;
+    padding: 5px;
 }
 
 

@@ -95,7 +95,7 @@ function Channel (){
                         </center>
                     </div>
                     
-                    <div class="col-6">
+                    <div class="message-container col-6">
                         {!showChat ? (
                         <center>  
                         <div class="col-6"> Ingen chatt</div>
