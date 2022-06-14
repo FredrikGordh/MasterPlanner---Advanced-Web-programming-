@@ -15,6 +15,7 @@ import Min_profil from "./components/Min_profil.js"
 import Profiles from "./components/Profiles.js"
 import Chat from "./components/Chat.js"
 import Channel from "./components/Channel.js"
+// import ChatUI from "./components/ChatUI.js"
 
 import io from "socket.io-client";
 
@@ -57,8 +58,6 @@ function App() {
 
     <Router> 
     <div className="App">
-          { console.log('Nu är vi i App div i nav') }
-          {console.log('Detta är token: ' + sessionStorage.getItem('token'))}
           <Nav />
           <Routes>
             <Route path="/" element={<Startsida/>} />

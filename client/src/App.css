@@ -91,6 +91,89 @@ body {
 
 /* Chatt */
 
+.body-chat-window{
+    width: 100%;
+    background-color: beige !important;
+}
+
+/* Chat-conversations */
+.pl-0 {
+    padding-left: 0 !important;
+}
+
+#chat-list-div{
+    width: 200px;
+    background-color: beige ;
+    display: inline-block;
+    margin: 0px; 
+    padding: 0px !important;
+}
+
+.joinChatContaier{
+    width: 50%;
+    
+}
+
+.conversation{
+    display: flex;
+    text-align: center;
+
+    /* padding: 10px; */
+}
+
+.chat-list{
+    list-style-type: none;
+    display:flex;
+    flex-direction: row;
+    text-align: center;
+    padding: 16px;
+    margin: 0px;
+    cursor: pointer;
+    background-color: beige;
+}
+
+.chat-list:hover{
+    background-color: rgb(234, 234, 213);
+}
+
+.portrait-conversation{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.conversationName {
+    font-weight: 500;
+}
+
+
+/* Chat-messenger */
+.message-container{
+    background-color: white;
+    border-radius: 20px;
+}
+
+.portrait-message{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    /* object-fit: cover;
+    display: flex; */
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.message-content{
+    display:flex;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: lightblue;
+
+
+}
+
 
 
 /* End of chat css */

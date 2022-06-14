@@ -34,8 +34,13 @@ function Chat ({socket, username, room}){
     });
   }, [socket]);
 
+  const message = () => {
+    // Write code for which every message will repeat it self
+  }
+
   return (
     <div className="chat-window">
+      <center>
       <div className="chat-header">
         <p>Live Chat</p>
       </div>
@@ -43,17 +48,18 @@ function Chat ({socket, username, room}){
         <ScrollToBottom className="message-container">
           {messageList.map((messageContent) => {
             return (
-              <div
-                className="message"
-                id={username === messageContent.author ? "you" : "other"}
-              >
+              
+              <div className="message" id={username === messageContent.author ? "you" : "other"}>
                 <div>
-                  <div className="message-content">
-                    <p>{messageContent.message}</p>
+                  <div class="row">
+                  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="portrait-message"></img>
+                  <p className="message-content">
+                    {messageContent.message}
+                  </p>
                   </div>
                   <div className="message-meta">
                     <p id="time">{messageContent.time}</p>
-                    <p id="author">{messageContent.author}</p>
+                    {/* <p id="author">{messageContent.author}</p> */}
                   </div>
                 </div>
               </div>
@@ -75,63 +81,11 @@ function Chat ({socket, username, room}){
         />
         <button onClick={sendMessage}>&#9658;</button>
       </div>
+      </center>
     </div>
   );
 }
 
-//     const {currentMessage, setCurrentMessage} =useState("")
-//     const {messageList, setMessageList} = useState([])
-    
-//     const sendMessage = async () => {
-//         if (currentMessage !== ""){
-//             const MessageData = {
-//                 room : room,
-//                 author : username,
-//                 message : currentMessage,
-//                 time: 
-//                     new Date(Date.now()).getHours() +
-//                         ":" +
-//                     new Date(Date.now()).getMinutes(),
-//             } 
-//             await socket.emit("send_message", MessageData)
-//             setMessageList((list) => [...list, MessageData])
-//             setCurrentMessage("")
-//         }
-//     }
-
-//     useEffect(() => {
-//         socket.on("receive_message", (data) => {
-//             setMessageList((list) => [...list, data])
-//             console.log(data)
-//         })
-//     }, [socket])
-
-
-//     return(
-//         <div>
-//             <div className='chat-window'>
-//                 <center>
-//                     <div className="chat-header">
-//                         <p>Live Chatt</p>
-//                     </div>
-//                     <div className="chat-body">
-//                         {messageList.map((messageContent) => {
-//                             return <h1>{messageContent.message}</h1>
-//                         })}
-//                     </div>
-//                     <div className="chat-footer">
-//                         <input 
-//                         type="text" 
-//                         placeholder="Skriv ditt meddelande..." 
-//                         onChange={(event) => setCurrentMessage(event.target.value) }>
-//                         </input>
-//                         <button onClick={sendMessage}> Skicka</button>
-//                     </div>
-//                 </center>
-//             </div>
-//         </div>
-//     )
-// }
 
 export default Chat; 
 

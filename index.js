@@ -8,6 +8,7 @@ const logIn = require('./server/api/LogIn')
 const my_profile = require('./server/api/My_profile')
 const startsida = require('./server/api/Startsida')
 const chat = require('./server/api/Chat')
+const users = require('./server/api/Users.js')
 
 
 // Chat and socket functionality
@@ -33,6 +34,7 @@ app.use('/',logIn);
 app.use('/', my_profile); 
 app.use('/', startsida); 
 app.use('/', chat); 
+app.use('/', users)
 
 
 // Chat and socket functionality

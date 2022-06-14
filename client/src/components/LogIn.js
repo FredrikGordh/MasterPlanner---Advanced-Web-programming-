@@ -70,6 +70,8 @@ export const LogIn = ( props ) => {
         if(data.auth){
 
             sessionStorage.setItem("token", data.token);
+            sessionStorage.setItem("email", data.email);
+            console.log("this is the email: " + data.email)
             setLoginStatus(true)
             navigate('/Startsida')
             alert('You are now Logged in!')
