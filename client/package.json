@@ -44,7 +44,9 @@
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "bootstrap-icons": "^1.8.3",
     "nodeenv": "^3.0.74",
+    "react-bootstrap-icons": "^1.8.2",
     "react-scroll-to-bottom": "^4.2.0",
     "socket.io-client": "^4.5.1"
   }

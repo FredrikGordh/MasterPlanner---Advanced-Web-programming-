@@ -23,7 +23,7 @@ function Channel (){
 
     useEffect(() => {
         setUsername(sessionStorage.getItem('email'))
-
+        showUsers()
         // fetchItems()
         
         })
@@ -51,7 +51,7 @@ function Channel (){
                 listDiv.setAttribute("class", "chat-list-div col-6 pl-0")
 
                 var list = document.createElement("ul")
-                list.setAttribute("class", "chat-list ")
+                list.setAttribute("class", "chat-list-object ")
                 
                 var img = document.createElement("img")
                 img.src ="https://bootdey.com/img/Content/avatar/avatar7.png" 
@@ -80,7 +80,7 @@ function Channel (){
     return(
         <body class="body-chat-window">
                 <div class="row">
-                    <div class="joinChatContainer col-6">
+                    <div class="joinChatContainer col-4">
                         <center>
                         <h1 >Join a chat</h1>
                         
@@ -95,7 +95,7 @@ function Channel (){
                         </center>
                     </div>
                     
-                    <div class="message-container col-6">
+                    <div class="message-container col-8">
                         {!showChat ? (
                         <center>  
                         <div class="col-6"> Ingen chatt</div>
