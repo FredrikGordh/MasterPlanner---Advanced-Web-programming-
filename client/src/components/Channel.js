@@ -6,27 +6,31 @@ const socket = io.connect("http://localhost:8080")
 
 function Channel (){
     const [username, setUsername] = useState("")
-    const [room, setRoom] = useState("")
+    const [chatFriend, setChatFriend] = useState("")
     const [showChat, setShowChat] = useState(false)
-    const [users, setUsers] = useState([]); 
+    
+    const [conversation, setConversation] = useState([])
     var allUsers = []
-    const userList = document.getElementById("userList")
     
   
 
-    const fetchItems = async() => {
-        const data = await fetch('/Users'); 
-        const users = await data.json(); 
-        console.log(users); 
-        setUsers(users); 
-    }
+    // const fetchItems = async() => {
+    //     const data = await fetch('/Users'); 
+    //     const users = await data.json(); 
+    //     console.log(users); 
+    //     setUsers(users); 
+    // }
 
     useEffect(() => {
         setUsername(sessionStorage.getItem('email'))
         showUsers()
-        // fetchItems()
-        
-        })
+        },[])
+
+    useEffect(() => {
+        joinConversation()
+    },[chatFriend])
+
+
 
     const showUsers = () => {
         fetch("http://localhost:3000/Users", {
@@ -40,7 +44,6 @@ function Channel (){
         .then(response => response.json())
         .then(data => {
             allUsers = data.getAllUsers       
-
             
             var listOrder = 0
             
@@ -48,32 +51,42 @@ function Channel (){
                 var convContainer = document.getElementsByClassName("joinChatContainer")
 
                 var listDiv = document.createElement("div")
-                listDiv.setAttribute("class", "chat-list-div col-6 pl-0")
+                listDiv.setAttribute("class", "chat-list-div col-12 ")
 
                 var list = document.createElement("ul")
                 list.setAttribute("class", "chat-list-object ")
+                list.setAttribute("id", listOrder)
                 
+
                 var img = document.createElement("img")
                 img.src ="https://bootdey.com/img/Content/avatar/avatar7.png" 
                 img.setAttribute("class", "portrait-conversation")
     
                 var node = document.createTextNode(user.email)
-                list.setAttribute("name", listOrder)
-
+                
+                
                 convContainer[0].append(listDiv)
                 listDiv.append(list)
+                
                 list.appendChild(img)
                 list.appendChild(node)
-                // listDiv.append(lineBreak)
+
+
+                list.addEventListener('click', function handleClick () {
+                    setChatFriend(document.getElementById(this.id).textContent)
+                    console.log("this is the current chat friend: " + document.getElementById(this.id).textContent)
+
+                });
                 listOrder += 1
             }   
     })
 }
+
     
 
-    const joinRoom = () => {
-        if (username !== "" && room !==""){
-            socket.emit("join_room", room)
+    const joinConversation = () => {
+        if (username !== "" && chatFriend !==""){
+            socket.emit("join_conversation", chatFriend)
             setShowChat(true)
         }
     }
@@ -83,10 +96,6 @@ function Channel (){
                     <div class="joinChatContainer col-4">
                         <center>
                         <h1 >Join a chat</h1>
-                        
-                        <input type="text" placeholder="Room" onChange={(event) => setRoom(event.target.value)}></input>
-                        <button onClick={joinRoom}>Join a room</button>
-                        <button onClick={showUsers}>fetching users</button>
                         <div class="class">
                             <input type="text" placeholder="Search for users" ></input>
                         </div>
@@ -98,11 +107,11 @@ function Channel (){
                     <div class="message-container col-8">
                         {!showChat ? (
                         <center>  
-                        <div class="col-6"> Ingen chatt</div>
+                        <div class="col-6"> {chatFriend}</div>
                         </center>
                         ) : (
                             <center>
-                            <Chat socket={socket} username={username} room={room}></Chat>
+                            <Chat socket={socket} username={username} chatFriend = {chatFriend} ></Chat>
                             </center>
                         )}  
                     </div>

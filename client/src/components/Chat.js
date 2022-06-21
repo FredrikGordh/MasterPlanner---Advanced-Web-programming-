@@ -7,15 +7,16 @@ import ScrollToBottom from "react-scroll-to-bottom";
 
 
 
-function Chat ({socket, username, room}){
-    const [currentMessage, setCurrentMessage] = useState("");
-  const [messageList, setMessageList] = useState([]);
-
+function Chat ({socket, username, chatFriend}){
+  const [currentMessage, setCurrentMessage] = useState("");
+  const [conversationList, setconversationList] = useState([]);
+  const [currentChatFriend, setCurrentChatFriend] = useState("");
+  
   const sendMessage = async () => {
     if (currentMessage !== "") {
       const messageData = {
-        room: room,
         author: username,
+        chatFriend: currentChatFriend,
         message: currentMessage,
         time:
           new Date(Date.now()).getHours() +
@@ -24,14 +25,18 @@ function Chat ({socket, username, room}){
       };
 
       await socket.emit("send_message", messageData);
-      setMessageList((list) => [...list, messageData]);
+      setconversationList((list) => [...list, messageData]);
       setCurrentMessage("");
     }
   };
 
+  useEffect( () => {
+    setCurrentChatFriend(chatFriend)
+  }, [chatFriend])
+
   useEffect(() => {
     socket.on("receive_message", (data) => {
-      setMessageList((list) => [...list, data]);
+      setconversationList((list) => [...list, data]);
     });
   }, [socket]);
 
@@ -40,10 +45,10 @@ function Chat ({socket, username, room}){
     <div className="chat-window">
       <center>
       <div className="chat-header">
-        <p>Live Chat</p>
+        <p>{chatFriend}</p>
       </div>
       <ScrollToBottom className="message-dialog">
-        {messageList.map((messageContent) => {
+        {conversationList.map((messageContent) => {
           return (
             
             <div id={username === messageContent.author ? "you" : "other"} >
@@ -72,7 +77,7 @@ function Chat ({socket, username, room}){
               event.key === "Enter" && sendMessage();
             }}
           />
-          <button class="btn col-1 " onClick={sendMessage}><i class="bi bi-send-fill"></i></button>
+          <button class="btn btn-chat col-1 " onClick={sendMessage}><i class="bi bi-send-fill"></i></button>
         </div>
       </div>
       </center>

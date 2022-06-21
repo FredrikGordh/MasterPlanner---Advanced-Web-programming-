@@ -106,8 +106,8 @@ body {
     width: 200px;
     background-color: beige ;
     display: inline-block;
-    margin: 0px; 
-    padding: 0px !important;
+    /* margin: 0px;  */
+    /* padding: 0px !important; */
 }
 
 .joinChatContainer{
@@ -252,7 +252,7 @@ body {
     
 }
 
-.btn{
+.btn-chat{
     display: inline-block;
     vertical-align: middle;
     border-radius: 20px;
