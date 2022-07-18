@@ -8,44 +8,68 @@ import ScrollToBottom from "react-scroll-to-bottom";
 
 
 function Chat ({socket, username, chatFriend}){
-  const [currentMessage, setCurrentMessage] = useState("");
-  const [conversationList, setconversationList] = useState([]);
+  const [conversationMembers, setConversationMembers] = useState([])
+  const [arrivalMessage, setArrivalMessage] = useState([])
+  const [sentMessage, setSentMessage] = useState("");
+  const [sentMessageData, setSentMessageData] = useState("");
+  const [conversationList, setConversationList] = useState([]);
   const [currentChatFriend, setCurrentChatFriend] = useState("");
   
+  useEffect(() => {
+    socket.current.on("getMessage", (data) => {
+      setArrivalMessage(data);
+      setConversationList((prev) => [...prev, data])
+      console.log("arrivalMessage:")
+      console.log(data)
+      console.log('conversationList vid get')
+      console.log(conversationList)
+    });
+  }, []);
+
+  useEffect( () => {
+    setConversationMembers(username, chatFriend)
+    setCurrentChatFriend(chatFriend)
+    setConversationList([])
+  }, [chatFriend])
+
+  useEffect(() => {
+    arrivalMessage &&
+      conversationMembers.includes(arrivalMessage.author) &&
+      setConversationList((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage, conversationMembers]);
+
+
   const sendMessage = async () => {
-    if (currentMessage !== "") {
+    if (sentMessage !== "") {
       const messageData = {
         author: username,
-        chatFriend: currentChatFriend,
-        message: currentMessage,
+        chatReciever: currentChatFriend,
+        message: sentMessage,
         time:
           new Date(Date.now()).getHours() +
           ":" +
           new Date(Date.now()).getMinutes(),
       };
 
-      await socket.emit("send_message", messageData);
-      setconversationList((list) => [...list, messageData]);
-      setCurrentMessage("");
+    try{
+      socket.current.emit("send_message", messageData);
+      setConversationList((prev) => [...prev, messageData]);
+      console.log("ConversationList vid skicka ")
+      console.log(conversationList)
+      setSentMessage("");
+    } catch(err) {
+      console.log(err)
+    }
+      
     }
   };
-
-  useEffect( () => {
-    setCurrentChatFriend(chatFriend)
-  }, [chatFriend])
-
-  useEffect(() => {
-    socket.on("receive_message", (data) => {
-      setconversationList((list) => [...list, data]);
-    });
-  }, [socket]);
 
 
   return (
     <div className="chat-window">
       <center>
       <div className="chat-header">
-        <p>{chatFriend}</p>
+        <p>{" I am user " + username + " chatting with " + chatFriend}</p>
       </div>
       <ScrollToBottom className="message-dialog">
         {conversationList.map((messageContent) => {
@@ -55,6 +79,8 @@ function Chat ({socket, username, chatFriend}){
               <div class="message-row row col-12 ">
                 <div class="row">
                     <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="portrait-message "></img>
+                    {/* <p>{"Detta är sender: " + messageContent.author}</p>
+                    <p>{"detta är receiver: " + messageContent.chatReciever}</p> */}
                     <p class="message-text col-4">{messageContent.message}</p>
                     <div class="time col-1">{messageContent.time}</div>
                 </div>
@@ -68,10 +94,10 @@ function Chat ({socket, username, chatFriend}){
           <textarea
             class="chat-input col-8"
             type="text"
-            value={currentMessage}
+            value={sentMessage}
             placeholder="Skriv ett meddelande..."
             onChange={(event) => {
-              setCurrentMessage(event.target.value);
+              setSentMessage(event.target.value);
             }}
             onKeyPress={(event) => {
               event.key === "Enter" && sendMessage();

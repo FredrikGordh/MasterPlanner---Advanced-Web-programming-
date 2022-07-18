@@ -36,26 +36,47 @@ app.use('/', startsida);
 app.use('/', chat); 
 app.use('/', users)
 
+let userList = []
+const addUser = (username, socketId) => {
+    //Javascript function searching for username in array
+        !userList.some((user) => user.username === username) &&
+        userList.push({username, socketId})
+    }
+
+const removeUser = (socketId) => {
+    userList = userList.filter((user) => user.socketId !== socketId)
+}
+
+const getUser = (username) => {
+    return userList.find((user) => user.username === username);
+}
+    
 
 // Chat and socket functionality
+
+// On connection
 io.on('connection', (socket) => {
-    console.log(`User ${socket.id} is connected`);
-
-    socket.on('join_room', (data) => {
-        socket.join(data)
-        console.log(`User with id ${socket.id} joined room number ${data}  `)
+    
+    socket.on('addUser', (currentUser) => {
+        addUser(currentUser, socket.id)
+        io.emit('getUsers', userList)
+        console.log(`User ${currentUser} with id ${socket.id} is connected`);
     })
-
+    
+// Sending and getting messages
     socket.on('send_message', (data) => {
-        socket.to(data.room).emit("receive_message", data)
-        console.log(data)
+        const user = getUser(data.chatReciever)
+        io.to(user.socketId).emit("getMessage", data)
+        console.log( data)
         
         
     })
     
     socket.on('disconnect',(reason)=>{
+
         console.log(` User ${socket.id} was disconnected `)
         console.log(reason)
+        removeUser(socket.id)
       })
     
 })

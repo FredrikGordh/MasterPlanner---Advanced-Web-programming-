@@ -6,14 +6,16 @@ const router = express.Router();
 const db = require('../database')
 
 
-
+router.get('/User', async(req,res) => {
+    const email = req.body.email
+    const sql = 'SELECT email FROM users WHERE email = ? ;' 
+    console.log('LogIn API: This is what is sent from LogIn api ' + sql + ' ' + email)
+})
 
 router.get('/Users', async(req,res) => {
-    console.log("hej")
     const sql = 'SELECT email FROM users ;'
     const getAllUsers = await db.allAsync(sql)
-    console.log(getAllUsers)
-    res.json({getAllUsers})
+    res.json({ getAllUsers})
 })
 
 module.exports = router;

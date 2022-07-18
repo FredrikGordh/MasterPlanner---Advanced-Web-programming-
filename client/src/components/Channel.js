@@ -1,31 +1,31 @@
-import React, {useEffect, useState } from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import { io } from 'socket.io-client'
 import Chat from "./Chat.js"
 import  "../App.css"
-const socket = io.connect("http://localhost:8080")
+
+// const socket = io.connect("http://localhost:8080")
 
 function Channel (){
+    const socket = useRef()
     const [username, setUsername] = useState("")
     const [chatFriend, setChatFriend] = useState("")
     const [showChat, setShowChat] = useState(false)
     
-    const [conversation, setConversation] = useState([])
     var allUsers = []
-    
-  
 
-    // const fetchItems = async() => {
-    //     const data = await fetch('/Users'); 
-    //     const users = await data.json(); 
-    //     console.log(users); 
-    //     setUsers(users); 
-    // }
-
-    useEffect(() => {
+    useEffect (() => {
+        socket.current = io.connect("http://localhost:8080")
         setUsername(sessionStorage.getItem('email'))
         showUsers()
-        },[])
-
+    }, [])
+    
+    useEffect(() => {
+        socket.current.emit("addUser", username)
+        socket.current.on("getUsers", users =>{
+            console.log(users)
+        })
+    }, [username])
+    
     useEffect(() => {
         joinConversation()
     },[chatFriend])
@@ -43,11 +43,15 @@ function Channel (){
         })
         .then(response => response.json())
         .then(data => {
-            allUsers = data.getAllUsers       
-            
+            allUsers = data.getAllUsers
+
             var listOrder = 0
             
             for (var user of allUsers){
+
+                if (user.email == sessionStorage.getItem('email')){
+                    console.log(user.email+ " will not be added to the list")
+                }else{
                 var convContainer = document.getElementsByClassName("joinChatContainer")
 
                 var listDiv = document.createElement("div")
@@ -74,10 +78,11 @@ function Channel (){
 
                 list.addEventListener('click', function handleClick () {
                     setChatFriend(document.getElementById(this.id).textContent)
-                    console.log("this is the current chat friend: " + document.getElementById(this.id).textContent)
-
+                    
+                    
                 });
                 listOrder += 1
+            }
             }   
     })
 }
@@ -85,8 +90,9 @@ function Channel (){
     
 
     const joinConversation = () => {
+        // console.log("username: " + username + "  chatfriend: " + chatFriend)
         if (username !== "" && chatFriend !==""){
-            socket.emit("join_conversation", chatFriend)
+            // socket.current.emit("join_conversation", chatFriend)
             setShowChat(true)
         }
     }
@@ -100,7 +106,7 @@ function Channel (){
                             <input type="text" placeholder="Search for users" ></input>
                         </div>
                         <h1>Users: </h1>
-                            {showUsers}    
+
                         </center>
                     </div>
                     
