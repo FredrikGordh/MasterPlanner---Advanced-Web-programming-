@@ -32,16 +32,16 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
   
-  // useEffect(() => {
-  //   socket.current.on("getMessage", (data) => {
-  //     setArrivalMessage(data);
-  //     setConversationList((prev) => [...prev, data])
-  //     console.log("arrivalMessage:")
-  //     console.log(data)
-  //     console.log('conversationList vid get')
-  //     console.log(conversationList)
-  //   });
-  // }, []);
+  useEffect(() => {
+    socket.current.on("getMessage", (data) => {
+      setArrivalMessage(data);
+      setConversationList((prev) => [...prev, data])
+      console.log("arrivalMessage:")
+      console.log(data)
+      console.log('conversationList vid get')
+      console.log(conversationList)
+    });
+  }, []);
 
   useEffect( () => {
     setConversationMembers(username, chatFriend)
@@ -87,7 +87,6 @@ const database = getDatabase(app);
 
 
   const getOldConversation = async () => { 
-    // console.log("gettin old conversation")
     const dbRef = ref(database, '/messages/' + username + '/' + chatFriend)
       onValue(dbRef, (snapshot) => {
   
