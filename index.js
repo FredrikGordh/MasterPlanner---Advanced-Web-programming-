@@ -64,13 +64,13 @@ io.on('connection', (socket) => {
     })
     
 // Sending and getting messages
-    socket.on('send_message', (data) => {
-        const user = getUser(data.chatReciever)
-        io.to(user.socketId).emit("getMessage", data)
-        console.log( data)
+    // socket.on('send_message', (data) => {
+    //     const user = getUser(data.chatReciever)
+    //     io.to(user.socketId).emit("getMessage", data)
+    //     console.log( data)
         
         
-    })
+    // })
     
     socket.on('disconnect',(reason)=>{
 

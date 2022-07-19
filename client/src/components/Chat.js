@@ -46,7 +46,7 @@ const database = getDatabase(app);
   useEffect( () => {
     setConversationMembers(username, chatFriend)
     setCurrentChatFriend(chatFriend)
-    setConversationList([])
+    startNewConversation()
   }, [chatFriend])
 
   // useEffect(() => {
@@ -69,7 +69,8 @@ const database = getDatabase(app);
       update(ref(database, '/messages/' + username + '/' + chatFriend + '/' + index), {
         message: conversationList[index].message,
         time: conversationList[index].time,
-        author: conversationList[index].author
+        author: conversationList[index].author,
+        chatReciever: conversationList[index].chatReciever
       }).then (() => {
         // console.log("Update sucessfull")
       })
@@ -81,7 +82,7 @@ const database = getDatabase(app);
 
   const startNewConversation = () => {
     setConversationList([])
-    // getOldConversation()
+    getOldConversation()
   }
 
 
@@ -93,23 +94,13 @@ const database = getDatabase(app);
         if(snapshot.exists()){
           let records = []
             snapshot.forEach(childSnapshot => {
-              let keyName = childSnapshot.key
               let data = childSnapshot.val()
-              records.push({"key": keyName, "data" : data})
+              records.push(data)
           })
+          console.log("records")
           console.log(records)
           console.log(conversationList)
-        // setConversationList([])
-          // setConversationList(records)
-  
-          // const messageData = {
-          //   author: username,
-          //   chatReciever: currentChatFriend,
-          //   message: sentMessage,
-          //   time: "hej"
-          // }
-  
-          // setConversationList((prev) => [...prev, messageData]);
+        setConversationList(records)
         }else{
           console.log("there is no old conversation")
         }
