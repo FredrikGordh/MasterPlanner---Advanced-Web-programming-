@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react'
 // import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 import io from 'socket.io-client';
 import ScrollToBottom from "react-scroll-to-bottom";
+import { getDatabase, ref, onValue, update } from "firebase/database"
+import { initializeApp } from "firebase/app";
 
 
 
@@ -14,17 +16,32 @@ function Chat ({socket, username, chatFriend}){
   const [sentMessageData, setSentMessageData] = useState("");
   const [conversationList, setConversationList] = useState([]);
   const [currentChatFriend, setCurrentChatFriend] = useState("");
+
+  // Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDkrCNPAxqtYNBfjgBCXcXBkojwavsM7R8",
+  authDomain: "masterplanner-410b7.firebaseapp.com",
+  databaseURL: "https://masterplanner-410b7-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "masterplanner-410b7",
+  storageBucket: "masterplanner-410b7.appspot.com",
+  messagingSenderId: "83476523056",
+  appId: "1:83476523056:web:5a876005b9f386c2fe65f5"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
   
-  useEffect(() => {
-    socket.current.on("getMessage", (data) => {
-      setArrivalMessage(data);
-      setConversationList((prev) => [...prev, data])
-      console.log("arrivalMessage:")
-      console.log(data)
-      console.log('conversationList vid get')
-      console.log(conversationList)
-    });
-  }, []);
+  // useEffect(() => {
+  //   socket.current.on("getMessage", (data) => {
+  //     setArrivalMessage(data);
+  //     setConversationList((prev) => [...prev, data])
+  //     console.log("arrivalMessage:")
+  //     console.log(data)
+  //     console.log('conversationList vid get')
+  //     console.log(conversationList)
+  //   });
+  // }, []);
 
   useEffect( () => {
     setConversationMembers(username, chatFriend)
@@ -32,11 +49,73 @@ function Chat ({socket, username, chatFriend}){
     setConversationList([])
   }, [chatFriend])
 
+  // useEffect(() => {
+  //   arrivalMessage &&
+  //     conversationMembers.includes(arrivalMessage.author) &&
+  //     setConversationList((prev) => [...prev, arrivalMessage]);
+  // }, [arrivalMessage, conversationMembers]);
+
   useEffect(() => {
-    arrivalMessage &&
-      conversationMembers.includes(arrivalMessage.author) &&
-      setConversationList((prev) => [...prev, arrivalMessage]);
-  }, [arrivalMessage, conversationMembers]);
+    console.log("useeffect conversationlist")
+    console.log(conversationList)
+    // console.log(conversationList[1].message)
+    saveConversation()
+    }, [conversationList])
+
+
+  const saveConversation = () => {
+    let index = conversationList.length -1
+    if( index >= 0){
+      update(ref(database, '/messages/' + username + '/' + chatFriend + '/' + index), {
+        message: conversationList[index].message,
+        time: conversationList[index].time,
+        author: conversationList[index].author
+      }).then (() => {
+        // console.log("Update sucessfull")
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    }
+}
+
+  const startNewConversation = () => {
+    setConversationList([])
+    // getOldConversation()
+  }
+
+
+  const getOldConversation = async () => { 
+    // console.log("gettin old conversation")
+    const dbRef = ref(database, '/messages/' + username + '/' + chatFriend)
+      onValue(dbRef, (snapshot) => {
+  
+        if(snapshot.exists()){
+          let records = []
+            snapshot.forEach(childSnapshot => {
+              let keyName = childSnapshot.key
+              let data = childSnapshot.val()
+              records.push({"key": keyName, "data" : data})
+          })
+          console.log(records)
+          console.log(conversationList)
+        // setConversationList([])
+          // setConversationList(records)
+  
+          // const messageData = {
+          //   author: username,
+          //   chatReciever: currentChatFriend,
+          //   message: sentMessage,
+          //   time: "hej"
+          // }
+  
+          // setConversationList((prev) => [...prev, messageData]);
+        }else{
+          console.log("there is no old conversation")
+        }
+      })
+   
+    }
 
 
   const sendMessage = async () => {
