@@ -100,14 +100,16 @@ const database = getDatabase(app);
   // Send message functionality after pressing enter or button
   const sendMessage = async () => {
     if (sentMessage !== "") {
+      
+      var date = new Date(Date.now())
+      var hours = ('0'+date.getHours()).slice(-2)
+      var mins = ('0'+date.getMinutes()).slice(-2);
+    
       const messageData = {
         author: username,
         chatReciever: currentChatFriend,
         message: sentMessage,
-        time:
-          new Date(Date.now()).getHours() +
-          ":" +
-          new Date(Date.now()).getMinutes(),
+        time: hours + ":" + mins
       };
 
     try{
