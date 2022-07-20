@@ -1,10 +1,15 @@
 
-import React, {Component, useEffect} from "react";
+import React from "react";
 import Files from './file.json';
-import css from "./App.css";
+
+
+
 import { ReactDOM } from "react";
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import {socket, SocketContext} from './context/socket.js'
+import { Socket } from "socket.io-client";
 
+// Components
 import Nav from './components/Nav.js'
 import Startsida from './components/Startsida.js'
 import Sok_kurser from './components/Sok_kurser.js'
@@ -15,26 +20,21 @@ import Min_profil from "./components/Min_profil.js"
 import Profiles from "./components/Profiles.js"
 import Chat from "./components/Chat.js"
 import Channel from "./components/Channel.js"
-// import ChatUI from "./components/ChatUI.js"
 
-import {socket, SocketContext} from './context/socket.js'
-import { Socket } from "socket.io-client";
+// CSS-files
+import "./App.css";
+import "./components/Chat.css"
+import "./components/Channel.css"
+
+
 
 function App() {
 
-  // useEffect = (() => {
-  //   console.log("socketContext:")
-  //   console.log(SocketContext)
-  //   console.log("socket")
-  //   console.log(socket)
-  // },[])
-  
 
   if (!sessionStorage.getItem('token')) {
   return (
     
     // Router måste användas när man använder sig av Nav liknande funktioner
-
       <Router> 
       <div className="App">
             { console.log('Nu är vi i App div i nav') }

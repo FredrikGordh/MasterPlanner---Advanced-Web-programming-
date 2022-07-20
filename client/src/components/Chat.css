@@ -1,0 +1,129 @@
+.chat-window .message-dialog{
+    background-color: white;
+    border-radius: 20px;
+    height: 80vh;
+    width: 66vw;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.message-dialog{
+    overflow-x: hidden;
+}
+
+.chat-header{
+
+}
+
+/* Message box */
+.message-row{
+    padding-left: 20px;
+    padding-right: 20px;
+    /* min-height: 50px; */
+    
+    /* margin-bottom: ; */
+}
+
+#you .message-row{
+    justify-content: flex-end;
+    
+}
+
+#other .messaage-row{
+    justify-content: flex-start;
+}
+
+.portrait-message{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.message-text{
+    padding-top: 8px;
+    padding-bottom: 8px;
+    /* padding-right: 5vw; */
+    margin-bottom: 0;
+    border-radius: 30px;
+    /* display: inline-block; */
+    max-width: 300px;
+    /* min-width: 30px; */
+    width:fit-content;
+    word-wrap:break-all;
+    overflow-wrap: anywhere;
+
+    
+
+}
+
+#you .message-text{
+    background-color: #1471ff;
+    color: white;
+}
+
+#other .message-text{
+    background-color: rgb(242, 240, 240)
+}
+
+.time {
+    font-size: 12px;
+    /* margin-top: 1vh; */
+    margin-bottom: 1vh;
+    justify-content: end;
+}
+
+#you .time{
+    text-align: end;
+    margin-right: 2vw;
+}
+
+#other .time{
+    text-align: start;
+    margin-left: 2vw;
+}
+
+
+/* Chat input */
+
+.chat-input-row{
+    max-height:10vh;
+    height: 15vh;
+}
+
+.chat-input{
+    background-color: #f5f5f5;
+    border-radius: 20px;
+    height: 5vh;
+    width: 60vw;
+    
+    padding-left: 20px;
+    padding-top: 5px;
+    margin-left: 20px;
+    margin-right: 1vw;
+    
+}
+
+.btn-chat{
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 50%;
+    margin-right: 20px;
+    height: 5vh;
+    /* width: 5vw; */
+    background-color: dodgerblue;
+    border:none;
+    font-size: 16px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+    font-size: large;
+
+}
+
+
+.btn:hover {
+    background-color: RoyalBlue;
+  }

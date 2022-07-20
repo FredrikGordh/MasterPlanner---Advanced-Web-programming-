@@ -50,12 +50,13 @@ function Channel (){
         <body class="body-chat-window">
                 <div class="row">
                     <div class="joinChatContainer col-4">
+                        
+                        <h3>Chattar</h3>
                         <center>
-                        <h1 >Join a chat</h1>
-                        <div class="class">
-                            <input type="text" placeholder="Search for users" ></input>
-                        </div>
-                        <h1>Users: </h1>
+                        {/* <div class="class">
+                            <input type="text" placeholder="Search for users" class="search-user-bar"></input>
+                        </div> */}
+                        
                             {onlineUsers.map((users,index) => {
                                 if (users.username == username){
                                     {console.log("Denna user ska inte läggas till " + users.username)}
@@ -76,8 +77,6 @@ function Channel (){
 
                         </center>
                     </div>
-                    
-                    <div class="message-container col-8">
                         {!showChat ? (
                         <center>  
                         <div class="col-6"> {chatFriend}</div>
@@ -88,7 +87,7 @@ function Channel (){
                             </center>
                         )}  
                     </div>
-            </div>
+            
         </body>
     )
 }

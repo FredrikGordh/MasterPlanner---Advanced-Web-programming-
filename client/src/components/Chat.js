@@ -1,6 +1,4 @@
 import React, {useEffect, useState} from 'react'
-// import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
-import io from 'socket.io-client';
 import ScrollToBottom from "react-scroll-to-bottom";
 import { getDatabase, ref, onValue, update } from "firebase/database"
 import { initializeApp } from "firebase/app";
@@ -8,12 +6,13 @@ import { initializeApp } from "firebase/app";
 
 
 
+// Compontent for chat functionality within the conversation
+// Fetching and writing conversation to firebase realtime database
+// Using socket.io to simlplify the connection between different users.
 
 function Chat ({socket, username, chatFriend}){
-  const [conversationMembers, setConversationMembers] = useState([])
-  const [arrivalMessage, setArrivalMessage] = useState([])
+  
   const [sentMessage, setSentMessage] = useState("");
-  const [sentMessageData, setSentMessageData] = useState("");
   const [conversationList, setConversationList] = useState([]);
   const [currentChatFriend, setCurrentChatFriend] = useState("");
 
@@ -34,7 +33,6 @@ const database = getDatabase(app);
   
   useEffect(() => {
     socket.on("getMessage", (data) => {
-      setArrivalMessage(data);
       setConversationList((prev) => [...prev, data])
       console.log("arrivalMessage:")
       console.log(data)
@@ -44,25 +42,17 @@ const database = getDatabase(app);
   }, []);
 
   useEffect( () => {
-    setConversationMembers(username, chatFriend)
     setCurrentChatFriend(chatFriend)
     startNewConversation()
   }, [chatFriend])
 
-  // useEffect(() => {
-  //   arrivalMessage &&
-  //     conversationMembers.includes(arrivalMessage.author) &&
-  //     setConversationList((prev) => [...prev, arrivalMessage]);
-  // }, [arrivalMessage, conversationMembers]);
-
   useEffect(() => {
     console.log("useeffect conversationlist")
     console.log(conversationList)
-    // console.log(conversationList[1].message)
     saveConversation()
     }, [conversationList])
 
-
+// Realtime saving conversation to database
   const saveConversation = () => {
     let index = conversationList.length -1
     if( index >= 0){
@@ -71,8 +61,6 @@ const database = getDatabase(app);
         time: conversationList[index].time,
         author: conversationList[index].author,
         chatReciever: conversationList[index].chatReciever
-      }).then (() => {
-        // console.log("Update sucessfull")
       })
       .catch((error) => {
         console.log(error)
@@ -80,12 +68,14 @@ const database = getDatabase(app);
     }
 }
 
+// Functionality when user is switching between conversations
   const startNewConversation = () => {
     setConversationList([])
     getOldConversation()
   }
 
 
+  // Fetching old conversation between the users from firebase Database 
   const getOldConversation = async () => { 
     const dbRef = ref(database, '/messages/' + username + '/' + chatFriend)
       onValue(dbRef, (snapshot) => {
@@ -107,7 +97,7 @@ const database = getDatabase(app);
    
     }
 
-
+  // Send message functionality after pressing enter or button
   const sendMessage = async () => {
     if (sentMessage !== "") {
       const messageData = {
@@ -117,7 +107,7 @@ const database = getDatabase(app);
         time:
           new Date(Date.now()).getHours() +
           ":" +
-          new Date(Date.now()).getMinutes(),
+          new Date(Date.now()).getMinutes()<10?'0':'' + new Date(Date.now()).getMinutes(),
       };
 
     try{
@@ -136,7 +126,6 @@ const database = getDatabase(app);
 
   return (
     <div className="chat-window">
-      <center>
       <div className="chat-header">
         <p>{" I am user " + username + " chatting with " + chatFriend}</p>
       </div>
@@ -146,22 +135,18 @@ const database = getDatabase(app);
             
             <div id={username === messageContent.author ? "you" : "other"} >
               <div class="message-row row col-12 ">
-                <div class="row">
                     <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="portrait-message "></img>
-                    {/* <p>{"Detta är sender: " + messageContent.author}</p>
-                    <p>{"detta är receiver: " + messageContent.chatReciever}</p> */}
                     <p class="message-text col-4">{messageContent.message}</p>
-                    <div class="time col-1">{messageContent.time}</div>
-                </div>
               </div>
+              <div class="time ">{messageContent.time}</div>
             </div>
           );
         })}
       </ ScrollToBottom>
       <div className="chat-footer">
         <div class="chat-input-row row">
-          <textarea
-            class="chat-input col-8"
+          <input
+            class="chat-input"
             type="text"
             value={sentMessage}
             placeholder="Skriv ett meddelande..."
@@ -172,10 +157,9 @@ const database = getDatabase(app);
               event.key === "Enter" && sendMessage();
             }}
           />
-          <button class="btn btn-chat col-1 " onClick={sendMessage}><i class="bi bi-send-fill"></i></button>
+          <button class="btn btn-chat  " onClick={sendMessage}><i class="bi bi-send-fill"></i></button>
         </div>
       </div>
-      </center>
     </div>
   );
 }
