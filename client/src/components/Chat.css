@@ -21,13 +21,15 @@
 .message-row{
     padding-left: 20px;
     padding-right: 20px;
-    /* min-height: 50px; */
-    
-    /* margin-bottom: ; */
+    display: flex;
+
 }
 
 #you .message-row{
     justify-content: flex-end;
+    /* width:; */
+    /* width: 300px; */
+    width: auto;
     
 }
 
@@ -45,15 +47,12 @@
 }
 
 .message-text{
-    padding-top: 8px;
-    padding-bottom: 8px;
-    /* padding-right: 5vw; */
+    padding: 8px;
     margin-bottom: 0;
     border-radius: 30px;
-    /* display: inline-block; */
     max-width: 300px;
-    /* min-width: 30px; */
-    width:fit-content;
+    min-width: 50px;
+
     word-wrap:break-all;
     overflow-wrap: anywhere;
 

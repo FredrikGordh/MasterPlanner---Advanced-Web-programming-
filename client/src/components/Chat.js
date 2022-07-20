@@ -107,7 +107,7 @@ const database = getDatabase(app);
         time:
           new Date(Date.now()).getHours() +
           ":" +
-          new Date(Date.now()).getMinutes()<10?'0':'' + new Date(Date.now()).getMinutes(),
+          new Date(Date.now()).getMinutes(),
       };
 
     try{
@@ -136,7 +136,7 @@ const database = getDatabase(app);
             <div id={username === messageContent.author ? "you" : "other"} >
               <div class="message-row row col-12 ">
                     <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="portrait-message "></img>
-                    <p class="message-text col-4">{messageContent.message}</p>
+                    <p class="message-text ">{messageContent.message}</p>
               </div>
               <div class="time ">{messageContent.time}</div>
             </div>

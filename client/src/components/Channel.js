@@ -51,12 +51,8 @@ function Channel (){
                 <div class="row">
                     <div class="joinChatContainer col-4">
                         
-                        <h3>Chattar</h3>
+                        <h3 class="headline-chat">Chattar</h3>
                         <center>
-                        {/* <div class="class">
-                            <input type="text" placeholder="Search for users" class="search-user-bar"></input>
-                        </div> */}
-                        
                             {onlineUsers.map((users,index) => {
                                 if (users.username == username){
                                     {console.log("Denna user ska inte läggas till " + users.username)}
