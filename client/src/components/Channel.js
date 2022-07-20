@@ -1,29 +1,38 @@
-import React, {useEffect, useState, useRef} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import { io } from 'socket.io-client'
 import Chat from "./Chat.js"
 import  "../App.css"
+import { SocketContext } from '../context/socket.js'
 
 // const socket = io.connect("http://localhost:8080")
 
 function Channel (){
-    const socket = useRef()
+    const socket = useContext(SocketContext)
     const [username, setUsername] = useState("")
     const [chatFriend, setChatFriend] = useState("")
     const [showChat, setShowChat] = useState(false)
+    const [onlineUsers, setOnlineUsers] = useState([])
+    const [allUsers, setAllUsers] = useState([])
     
-    var allUsers = []
+    // var allUsers = []
 
     useEffect (() => {
-        socket.current = io.connect("http://localhost:8080")
+        // socket = io.connect("http://localhost:8080")
+        console.log("socket:")
+        console.log(socket)
         setUsername(sessionStorage.getItem('email'))
-        showUsers()
+        console.log("körs denna en gång?")
+        socket.on("getUsers", users =>{
+            console.log("this are the online users")
+            console.log(users)
+            setOnlineUsers(users)
+            // displayUsers(users)
+        })
     }, [])
     
     useEffect(() => {
-        socket.current.emit("addUser", username)
-        socket.current.on("getUsers", users =>{
-            console.log(users)
-        })
+        socket.emit("addUser", username)
+        
     }, [username])
     
     useEffect(() => {
@@ -32,67 +41,8 @@ function Channel (){
 
 
 
-    const showUsers = () => {
-        fetch("http://localhost:3000/Users", {
-            method: "GET",
-            headers: {
-                'Content-Type':'application/json'
-            },
-        
-
-        })
-        .then(response => response.json())
-        .then(data => {
-            allUsers = data.getAllUsers
-
-            var listOrder = 0
-            
-            for (var user of allUsers){
-
-                if (user.email == sessionStorage.getItem('email')){
-                    console.log(user.email+ " will not be added to the list")
-                }else{
-                var convContainer = document.getElementsByClassName("joinChatContainer")
-
-                var listDiv = document.createElement("div")
-                listDiv.setAttribute("class", "chat-list-div col-12 ")
-
-                var list = document.createElement("ul")
-                list.setAttribute("class", "chat-list-object ")
-                list.setAttribute("id", listOrder)
-                
-
-                var img = document.createElement("img")
-                img.src ="https://bootdey.com/img/Content/avatar/avatar7.png" 
-                img.setAttribute("class", "portrait-conversation")
-    
-                var node = document.createTextNode(user.email)
-                
-                
-                convContainer[0].append(listDiv)
-                listDiv.append(list)
-                
-                list.appendChild(img)
-                list.appendChild(node)
-
-
-                list.addEventListener('click', function handleClick () {
-                    setChatFriend(document.getElementById(this.id).textContent)
-                    
-                    
-                });
-                listOrder += 1
-            }
-            }   
-    })
-}
-
-    
-
     const joinConversation = () => {
-        // console.log("username: " + username + "  chatfriend: " + chatFriend)
         if (username !== "" && chatFriend !==""){
-            // socket.current.emit("join_conversation", chatFriend)
             setShowChat(true)
         }
     }
@@ -106,6 +56,23 @@ function Channel (){
                             <input type="text" placeholder="Search for users" ></input>
                         </div>
                         <h1>Users: </h1>
+                            {onlineUsers.map((users,index) => {
+                                if (users.username == username){
+                                    {console.log("Denna user ska inte läggas till " + users.username)}
+                                }else{
+                            return(
+                                <div class="chat-list-div col-12" > 
+                                    <ul class="chat-list-object" id={index} onClick={() => {
+                                        setChatFriend(document.getElementById(index).textContent)
+                                    }}>
+                                        <img class="portrait-conversation " src ="https://bootdey.com/img/Content/avatar/avatar7.png" ></img>
+                                        {users.username}
+                                    </ul>
+                                </div>
+                            )}
+                            })
+                            }
+                        
 
                         </center>
                     </div>

@@ -37,6 +37,8 @@ app.use('/', chat);
 app.use('/', users)
 
 let userList = []
+
+
 const addUser = (username, socketId) => {
     //Javascript function searching for username in array
         !userList.some((user) => user.username === username) &&
@@ -54,14 +56,19 @@ const getUser = (username) => {
 
 // Chat and socket functionality
 
-// On connection
+// On connection all online users are added into the UserList array
 io.on('connection', (socket) => {
     
+    console.log("User with socket id: " + socket.id + ' logged in !')
     socket.on('addUser', (currentUser) => {
+        if (currentUser != "" ){
         addUser(currentUser, socket.id)
-        io.emit('getUsers', userList)
         console.log(`User ${currentUser} with id ${socket.id} is connected`);
+        io.emit('getUsers', userList)
+        }
     })
+    
+    
     
 // Sending and getting messages
     socket.on('send_message', (data) => {
@@ -79,6 +86,8 @@ io.on('connection', (socket) => {
         console.log(` User ${socket.id} was disconnected `)
         console.log(reason)
         removeUser(socket.id)
+        io.emit('getUsers', userList)
+        
       })
     
 })

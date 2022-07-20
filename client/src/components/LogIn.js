@@ -1,19 +1,16 @@
-import React, {useEffect, useState} from 'react' 
+import React, {useEffect, useState, useContext} from 'react' 
+import { io } from 'socket.io-client'
 import {useNavigate} from 'react-router-dom';
+import { SocketContext } from '../context/socket.js'
+
 
 
 
 
 export const LogIn = ( props ) => {
-    
-
-
-    useEffect (() => { 
-        fetchItems(); 
- 
-    },[])
 
     const[email, setEmail] = useState('')
+    const [username, setUsername] = useState("")
     const[body, setBody] = useState('')
     const[password, setPassword] = useState('')
     const[loginStatus, setLoginStatus] = useState(false)
@@ -21,7 +18,11 @@ export const LogIn = ( props ) => {
     const[submit, setSubmit] = useState(false)
     const navigate= useNavigate();
     const [items, setItems] = useState([]); 
+    const socket = useContext(SocketContext)
 
+    useEffect (() => { 
+        fetchItems(); 
+    },[])
 
     const fetchItems = async() => {
         const data = await fetch('/LogIn'); 
@@ -71,12 +72,16 @@ export const LogIn = ( props ) => {
 
             sessionStorage.setItem("token", data.token);
             sessionStorage.setItem("email", data.email);
+            setUsername(data.email)
             console.log("this is the email: " + data.email)
             setLoginStatus(true)
             navigate('/Startsida')
             alert('You are now Logged in!')
             handleUser(myData); 
+            
             window.location.reload()
+            
+            
 
         }else if (!data.auth){
             setLoginStatus(false)

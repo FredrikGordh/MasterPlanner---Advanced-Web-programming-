@@ -33,7 +33,7 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
   
   useEffect(() => {
-    socket.current.on("getMessage", (data) => {
+    socket.on("getMessage", (data) => {
       setArrivalMessage(data);
       setConversationList((prev) => [...prev, data])
       console.log("arrivalMessage:")
@@ -121,7 +121,7 @@ const database = getDatabase(app);
       };
 
     try{
-      socket.current.emit("send_message", messageData);
+      socket.emit("send_message", messageData);
       setConversationList((prev) => [...prev, messageData]);
       console.log("ConversationList vid skicka ")
       console.log(conversationList)

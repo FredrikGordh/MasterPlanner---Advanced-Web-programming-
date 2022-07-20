@@ -1,5 +1,5 @@
 
-import React, {Component} from "react";
+import React, {Component, useEffect} from "react";
 import Files from './file.json';
 import css from "./App.css";
 import { ReactDOM } from "react";
@@ -17,11 +17,17 @@ import Chat from "./components/Chat.js"
 import Channel from "./components/Channel.js"
 // import ChatUI from "./components/ChatUI.js"
 
-import io from "socket.io-client";
-
-const socket = io.connect("http://localhost:8080");
+import {socket, SocketContext} from './context/socket.js'
+import { Socket } from "socket.io-client";
 
 function App() {
+
+  // useEffect = (() => {
+  //   console.log("socketContext:")
+  //   console.log(SocketContext)
+  //   console.log("socket")
+  //   console.log(socket)
+  // },[])
   
 
   if (!sessionStorage.getItem('token')) {
@@ -54,28 +60,31 @@ function App() {
     );
   }else{
 
-    return(
+  return(
 
+    <SocketContext.Provider value={socket}>
     <Router> 
     <div className="App">
           <Nav />
           <Routes>
-            <Route path="/" element={<Startsida/>} />
-            <Route path="/Sok_kurser" element={<Sok_kurser/>} />
-            <Route path="/Mina_kurser" element={<Mina_kurser/>} />
-            <Route path = "/Min_profil" element={<Min_profil/>}/>
-            <Route path="/Profiles" element={<Profiles/>}/>
-            <Route path="/Channel" element={<Channel/>}/>
-            <Route
-            path="*"
-            element={
-            <main style={{ padding: "1rem" }}>
-            <p>There's nothing here!</p>
-            </main>}/>
+            
+              <Route path="/" element={<Startsida/>} />
+              <Route path="/Sok_kurser" element={<Sok_kurser/>} />
+              <Route path="/Mina_kurser" element={<Mina_kurser/>} />
+              <Route path = "/Min_profil" element={<Min_profil/>}/>
+              <Route path="/Profiles" element={<Profiles/>}/>
+              <Route path="/Channel" element={<Channel/>}/>
+              <Route
+              path="*"
+              element={
+              <main style={{ padding: "1rem" }}>
+              <p>There's nothing here!</p>
+              </main>}/>
+            
           </Routes>
     </div>
     </Router>
-
+    </SocketContext.Provider>
 
   )}
 }
