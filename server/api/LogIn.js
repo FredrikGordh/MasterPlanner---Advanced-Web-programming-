@@ -21,6 +21,7 @@ router.get('/LogIn', async(req,res) => {
 
 // LogIn and authenticating passwords comparison route
 router.post('/LogIn', async (req,res) => {
+    console.log("login body: " + JSON.stringify(req.body))
     const email = req.body.email
     user = email; 
     const password = req.body.password

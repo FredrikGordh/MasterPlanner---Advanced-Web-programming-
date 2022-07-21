@@ -1,24 +1,27 @@
-import React, {useEffect, useState} from 'react' 
+import React, {useEffect, useState, useContext} from 'react' 
+import { io } from 'socket.io-client'
 import {useNavigate} from 'react-router-dom';
+import { SocketContext } from '../context/socket.js'
+
 
 
 
 
 export const LogIn = ( props ) => {
-    
-
-
-    useEffect (() => { 
-        fetchItems(); 
- 
-    },[])
 
     const[email, setEmail] = useState('')
+    const [username, setUsername] = useState("")
+    const[body, setBody] = useState('')
+    client/src/components/LogIn.js
     const[password, setPassword] = useState('')
     const[loginStatus, setLoginStatus] = useState(false)
     const navigate= useNavigate();
     const [items, setItems] = useState([]); 
+    const socket = useContext(SocketContext)
 
+    useEffect (() => { 
+        fetchItems(); 
+    },[])
 
     const fetchItems = async() => {
         const data = await fetch('/LogIn'); 
@@ -67,8 +70,12 @@ export const LogIn = ( props ) => {
         if(data.auth){
 
             sessionStorage.setItem("token", data.token);
+            sessionStorage.setItem("email", data.email);
+            setUsername(data.email)
+            console.log("this is the email: " + data.email)
             setLoginStatus(true)
             handleUser(myData); 
+            client/src/components/LogIn.js
             navigate('/', 
             {
                 state: {
@@ -79,7 +86,6 @@ export const LogIn = ( props ) => {
         }else if (!data.auth){
             setLoginStatus(false); 
             alert('Wrong password try again.'); 
-            
         }
 })
 

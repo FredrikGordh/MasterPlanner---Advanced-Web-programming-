@@ -46,7 +46,7 @@ return(
         <div className="col-4 d-flex justify-content-center">
     <input   
     type="email" 
-    className="form-control" 
+    className="form-control" S
     placeholder="Enter email" 
     // value={email}
     onChange={ (e) => setEmail(e.target.value)}
