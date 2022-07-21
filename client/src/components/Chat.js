@@ -5,13 +5,10 @@ import { initializeApp } from "firebase/app";
 
 
 
-
 // Compontent for chat functionality within the conversation
 // Fetching and writing conversation to firebase realtime database
 // Using socket.io to simlplify the connection between different users.
-
 function Chat ({socket, username, chatFriend}){
-  
   const [sentMessage, setSentMessage] = useState("");
   const [conversationList, setConversationList] = useState([]);
   const [currentChatFriend, setCurrentChatFriend] = useState("");
@@ -134,7 +131,6 @@ const database = getDatabase(app);
       <ScrollToBottom className="message-dialog">
         {conversationList.map((messageContent) => {
           return (
-            
             <div id={username === messageContent.author ? "you" : "other"} >
               <div class="message-row row col-12 ">
                     <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="portrait-message "></img>

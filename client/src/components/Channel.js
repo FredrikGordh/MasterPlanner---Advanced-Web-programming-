@@ -1,10 +1,8 @@
 import React, {useEffect, useState, useContext} from 'react'
-import { io } from 'socket.io-client'
 import Chat from "./Chat.js"
-import  "../App.css"
+import "../App.css"
 import { SocketContext } from '../context/socket.js'
 
-// const socket = io.connect("http://localhost:8080")
 
 function Channel (){
     const socket = useContext(SocketContext)
@@ -12,34 +10,24 @@ function Channel (){
     const [chatFriend, setChatFriend] = useState("")
     const [showChat, setShowChat] = useState(false)
     const [onlineUsers, setOnlineUsers] = useState([])
-    const [allUsers, setAllUsers] = useState([])
-    
-    // var allUsers = []
 
+    // Fetching online users through socket and api list
     useEffect (() => {
-        // socket = io.connect("http://localhost:8080")
-        console.log("socket:")
-        console.log(socket)
         setUsername(sessionStorage.getItem('email'))
-        console.log("körs denna en gång?")
         socket.on("getUsers", users =>{
-            console.log("this are the online users")
-            console.log(users)
             setOnlineUsers(users)
-            // displayUsers(users)
         })
     }, [])
     
+    // Adding current user to list of online users in api list through socket
     useEffect(() => {
-        socket.emit("addUser", username)
-        
+        socket.emit("addUser", username)    
     }, [username])
     
+    // Functionality for joining a new conversation
     useEffect(() => {
         joinConversation()
     },[chatFriend])
-
-
 
     const joinConversation = () => {
         if (username !== "" && chatFriend !==""){
@@ -50,7 +38,6 @@ function Channel (){
         <body class="body-chat-window">
                 <div class="row">
                     <div class="joinChatContainer col-4">
-                        
                         <h3 class="headline-chat">Chattar</h3>
                         <center>
                             {onlineUsers.map((users,index) => {
@@ -69,8 +56,6 @@ function Channel (){
                             )}
                             })
                             }
-                        
-
                         </center>
                     </div>
                         {!showChat ? (
@@ -83,7 +68,6 @@ function Channel (){
                             </center>
                         )}  
                     </div>
-            
         </body>
     )
 }

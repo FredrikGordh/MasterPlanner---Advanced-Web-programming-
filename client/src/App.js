@@ -34,7 +34,6 @@ function App() {
   if (!sessionStorage.getItem('token')) {
   return (
     
-    // Router måste användas när man använder sig av Nav liknande funktioner
       <Router> 
       <div className="App">
             { console.log('Nu är vi i App div i nav') }
