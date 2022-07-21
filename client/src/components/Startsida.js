@@ -87,6 +87,21 @@ function Startsida(){
                 </div>
             </form>
         )
+    }else{
+        return(
+        <form onSubmit={handleCourses}>
+            <div id = "background"> 
+                <h3> Välkommen till MasterPlanner</h3>
+                <button class="btn btn-outline-dark" onClick={() => navigate('/Signin')}> Bli medlem </button>
+            </div>                 
+            <div className="container" style={{marginTop: "30px"}}> 
+                <div id = "input-field"> 
+                    <input type= "search" id="search" placeholder="Sök användare" onChange={event => {setSearchTerm(event.target.value)}} style={{marginLeft: "10px"}}/>
+                </div>
+            </div> 
+        </form>
+        )
+
     }
 }
 

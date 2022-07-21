@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react'
 function Sok_kurser() {
     useEffect( () => {
         fetchItems(); 
-
+        console.log(items)
     }, []); 
 
     const [items, setItems] = useState([]); 
