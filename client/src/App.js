@@ -53,13 +53,11 @@ function App() {
               </main>}/>
             </Routes>
       </div>
-      </Router>
-      
+      </Router>  
     );
   }else{
 
   return(
-
     <SocketContext.Provider value={socket}>
     <Router> 
     <div className="App">

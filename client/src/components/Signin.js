@@ -1,12 +1,9 @@
-import React, {useEffect, useState} from 'react' 
+import React, {useState} from 'react' 
 import {useNavigate} from 'react-router-dom';
-
-// import React, {useState} from "react"
 
 
 function SignIn(){
     const[email, setEmail] = useState('')
-    const[body, setBody] = useState('')
     const[password, setPassword] = useState('')
     const navigate= useNavigate()
 
@@ -14,9 +11,9 @@ function SignIn(){
       const handleSubmit = (e) =>{
             e.preventDefault();
 
-            navigate('/Startsida')
-            alert('Congratulations! You have now created a user, and can now log into your user ')
             
+            alert('Congratulations! You have now created a user, and can now log into your user ')
+            navigate('/')
             const myData = {email, password}
 
             // Sending userdata through a POST request to server

@@ -12,7 +12,7 @@ router.get('/User', async(req,res) => {
     console.log('LogIn API: This is what is sent from LogIn api ' + sql + ' ' + email)
 })
 
-router.get('/Users', async(req,res) => {
+router.get('/AllUsers', async(req,res) => {
     const sql = 'SELECT email FROM users ;'
     const getAllUsers = await db.allAsync(sql)
     res.json({ getAllUsers})

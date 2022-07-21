@@ -7,20 +7,26 @@ import {useLocation} from 'react-router-dom';
 function Startsida(){
 
     const location = useLocation(); 
-    const [users, setUsers] = useState([]); 
+    const [usersInfo, setUsersInfo] = useState([]); 
+    const [allUsernames, setAllUsernames] = useState([])
     const [owner, setOwner] = useState(); 
     const [course, setCourses] = useState([]); 
     const [searchTerm, setSearchTerm] = useState(''); 
     const navigate = useNavigate(); 
+
     const fetchItems = async() => {
         const userData = await fetch('/Startsida'); 
-        const user = await userData.json(); 
-        setUsers(user); 
-
+        const all_usernames = await fetch ("/AllUsers")
+        const user_info = await userData.json(); 
+        setUsersInfo(user_info); 
+        setAllUsernames(all_usernames)
+        console.log("usernames")
+        console.log(all_usernames)
     }
 
     useEffect(() => {
         fetchItems(); 
+        
     }, []); 
 
     const handleCourses = async(e) => {
@@ -29,7 +35,7 @@ function Startsida(){
         const dataCourses = await fetch(`/Startsida/${owner}`); 
         const userCourses = await dataCourses.json(); 
         setCourses(userCourses); 
-        users.map(user => {
+        usersInfo.map(user => {
             if (user.Owner === owner){
                 navigate('/Profiles', 
                 {
@@ -72,7 +78,7 @@ function Startsida(){
     }
 
    
-    if (users.length > 0){
+    if (usersInfo.length > 0){
         return (
             <form onSubmit={handleCourses}>
                 <div id = "background"> 
@@ -88,7 +94,7 @@ function Startsida(){
                         <div class="col"> 
                             <div class ="row" style={{display: "flex", justifyContent: "space-evenly"}}>
                                 {
-                                users.filter((val) =>{
+                                usersInfo.filter((val) =>{
                                 if (searchTerm === "") {
                                     return val
                                 }else if (val.Name !== null && val.Name.toLowerCase().includes(searchTerm.toLowerCase())){
