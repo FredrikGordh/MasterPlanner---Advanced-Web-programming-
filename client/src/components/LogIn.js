@@ -12,10 +12,9 @@ export const LogIn = ( props ) => {
     const[email, setEmail] = useState('')
     const [username, setUsername] = useState("")
     const[body, setBody] = useState('')
+    client/src/components/LogIn.js
     const[password, setPassword] = useState('')
     const[loginStatus, setLoginStatus] = useState(false)
-    const[boolean, setBoolean] = useState(false)
-    const[submit, setSubmit] = useState(false)
     const navigate= useNavigate();
     const [items, setItems] = useState([]); 
     const socket = useContext(SocketContext)
@@ -75,18 +74,18 @@ export const LogIn = ( props ) => {
             setUsername(data.email)
             console.log("this is the email: " + data.email)
             setLoginStatus(true)
-            navigate('/Startsida')
-            alert('You are now Logged in!')
             handleUser(myData); 
-            
-            window.location.reload()
-            
-            
+            client/src/components/LogIn.js
+            navigate('/', 
+            {
+                state: {
+                        id: data.email 
+            }}); 
+            window.location.reload();
 
         }else if (!data.auth){
-            setLoginStatus(false)
-            alert('Wrong password try again.')
-            
+            setLoginStatus(false); 
+            alert('Wrong password try again.'); 
         }
 })
 

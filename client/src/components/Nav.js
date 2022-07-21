@@ -1,19 +1,20 @@
 import React, { useEffect} from "react"; 
-import {Link} from 'react-router-dom'
+import {Link, Navigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom';
 
 function Nav() {
     useEffect ( () => {
-
     },)
-
+        const navigate= useNavigate()
         const handleLogout = (event) => {
             event.preventDefault()
-            alert('You have logged out')
             sessionStorage.clear()
+            navigate('/')
             window.location.reload()
+
         }
 
-        if (!sessionStorage.getItem('token')) {
+    if (!sessionStorage.getItem('token')) {
 
     return(
 
@@ -26,7 +27,7 @@ function Nav() {
                 <Link to='/' className="nav-item nav-link active">Startsida</Link>                
                 <Link to='/LogIn ' className="nav-item nav-link"> Logga in </Link>
                 <Link to='/SignIn ' className="nav-item nav-link"> Bli medlem </Link>
-                <Link to='/Sok_kurser' className="nav-item nav-link">Sök kurser</Link>
+                <Link to='/Sok_kurser' className="nav-item nav-link"> Sök kurser</Link>
                 </div>
         </div>
         </nav>

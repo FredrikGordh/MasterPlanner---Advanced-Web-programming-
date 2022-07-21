@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import ReactDOM from 'react-dom/client';
-import LogIn from './LogIn.js'
+
 function Mina_Kurser(){
 
 
@@ -11,6 +11,7 @@ function Mina_Kurser(){
         const data = await fetch('/Mina_kurser'); 
         const courses = await data.json(); 
         setCourses(courses); 
+
     }
 
     useEffect( () => {
@@ -26,7 +27,9 @@ function Mina_Kurser(){
             }, 
             body: JSON.stringify(singleCourse)
         })
+
         fetchItems(); 
+
     }
 
 
@@ -50,35 +53,26 @@ function Mina_Kurser(){
         let AvanceradI = 0; 
         
         courses.map(item => {
-            let holder = item.HP; 
-            if (holder.length === 2) {
-                holder = holder[0]; 
-                holder = Number(holder)/2
-            }else if(holder.length === 3){
-                holder = holder[0] + holder[1]; 
-                holder = Number(holder)/2
-            }
-
             if (item.typ === 'Matematik'){
-                Math = Math + holder;
-
+                Math = Math + Number(item.HP);
             }else if (item.typ === 'Teknisk'){
-                teknisk = teknisk + holder; 
+                teknisk = teknisk + Number(item.HP); 
             }
         
-            if (item.Nivå === 'A1X'){
-                Avancerad = Avancerad + holder; 
+            if (item.nivå === 'A1X'){
+                Avancerad = Avancerad + Number(item.HP); 
             }
 
-            if (item.Master === 1 && item.Nivå === 'A1X'){
-                Master = Master + holder; 
+            if (item.Master === 1 && item.nivå === 'A1X'){
+                Master = Master + Number(item.HP); 
             }
 
-            if (item.typ === "Ekonomi" && item.Nivå === 'A1X'){
-                AvanceradI = AvanceradI + holder;
+            if (item.typ === "Ekonomi" && item.nivå === 'A1X'){
+                AvanceradI = AvanceradI + Number(item.HP);
             }
 
-            hp = hp + holder; 
+            let int = Number(item.HP);
+            hp = hp + int; 
         });
         
         let Array = [hp, Math, teknisk, Avancerad, Master, AvanceradI]; 
@@ -91,7 +85,7 @@ function Mina_Kurser(){
         const target = e.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-
+        console.log("Value: " + value);
         if(value) {
             item.Master = 1; 
         }else{
@@ -99,8 +93,6 @@ function Mina_Kurser(){
         }
 
         handleMaster(JSON.stringify(item)); 
-        const element = document.getElementById('master-div'); 
-        element.innerHTML = calculateHP()[4]; 
 
     }
 
@@ -127,7 +119,7 @@ function Mina_Kurser(){
                 <div class="card" id = "total">
                     <div class="card-body"> Matematik 45 HP</div>
                     <div class="card-body"> {calculateHP()[1]} </div>
-
+                    
                 </div>
                 <div class="card" id = "total">
                     <div class="card-body"> Teknsik 70 HP</div>
@@ -141,7 +133,7 @@ function Mina_Kurser(){
                 </div>
                 <div class="card" id = "total">
                     <div class="card-body"> Master 30 HP</div>
-                    <div class="card-body" id = "master-div"> {calculateHP()[4]} </div>
+                    <div class="card-body"> {calculateHP()[4]} </div>
                     
                 </div>
                 <div class="card" id = "total">
@@ -152,51 +144,54 @@ function Mina_Kurser(){
             </div> 
 
             <div class = "container-fluid">
-                <table class="table align-middle mb-0 bg-white" id = "mycourse-table">
-                    <thead class = "bg-light">
-                        <tr>
-                            <th>Kurskod</th>
-                            <th>Kursnamn</th>
-                            <th>HP</th>
-                            <th>Nivå</th>
-                            <th>Block</th>
-                            <th>Typ</th>
-                            <th>VOF</th>
-                            <th>Säsong</th>
-                            <th>Period</th>
-                            <th>Master</th>
-                            <th></th>
+            <table class="table align-middle mb-0 bg-white" id = "mycourse-table">
+                <thead class = "bg-light">
+                    <tr>
+                        <th>Kurskod</th>
+                        <th>Kursnamn</th>
+                        <th>HP</th>
+                        <th>Nivå</th>
+                        <th>Block</th>
+                        <th>Typ</th>
+                        <th>VOF</th>
+                        <th>Säsong</th>
+                        <th>Period</th>
+                        <th>Master</th>
+                        <th></th>
 
+                    </tr>
+                </thead>
+                <tbody>
+                    { 
+                    // Filtering searchbar
+                    courses.map(item => (
+                        <tr>
+                            <td>{item.Kurskod}</td>
+                            <td>{item.Kursnamn}</td>
+                            <td align='center'>{item.HP}</td>
+                            <td align='center'>{item.Nivå}</td>
+                            <td align='center'>{item.Block}</td>
+                            <td>{item.typ}</td>
+                            <td align='center'>{item.VOF}</td>
+                            <td>{item.Säsong}</td>
+                            <td align='center'>{item.Period}</td>
+                            <td align='center'>
+                            <div class="form-check form-switch">
+                                 <input class="form-check-input" type="checkbox" id={JSON.stringify(item)} onChange={(e) => handleInputChange(e, item)}>{handleChecked(item)}</input>
+                            </div> 
+                            </td>
+                            <td>
+                            <button onClick={() => setSingleCourse(item)}> X </button>
+                            </td> 
                         </tr>
-                    </thead>
-                    <tbody>
-                        { 
-                        // Filtering searchbar
-                        courses.map(item => (
-                            <tr>
-                                <td>{item.Kurskod}</td>
-                                <td>{item.Kursnamn}</td>
-                                <td align='center'>{item.HP}</td>
-                                <td align='center'>{item.Nivå}</td>
-                                <td align='center'>{item.Block}</td>
-                                <td>{item.typ}</td>
-                                <td align='center'>{item.VOF}</td>
-                                <td>{item.Säsong}</td>
-                                <td align='center'>{item.Period}</td>
-                                <td align='center'>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id={JSON.stringify(item)} onChange={(e) => handleInputChange(e, item)}>{handleChecked(item)}</input>
-                                </div> 
-                                </td>
-                                <td>
-                                <button onClick={() => setSingleCourse(item)}> X </button>
-                                </td> 
-                            </tr>
-                        ))
-                    }
-                    </tbody>
-                </table>
-            </div>               
+                    ))
+                }
+                </tbody>
+
+            </table>
+
+            </div>
+               
         </form> 
     )
 }

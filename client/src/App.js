@@ -41,7 +41,6 @@ function App() {
             <Nav />
             <Routes>
               <Route path="/" element={<Startsida/>} onClick={console.log("nu är vi hör")} />
-              {/* <Route path="/Mina_kurser" element={<Mina_kurser/>} /> */}
               <Route path="/LogIn" element ={<LogIn/>}/>
               <Route path="/SignIn" element ={<SignIn/>}/>
               <Route path="/Sok_kurser" element={<Sok_kurser/>} />
