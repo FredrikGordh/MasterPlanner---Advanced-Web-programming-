@@ -12,7 +12,6 @@ export const LogIn = ( props ) => {
     const[email, setEmail] = useState('')
     const [username, setUsername] = useState("")
     const[body, setBody] = useState('')
-    client/src/components/LogIn.js
     const[password, setPassword] = useState('')
     const[loginStatus, setLoginStatus] = useState(false)
     const navigate= useNavigate();
@@ -75,7 +74,6 @@ export const LogIn = ( props ) => {
             console.log("this is the email: " + data.email)
             setLoginStatus(true)
             handleUser(myData); 
-            client/src/components/LogIn.js
             navigate('/', 
             {
                 state: {
