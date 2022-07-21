@@ -8,6 +8,7 @@ function Min_profil(){
     const [items, setItems] = useState([]); 
     const [display, setDisplay] = useState(false); 
     const [userInfo, setUserInfo] = useState(); 
+    const[editPicture, setEditPicture] = useState(false)
     const fetchItems = async() => {
         const dataCourses = await fetch('/Mina_kurser'); 
         const courses = await dataCourses.json(); 
@@ -20,6 +21,7 @@ function Min_profil(){
 
     useEffect(() => {
         fetchItems(); 
+        console.log(editPicture)
     }, []); 
 
    
@@ -84,10 +86,27 @@ function Min_profil(){
                             <div class="card-body">
                                 <div class="d-flex flex-column align-items-center text-center">
                                     <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150"/>
-                                    <div class="mt-3">
+                                    {/* <div class="mt-3"> */}
                                         <h4>{setValues('Name')}</h4>
-                                        <button class="btn btn-outline-primary">Message</button>
-                                    </div>
+                                        {editPicture ? 
+                                        (  
+                                            
+                                                <form class="photo-form"action="/action_page.php">
+                                                    <div class="row justify-content-center mb-2">
+                                                        <input class="col-10 " type="file" id="myFile" name="filename"/>
+                                                    </div>
+                                                    
+                                                    <div class="row justify-content-center">
+                                                        {/* <input class="col-" id="myFile-submit" type="submit"/> */}
+                                                        <button class="btn btn-outline-primary" onClick={() => {setEditPicture(true)}} >Ladda upp</button>
+                                                    </div>
+                                                </form>
+                                                
+                                            
+                                        )
+                                         : (<button class="btn btn-outline-primary" onClick={() => {setEditPicture(true)}} >Edit photo</button>
+                                        )}
+                                    {/* </div> */}
                                 </div>
                             </div>
                         </div>
