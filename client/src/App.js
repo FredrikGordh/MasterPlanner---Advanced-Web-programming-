@@ -8,8 +8,8 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Nav from './components/Nav.js'
 import Startsida from './components/Startsida.js'
 import Sok_kurser from './components/Sok_kurser.js'
-import SignIn from "./components/SignIn.js"
-import Mina_kurser from "./components/Mina_Kurser.js"
+import SignIn from "./components/Signin.js"
+import Mina_kurser from "./components/Mina_kurser.js"
 import LogIn from "./components/LogIn.js"
 import Min_profil from "./components/Min_profil.js"
 import Profiles from "./components/Profiles.js"
@@ -19,9 +19,6 @@ import Profiles from "./components/Profiles.js"
 
 
 function App() {
-  
-
-
 
   if (!sessionStorage.getItem('token')) {
   return (
