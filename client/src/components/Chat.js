@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import ScrollToBottom from "react-scroll-to-bottom";
 import { getDatabase, ref, onValue, update } from "firebase/database"
-import { initializeApp } from "firebase/app";
 
 
 
@@ -13,20 +12,9 @@ function Chat ({socket, username, chatFriend}){
   const [conversationList, setConversationList] = useState([]);
   const [currentChatFriend, setCurrentChatFriend] = useState("");
 
-  // Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyDkrCNPAxqtYNBfjgBCXcXBkojwavsM7R8",
-  authDomain: "masterplanner-410b7.firebaseapp.com",
-  databaseURL: "https://masterplanner-410b7-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "masterplanner-410b7",
-  storageBucket: "masterplanner-410b7.appspot.com",
-  messagingSenderId: "83476523056",
-  appId: "1:83476523056:web:5a876005b9f386c2fe65f5"
-};
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+const database = getDatabase();
   
   useEffect(() => {
     socket.on("getMessage", (data) => {

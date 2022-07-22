@@ -1,4 +1,8 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react';
+import {ref, uploadBytes, getStorage, getDownloadURL} from "firebase/storage"
+import {app} from "../firebase-config.js"
+import {v4} from "uuid"
+
 
 function Min_profil(){
 
@@ -8,7 +12,14 @@ function Min_profil(){
     const [items, setItems] = useState([]); 
     const [display, setDisplay] = useState(false); 
     const [userInfo, setUserInfo] = useState(); 
-    const[editPicture, setEditPicture] = useState(false)
+    const [editPicture, setEditPicture] = useState(false)
+    const [isSelected, setIsSelected] = useState(false)
+    const [selectedFile, setSelectedFile] = useState()
+    const [imgRef, setImgRef] = useState()
+    const [imageUrl, setImageUrl] = useState()
+    const storage = getStorage(app)
+
+
     const fetchItems = async() => {
         const dataCourses = await fetch('/Mina_kurser'); 
         const courses = await dataCourses.json(); 
@@ -21,8 +32,18 @@ function Min_profil(){
 
     useEffect(() => {
         fetchItems(); 
-        console.log(editPicture)
     }, []); 
+
+    useEffect(() => {
+        console.log("trying to download image")
+        const getImage = async () => {
+            getDownloadURL(imgRef).then((fetchedURL) => {
+                setImageUrl(fetchedURL)
+                console.llg(fetchedURL)
+            })
+            
+        }
+    })
 
    
 
@@ -76,6 +97,38 @@ function Min_profil(){
         }
     }
 
+    const handleImageChange = (event) => {
+        setSelectedFile(event.target.files[0])
+        console.log(event.target.files[0])
+        setIsSelected(true)
+    }
+
+    const handleImageUpload = (e) => {
+        console.log("nu är vi i handle Image upload")
+        e.preventDefault()
+        console.log(userInfo)
+
+        if (selectedFile == null) return;
+        // `
+        const imageRef = ref(storage ,`images/${selectedFile.name}`)
+        setImgRef(imageRef)
+        console.log(selectedFile.name)
+        uploadBytes(imageRef, selectedFile).then(() => {
+            alert("image uploaded")
+        })
+        .catch((error) => alert(error) )
+
+        getDownloadURL(imageRef).then((downloadedURL) => {
+            // `url` is the download URL for 'images/stars.jpg'
+            setImageUrl(downloadedURL)
+            console.log(downloadedURL)
+        })
+        .catch((error) => {
+            console.log(error)
+            // Handle any errors
+        });
+    }
+
 
     return(
         <div className = "container" style={{marginTop: "10px"}}> 
@@ -85,20 +138,22 @@ function Min_profil(){
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex flex-column align-items-center text-center">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150"/>
+                                    <img src={imageUrl} alt="Admin" class="rounded-circle" width="150"/>
                                     {/* <div class="mt-3"> */}
                                         <h4>{setValues('Name')}</h4>
                                         {editPicture ? 
                                         (  
                                             
-                                                <form class="photo-form"action="/action_page.php">
+                                                <form class="photo-form"action="/action_page.php" onSubmit={(event) => {setEditPicture(false) 
+                                                    handleImageUpload(event)
+                                                    }}>
                                                     <div class="row justify-content-center mb-2">
-                                                        <input class="col-10 " type="file" id="myFile" name="filename"/>
+                                                        <input class="col-10 " type="file" id="myFile" name="filename" onChange={handleImageChange}/>
                                                     </div>
                                                     
                                                     <div class="row justify-content-center">
                                                         {/* <input class="col-" id="myFile-submit" type="submit"/> */}
-                                                        <button class="btn btn-outline-primary" onClick={() => {setEditPicture(true)}} >Ladda upp</button>
+                                                        <button class="btn btn-outline-primary" type ="submit" >Ladda upp</button>
                                                     </div>
                                                 </form>
                                                 
