@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS userInfo (
 	"LiuID" TEXT, 
 	"Master" TEXT, 
 	"Owner" TEXT,
+	"imgUrl" TEXT,
 	FOREIGN KEY (Owner) REFERENCES users(email)
 
 

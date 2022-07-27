@@ -6,8 +6,8 @@ import {v4} from "uuid"
 
 function Min_profil(){
 
-
-
+    
+    const [username, setUsername] = useState('')
     const [edit, setEdit] = useState(true); 
     const [items, setItems] = useState([]); 
     const [display, setDisplay] = useState(false); 
@@ -17,7 +17,10 @@ function Min_profil(){
     const [selectedFile, setSelectedFile] = useState()
     const [imgRef, setImgRef] = useState()
     const [imageUrl, setImageUrl] = useState()
+
+
     const storage = getStorage(app)
+
 
 
     const fetchItems = async() => {
@@ -32,6 +35,8 @@ function Min_profil(){
 
     useEffect(() => {
         fetchItems(); 
+        setUsername(sessionStorage.getItem('email'))
+
     }, []); 
 
     useEffect(() => {
@@ -48,8 +53,10 @@ function Min_profil(){
    
 
     const handleEdit = (e) => {
+        alert("stanna")
         const button = document.getElementById("edit-button"); 
         let values = getValues(); 
+        console.log(values)
         if (button.innerHTML === "Spara ändringar"){
             button.innerHTML = "Edit"; 
             fetch('http://localhost:3000/My_profile', {
@@ -64,14 +71,20 @@ function Min_profil(){
         }
     }
 
-
     function getValues(){
         const idList = ["Name", "ProfileEmail", "LiuID", "Master"]; 
         let values = []; 
         idList.forEach(id => {
+  
             let input = document.getElementById(id+"-input"); 
             values.push(input.value); 
         })
+        if (imageUrl == null){
+            values.push("https://bootdey.com/img/Content/avatar/avatar7.png")
+        }else {
+            values.push(imageUrl)
+        }
+        
         return values; 
     }
 
@@ -104,28 +117,21 @@ function Min_profil(){
     }
 
     const handleImageUpload = (e) => {
-        console.log("nu är vi i handle Image upload")
         e.preventDefault()
-        console.log(userInfo)
 
         if (selectedFile == null) return;
-        // `
-        const imageRef = ref(storage ,`images/${selectedFile.name}`)
+        const imageRef = ref(storage , 'images/users/' + username + '/' + username)
         setImgRef(imageRef)
-        console.log(selectedFile.name)
         uploadBytes(imageRef, selectedFile).then(() => {
             alert("image uploaded")
         })
         .catch((error) => alert(error) )
 
         getDownloadURL(imageRef).then((downloadedURL) => {
-            // `url` is the download URL for 'images/stars.jpg'
             setImageUrl(downloadedURL)
-            console.log(downloadedURL)
         })
         .catch((error) => {
             console.log(error)
-            // Handle any errors
         });
     }
 

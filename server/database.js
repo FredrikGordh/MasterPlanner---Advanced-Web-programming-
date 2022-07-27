@@ -113,3 +113,4 @@ db.insertAsync = function (sql, email, password){
 
 
 module.exports = db;
+

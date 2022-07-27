@@ -12,14 +12,15 @@ router.post('/My_profile', async (req,res) => {
     let database = await db.allAsync(sql, user); 
 
     if (database.length > 0){
-        insertQuery = 'UPDATE userInfo set (Name, ProfileEmail, LiuID, Master) = (?,?,?,?) where (Owner) = (?)';  
+        insertQuery = 'UPDATE userInfo set (Name, ProfileEmail, LiuID, Master, imgURL) = (?,?,?,?,?) where (Owner) = (?)';  
     }else{
-        insertQuery = 'INSERT or IGNORE INTO userInfo(Name, ProfileEmail, LiuID, Master, Owner) VALUES (?,?,?,?,?)';   
+        insertQuery = 'INSERT or IGNORE INTO userInfo(Name, ProfileEmail, LiuID, Master, imgURL, Owner) VALUES (?,?,?,?,?,?)';   
     }
-    const update = await db.runAsync(insertQuery, [req.body[0], req.body[1], req.body[2], req.body[3], user]); 
+    const update = await db.runAsync(insertQuery, [req.body[0], req.body[1], req.body[2], req.body[3], req.body[4], user]); 
     database = await db.allAsync(sql, user); 
     res.json(database); 
 })
+
 
 router.post('/My_profile/user', async (req,res) => {
    user = req.body.email; 
@@ -34,3 +35,4 @@ router.get('/My_profile', async (req,res) => {
 
 
 module.exports = router; 
+
