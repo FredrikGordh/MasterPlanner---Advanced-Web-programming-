@@ -1,5 +1,4 @@
 import React, {useEffect, useState, useContext} from 'react' 
-import { io } from 'socket.io-client'
 import {useNavigate} from 'react-router-dom';
 import { SocketContext } from '../context/socket.js'
 
@@ -46,6 +45,10 @@ export const LogIn = ( props ) => {
             body: JSON.stringify(data)
         })
     }
+    
+
+   
+
 
     const handleSubmit  = (e) => {
         e.preventDefault(); 

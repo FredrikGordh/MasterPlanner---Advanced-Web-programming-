@@ -7,7 +7,7 @@ const signIn = require('./server/api/SignIn')
 const logIn = require('./server/api/LogIn')
 const my_profile = require('./server/api/My_profile')
 const startsida = require('./server/api/Startsida')
-const chat = require('./server/api/Chat')
+const channel = require('./server/api/Channel.js')
 const users = require('./server/api/Users.js')
 
 
@@ -33,7 +33,7 @@ app.use('/', signIn);
 app.use('/',logIn);
 app.use('/', my_profile); 
 app.use('/', startsida); 
-app.use('/', chat); 
+app.use('/', channel); 
 app.use('/', users)
 
 let userList = []
@@ -55,7 +55,6 @@ const getUser = (username) => {
     
 
 // Chat and socket functionality
-
 // On connection all online users are added into the UserList array
 io.on('connection', (socket) => {
     

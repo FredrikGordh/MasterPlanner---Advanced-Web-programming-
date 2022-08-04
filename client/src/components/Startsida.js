@@ -14,26 +14,25 @@ function Startsida(){
     const [owner, setOwner] = useState(); 
     const [course, setCourses] = useState([]); 
     const [searchTerm, setSearchTerm] = useState(''); 
-    const [imageUrlList, setImageUrlList] = useState([])
 
     const navigate = useNavigate(); 
     const storage = getStorage(app)
 
     const fetchItems = async() => {
-        const userData = await fetch('/Startsida'); 
-        const all_usernamesData = await fetch ("/AllUsers")
+        const userData = await fetch('/Users/Fetch_all_userinfo'); 
+        const all_usernamesData = await fetch ("/Users/Fetch_all_usernames")
         const all_usernames = await all_usernamesData.json()
         const user_info = await userData.json(); 
         setUsersInfo(user_info); 
         setAllUsernames(all_usernames.getAllUsers)
         console.log("Userinfo list")
         console.log(user_info)
-        fetchProfileImages()
     }
+
+    
 
     useEffect(() => {
         fetchItems(); 
-        
     }, []); 
 
     const handleCourses = async(e) => {
@@ -84,50 +83,7 @@ function Startsida(){
         }
     }
 
-    const fetchProfileImages = () => {
 
-        usersInfo.map(user => {
-            console.log(user)
-            const imageRef = ref(storage , 'images/users/' + user.email + '/' + user.email)
-        })
-        // allUsernames.map(user => {
-        //     console.log(user.email)
-        //     const imageRef = ref(storage , 'images/users/' + user.email + '/' + user.email)
-            
-        //     getDownloadURL(imageRef).then((downloadedURL) => {
-        //         // `url` is the download URL for 'images/stars.jpg'
-        //         console.log(user.email)
-        //         console.log(downloadedURL)
-        //         setImageUrlList((prev) => [...prev, downloadedURL])
-        //     })
-        //     .catch((error) => {
-        //         console.log(error)
-        //         // Handle any errors
-        //     });
-        // }) 
-        
-    }
-
-
-    // const getOldConversation = async () => { 
-    //     const dbRef = ref(database, '/messages/' + username + '/' + chatFriend)
-    //       onValue(dbRef, (snapshot) => {
-      
-    //         if(snapshot.exists()){
-    //           let records = []
-    //             snapshot.forEach(childSnapshot => {
-    //               let data = childSnapshot.val()
-    //               records.push(data)
-    //           })
-    //           console.log("records")
-    //           console.log(records)
-    //           console.log(conversationList)
-    //         setConversationList(records)
-    //         }else{
-    //           console.log("there is no old conversation")
-    //         }
-    //       })
-    //     }
    
     if (usersInfo.length > 0){
         return (

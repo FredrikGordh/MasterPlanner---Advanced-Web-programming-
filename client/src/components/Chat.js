@@ -7,7 +7,7 @@ import { getDatabase, ref, onValue, update } from "firebase/database"
 // Compontent for chat functionality within the conversation
 // Fetching and writing conversation to firebase realtime database
 // Using socket.io to simlplify the connection between different users.
-function Chat ({socket, username, chatFriend}){
+function Chat ({socket, username, userImgUrl, chatFriend, chatFriendImgUrl}){
   const [sentMessage, setSentMessage] = useState("");
   const [conversationList, setConversationList] = useState([]);
   const [currentChatFriend, setCurrentChatFriend] = useState("");
@@ -79,7 +79,6 @@ const database = getDatabase();
           console.log("there is no old conversation")
         }
       })
-   
     }
 
   // Send message functionality after pressing enter or button
@@ -106,7 +105,6 @@ const database = getDatabase();
     } catch(err) {
       console.log(err)
     }
-      
     }
   };
 
@@ -121,7 +119,11 @@ const database = getDatabase();
           return (
             <div id={username === messageContent.author ? "you" : "other"} >
               <div class="message-row row col-12 ">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="portrait-message "></img>
+                    {username === messageContent.author ? 
+                    (<img src={userImgUrl === null ? "https://bootdey.com/img/Content/avatar/avatar7.png" : userImgUrl} class="portrait-message "></img>) 
+                    :
+                     (<img src={chatFriendImgUrl === null ? "https://bootdey.com/img/Content/avatar/avatar7.png" : chatFriendImgUrl} class="portrait-message "></img>)}
+                    
                     <p class="message-text ">{messageContent.message}</p>
               </div>
               <div class="time ">{messageContent.time}</div>

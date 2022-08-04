@@ -12,10 +12,18 @@ router.get('/User', async(req,res) => {
     console.log('LogIn API: This is what is sent from LogIn api ' + sql + ' ' + email)
 })
 
-router.get('/AllUsers', async(req,res) => {
+router.get('/Users/Fetch_all_usernames', async(req,res) => {
     const sql = 'SELECT email FROM users ;'
     const getAllUsers = await db.allAsync(sql)
     res.json({ getAllUsers})
 })
+
+router.get('/Users/Fetch_all_userinfo', async (req,res) => {
+    let sql = "SELECT DISTINCT * FROM userInfo"
+    let database = await db.allAsync(sql); 
+    return res.json(database);
+    
+}); 
+
 
 module.exports = router;

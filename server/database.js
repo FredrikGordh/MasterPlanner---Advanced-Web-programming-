@@ -15,8 +15,6 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
 }); 
 
 
-
-
 db.serialize(() => {
     // db.run runs your SQL query against the DB
     db.run('PRAGMA foreign_keys=OFF;');
@@ -27,8 +25,6 @@ db.serialize(() => {
         // In my case the it was `);`
         query += ');';
         if(query[2] !== ';') {
-
-
         db.run(query, (err) => {
           
               if(err) console.log("err: " + err);
@@ -51,7 +47,7 @@ db.allAsync = function (sql, params) {
 
 db.getAsync = function (sql, params) {
   var that = this;
-  console.log('This is what is sent to Login DB API: ' + sql,params)
+  // console.log('This is what is sent to DB API: ' + sql,params)
   return new Promise(function (resolve, reject) {
     that.get(sql, params, function (error, row) {
       if (error) reject(error);

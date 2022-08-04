@@ -29,7 +29,10 @@ function Min_profil(){
         setItems(courses); 
         const dataUserInfo = await fetch('/My_profile'); 
         const userInfo = await dataUserInfo.json(); 
+        console.log("userinfo:")
+        console.log(userInfo)
         setUserInfo(userInfo); 
+        // console.log(dataUserInfo)
         setDisplay(false); 
     }
 
@@ -40,7 +43,6 @@ function Min_profil(){
     }, []); 
 
     useEffect(() => {
-        console.log("trying to download image")
         const getImage = async () => {
             getDownloadURL(imgRef).then((fetchedURL) => {
                 setImageUrl(fetchedURL)
@@ -50,7 +52,6 @@ function Min_profil(){
         }
     })
 
-   
 
     const handleEdit = (e) => {
         alert("stanna")
@@ -84,7 +85,6 @@ function Min_profil(){
         }else {
             values.push(imageUrl)
         }
-        
         return values; 
     }
 
@@ -99,7 +99,6 @@ function Min_profil(){
                 return ''; 
             }
     }
-    
 
     function editInfo(id){
         let div = document.getElementById(id); 
@@ -111,14 +110,15 @@ function Min_profil(){
     }
 
     const handleImageChange = (event) => {
+        console.log("handle välj fil")
         setSelectedFile(event.target.files[0])
         console.log(event.target.files[0])
         setIsSelected(true)
     }
 
     const handleImageUpload = (e) => {
+        
         e.preventDefault()
-
         if (selectedFile == null) return;
         const imageRef = ref(storage , 'images/users/' + username + '/' + username)
         setImgRef(imageRef)
@@ -145,7 +145,6 @@ function Min_profil(){
                             <div class="card-body">
                                 <div class="d-flex flex-column align-items-center text-center">
                                     <img src={imageUrl} alt="Admin" class="rounded-circle" width="150"/>
-                                    {/* <div class="mt-3"> */}
                                         <h4>{setValues('Name')}</h4>
                                         {editPicture ? 
                                         (  
@@ -154,11 +153,10 @@ function Min_profil(){
                                                     handleImageUpload(event)
                                                     }}>
                                                     <div class="row justify-content-center mb-2">
-                                                        <input class="col-10 " type="file" id="myFile" name="filename" onChange={handleImageChange}/>
+                                                        <input class="col-10 " type="file" id="myFile" name="filename" onChange={(event) => {handleImageChange(event)}}/>
                                                     </div>
                                                     
                                                     <div class="row justify-content-center">
-                                                        {/* <input class="col-" id="myFile-submit" type="submit"/> */}
                                                         <button class="btn btn-outline-primary" type ="submit" >Ladda upp</button>
                                                     </div>
                                                 </form>
@@ -167,7 +165,6 @@ function Min_profil(){
                                         )
                                          : (<button class="btn btn-outline-primary" onClick={() => {setEditPicture(true)}} >Edit photo</button>
                                         )}
-                                    {/* </div> */}
                                 </div>
                             </div>
                         </div>
