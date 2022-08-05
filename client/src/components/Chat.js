@@ -112,7 +112,7 @@ const database = getDatabase();
   return (
     <div className="chat-window">
       <div className="chat-header">
-        <p>{" I am user " + username + " chatting with " + chatFriend}</p>
+        <h4>{chatFriend}</h4>
       </div>
       <ScrollToBottom className="message-dialog">
         {conversationList.map((messageContent,index) => {

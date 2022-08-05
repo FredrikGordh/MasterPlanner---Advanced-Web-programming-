@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {ref, uploadBytes, getStorage, getDownloadURL} from "firebase/storage"
 import {app} from "../firebase-config.js"
-import {v4} from "uuid"
+
 
 
 function Min_profil(){
@@ -29,7 +29,10 @@ function Min_profil(){
         setItems(courses); 
         const dataUserInfo = await fetch('/My_profile'); 
         const userInfo = await dataUserInfo.json(); 
-        setImageUrl(userInfo[0].imgUrl)
+        
+        if(userInfo.length != 0){
+            setImageUrl(userInfo[0].imgUrl)
+        }
         setUserInfo(userInfo); 
         setDisplay(false); 
     }
@@ -40,21 +43,20 @@ function Min_profil(){
         console.log(userInfo)
     }, []); 
 
-    useEffect(() => {
-        const getImage = async () => {
-            getDownloadURL(imgRef).then((fetchedURL) => {
-                setImageUrl(fetchedURL)
-                console.llg(fetchedURL)
-            })
+    // useEffect(() => {
+    //     const getImage = async () => {
+    //         getDownloadURL(imgRef).then((fetchedURL) => {
+    //             setImageUrl(fetchedURL)
+    //             console.llg(fetchedURL)
+    //         })
             
-        }
-    })
+    //     }
+    // })
 
 
     const handleEdit = (e) => {
         const button = document.getElementById("edit-button"); 
         let values = getValues(); 
-        // console.log(values)
         console.log("data: ")
         if (button.innerHTML === "Spara ändringar"){
             button.innerHTML = "Edit"; 
@@ -147,7 +149,11 @@ function Min_profil(){
                         <div className="card">
                             <div className="card-body">
                                 <div className="d-flex flex-column align-items-center text-center">
-                                    <img src={imageUrl} alt="Admin" className="rounded-circle" width="150"/>
+                                {imageUrl == null? 
+                                    (<img src={"https://bootdey.com/img/Content/avatar/avatar7.png"} alt="Admin" className="rounded-circle" width="150"/>)
+                                    :
+                                    ( <img src={imageUrl} alt="Admin" className="rounded-circle" width="150"/>)}
+                                   
                                         <h4>{setValues('Name')}</h4>
                                         {editPicture ? 
                                         (  

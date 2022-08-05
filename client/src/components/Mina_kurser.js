@@ -112,33 +112,33 @@ function Mina_Kurser(){
         <form id = "form" onSubmit={handleSubmit}>
              <div className = "container-fluid" id = "card-holder">
                 <div className="card" id = "total">
-                    <div className="card-body"> 300 HP </div>
-                    <div className="card-body"> {calculateHP()[0]} </div>
+                    <div className="card-body d-flex align-items-stretch"> 300 HP </div>
+                    <div className="card-body d-flex align-items-stretch"> {calculateHP()[0]} </div>
                     
                 </div>
                 <div className="card" id = "total">
-                    <div className="card-body"> Matematik 45 HP</div>
-                    <div className="card-body"> {calculateHP()[1]} </div>
+                    <div className="card-body d-flex align-items-stretch"> Matematik 45 HP</div>
+                    <div className="card-body d-flex align-items-stretch"> {calculateHP()[1]} </div>
                     
                 </div>
                 <div className="card" id = "total">
-                    <div className="card-body"> Teknsik 70 HP</div>
-                    <div className="card-body"> {calculateHP()[2]} </div>
+                    <div className="card-body d-flex align-items-stretch"> Teknsik 70 HP</div>
+                    <div className="card-body d-flex align-items-stretch"> {calculateHP()[2]} </div>
                     
                 </div>
                 <div className="card" id = "total">
-                    <div className="card-body"> Avancerad 90 HP</div>
-                    <div className="card-body"> {calculateHP()[3]} </div>
+                    <div className="card-body d-flex align-items-stretch"> Avancerad 90 HP</div>
+                    <div className="card-body d-flex align-items-stretch"> {calculateHP()[3]} </div>
                     
                 </div>
                 <div className="card" id = "total">
-                    <div className="card-body"> Master 30 HP</div>
-                    <div className="card-body"> {calculateHP()[4]} </div>
+                    <div className="card-body d-flex align-items-stretch"> Master 30 HP</div>
+                    <div className="card-body d-flex align-items-stretch"> {calculateHP()[4]} </div>
                     
                 </div>
                 <div className="card" id = "total">
-                    <div className="card-body"> Avancerade inom Industriell ekonomi 30 HP </div>
-                    <div className="card-body"> {calculateHP()[5]} </div>
+                    <div className="card-body d-flex align-items-stretch w-125"> Avancerade Indek 30 HP </div>
+                    <div className="card-body d-flex align-items-stretch"> {calculateHP()[5]} </div>
                     
                 </div>
             </div> 

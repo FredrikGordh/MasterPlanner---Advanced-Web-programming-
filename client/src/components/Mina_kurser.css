@@ -1,0 +1,29 @@
+#mycourse-table{
+    box-shadow: 2px 3px 2px 3px #888888;
+    margin-top: 20px; 
+    background-color: white;
+}
+
+#form{
+    margin: 0 auto; 
+    display: flex;
+    flex-direction: column;
+}
+
+#card-holder{
+    display: flex; 
+    flex-direction: row;
+    margin-top: 20px; 
+    justify-content: center;
+    height: 139px;
+}
+
+#total{
+    height: 139px;
+}
+
+#total{
+    width: 200px; 
+    height: fit-content;
+    font-size: small;
+}

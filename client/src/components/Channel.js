@@ -36,8 +36,6 @@ function Channel (){
         socket.on("getUsers", users =>{
             setOnlineUsers(users)  
         })
-
-
     }, [])
 
     useEffect(() => {
@@ -47,7 +45,6 @@ function Channel (){
     // Adding current user to list of online users in api list through socket
     useEffect(() => {
         socket.emit("addUser", username)
-        // fetchUserIMG(username)    
     }, [username])
     
     // Functionality for joining a new conversation
@@ -78,18 +75,6 @@ function Channel (){
     }
     }
 
-
-    // const fetchUserIMG = (input) => {     
-    //     console.log(input)
-    //     if (input != ""){
-    //         input.map((user, index) => {    
-    //             if (user.Owner == sessionStorage.get('email')){
-    //                 setUserImgUrl(user.imgUrl)
-    //             }
-    //         })
-    //     }
-    // }
-    
 
     return(
         <div className="body-chat-window">
