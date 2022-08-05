@@ -115,26 +115,26 @@ const database = getDatabase();
         <p>{" I am user " + username + " chatting with " + chatFriend}</p>
       </div>
       <ScrollToBottom className="message-dialog">
-        {conversationList.map((messageContent) => {
+        {conversationList.map((messageContent,index) => {
           return (
-            <div id={username === messageContent.author ? "you" : "other"} >
-              <div class="message-row row col-12 ">
+            <div key={Math.random()} id={username === messageContent.author ? "you" : "other"} >
+              <div key={Math.random()} className="message-row row col-12 ">
                     {username === messageContent.author ? 
-                    (<img src={userImgUrl === null ? "https://bootdey.com/img/Content/avatar/avatar7.png" : userImgUrl} class="portrait-message "></img>) 
+                    (<img key={Math.random()} src={userImgUrl === null ? "https://bootdey.com/img/Content/avatar/avatar7.png" : userImgUrl} className="portrait-message "></img>) 
                     :
-                     (<img src={chatFriendImgUrl === null ? "https://bootdey.com/img/Content/avatar/avatar7.png" : chatFriendImgUrl} class="portrait-message "></img>)}
+                     (<img  key={Math.random()} src={chatFriendImgUrl === null ? "https://bootdey.com/img/Content/avatar/avatar7.png" : chatFriendImgUrl} className="portrait-message "></img>)}
                     
-                    <p class="message-text ">{messageContent.message}</p>
+                    <p key={Math.random()} className="message-text ">{messageContent.message}</p>
               </div>
-              <div class="time ">{messageContent.time}</div>
+              <div key={Math.random()} className="time ">{messageContent.time}</div>
             </div>
           );
         })}
       </ ScrollToBottom>
       <div className="chat-footer">
-        <div class="chat-input-row row">
+        <div className="chat-input-row row">
           <input
-            class="chat-input"
+            className="chat-input"
             type="text"
             value={sentMessage}
             placeholder="Skriv ett meddelande..."
@@ -145,7 +145,7 @@ const database = getDatabase();
               event.key === "Enter" && sendMessage();
             }}
           />
-          <button class="btn btn-chat  " onClick={sendMessage}><i class="bi bi-send-fill"></i></button>
+          <button className="btn btn-chat  " onClick={sendMessage}><i className="bi bi-send-fill"></i></button>
         </div>
       </div>
     </div>

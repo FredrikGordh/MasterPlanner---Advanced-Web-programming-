@@ -32,7 +32,6 @@ function Min_profil(){
         console.log("userinfo:")
         console.log(userInfo)
         setUserInfo(userInfo); 
-        // console.log(dataUserInfo)
         setDisplay(false); 
     }
 
