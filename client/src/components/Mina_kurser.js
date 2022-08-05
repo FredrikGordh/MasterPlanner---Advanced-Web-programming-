@@ -110,42 +110,42 @@ function Mina_Kurser(){
 
     return( 
         <form id = "form" onSubmit={handleSubmit}>
-             <div class = "container-fluid" id = "card-holder">
-                <div class="card" id = "total">
-                    <div class="card-body"> 300 HP </div>
-                    <div class="card-body"> {calculateHP()[0]} </div>
+             <div className = "container-fluid" id = "card-holder">
+                <div className="card" id = "total">
+                    <div className="card-body"> 300 HP </div>
+                    <div className="card-body"> {calculateHP()[0]} </div>
                     
                 </div>
-                <div class="card" id = "total">
-                    <div class="card-body"> Matematik 45 HP</div>
-                    <div class="card-body"> {calculateHP()[1]} </div>
+                <div className="card" id = "total">
+                    <div className="card-body"> Matematik 45 HP</div>
+                    <div className="card-body"> {calculateHP()[1]} </div>
                     
                 </div>
-                <div class="card" id = "total">
-                    <div class="card-body"> Teknsik 70 HP</div>
-                    <div class="card-body"> {calculateHP()[2]} </div>
+                <div className="card" id = "total">
+                    <div className="card-body"> Teknsik 70 HP</div>
+                    <div className="card-body"> {calculateHP()[2]} </div>
                     
                 </div>
-                <div class="card" id = "total">
-                    <div class="card-body"> Avancerad 90 HP</div>
-                    <div class="card-body"> {calculateHP()[3]} </div>
+                <div className="card" id = "total">
+                    <div className="card-body"> Avancerad 90 HP</div>
+                    <div className="card-body"> {calculateHP()[3]} </div>
                     
                 </div>
-                <div class="card" id = "total">
-                    <div class="card-body"> Master 30 HP</div>
-                    <div class="card-body"> {calculateHP()[4]} </div>
+                <div className="card" id = "total">
+                    <div className="card-body"> Master 30 HP</div>
+                    <div className="card-body"> {calculateHP()[4]} </div>
                     
                 </div>
-                <div class="card" id = "total">
-                    <div class="card-body"> Avancerade inom Industriell ekonomi 30 HP </div>
-                    <div class="card-body"> {calculateHP()[5]} </div>
+                <div className="card" id = "total">
+                    <div className="card-body"> Avancerade inom Industriell ekonomi 30 HP </div>
+                    <div className="card-body"> {calculateHP()[5]} </div>
                     
                 </div>
             </div> 
 
-            <div class = "container-fluid">
-            <table class="table align-middle mb-0 bg-white" id = "mycourse-table">
-                <thead class = "bg-light">
+            <div className = "container-fluid">
+            <table className="table align-middle mb-0 bg-white" id = "mycourse-table">
+                <thead className = "bg-light">
                     <tr>
                         <th>Kurskod</th>
                         <th>Kursnamn</th>
@@ -176,8 +176,8 @@ function Mina_Kurser(){
                             <td>{item.Säsong}</td>
                             <td align='center'>{item.Period}</td>
                             <td align='center'>
-                            <div class="form-check form-switch">
-                                 <input class="form-check-input" type="checkbox" id={JSON.stringify(item)} onChange={(e) => handleInputChange(e, item)}>{handleChecked(item)}</input>
+                            <div className="form-check form-switch">
+                                 <input className="form-check-input" type="checkbox" id={JSON.stringify(item)} onChange={(e) => handleInputChange(e, item)}>{handleChecked(item)}</input>
                             </div> 
                             </td>
                             <td>
