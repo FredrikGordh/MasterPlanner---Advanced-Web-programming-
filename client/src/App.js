@@ -25,7 +25,11 @@ import Channel from "./components/Channel.js"
 import "./App.css";
 import "./components/Chat.css"
 import "./components/Channel.css"
-
+import "./components/Mina_kurser.css"
+import "./components/Startsida.css"
+import "./components/Min_profil.css"
+import "./components/Sok_kurser.css"
+import "./components/Signin.css"
 
 
 function App() {

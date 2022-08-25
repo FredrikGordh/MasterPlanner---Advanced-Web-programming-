@@ -37,13 +37,13 @@ return(
     <h1>Bli medlem</h1>
   <div className="form-group r">
       <div className="row d-flex justify-content-center">
-    <label for="email">E-post:</label>
+    <label >E-post:</label>
     </div>
     <div className="row d-flex justify-content-center">
         <div className="col-4 d-flex justify-content-center">
     <input   
     type="email" 
-    className="form-control" S
+    className="form-control" 
     placeholder="Enter email" 
     // value={email}
     onChange={ (e) => setEmail(e.target.value)}
@@ -53,7 +53,7 @@ return(
   </div>
   <div className="form-group ">
     <div className="row row d-flex justify-content-center">
-    <label for="pwd">Lösenord:</label>
+    <label >Lösenord:</label>
     </div>
     <div className="row row d-flex justify-content-center">
         <div className="col-4" style={{textAlign:"center"}}>

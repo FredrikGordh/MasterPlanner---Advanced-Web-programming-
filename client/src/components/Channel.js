@@ -10,18 +10,41 @@ function Channel (){
     const [chatFriend, setChatFriend] = useState("")
     const [showChat, setShowChat] = useState(false)
     const [onlineUsers, setOnlineUsers] = useState([])
+    const [userImgUrl,setUserImgUrl] = useState()
+    const [chatFriendImgUrl, setChatFriendImgUrl] = useState()
+    const [testList, setTestList] = useState([])
+    const [usersInfo, setUsersInfo] = useState([]); 
+
+        const fetchUserInfo = async () => {
+            //All users
+            const userData =  await fetch('/Users/Fetch_all_userinfo'); 
+            const user_info = await userData.json(); 
+            setUsersInfo(user_info); 
+            
+            user_info.map((user, index) => {    
+                if (user.Owner == sessionStorage.getItem('email')){
+                    setUserImgUrl(user.imgUrl)
+                }
+            })
+    } 
 
     // Fetching online users through socket and api list
     useEffect (() => {
         setUsername(sessionStorage.getItem('email'))
+        fetchUserInfo()
+
         socket.on("getUsers", users =>{
-            setOnlineUsers(users)
+            setOnlineUsers(users)  
         })
     }, [])
+
+    useEffect(() => {
+        fetchChatFriendImg(onlineUsers)
+    }, [onlineUsers])
     
     // Adding current user to list of online users in api list through socket
     useEffect(() => {
-        socket.emit("addUser", username)    
+        socket.emit("addUser", username)
     }, [username])
     
     // Functionality for joining a new conversation
@@ -34,23 +57,42 @@ function Channel (){
             setShowChat(true)
         }
     }
+
+    const fetchChatFriendImg = (input) => {
+        setTestList([])
+        if (input != ""){
+        onlineUsers.map((onlineUser, index) => {
+            usersInfo.map((user, index) => {    
+                if (onlineUser.username == user.Owner && onlineUser != username){
+                    let data= {
+                        username: user.Owner,
+                        imgUrl: user.imgUrl
+                    }
+                    setTestList((prev) => [...prev, data])          
+                }
+            })
+        }) 
+    }
+    }
+
+
     return(
-        <body class="body-chat-window">
-                <div class="row">
-                    <div class="joinChatContainer col-4">
-                        <h3 class="headline-chat">Chattar</h3>
+        <div className="body-chat-window">
+                <div className="row">
+                    <div className="joinChatContainer col-4">
+                        <h3 className="headline-chat">Chattar</h3>
                         <center>
-                            {onlineUsers.map((users,index) => {
-                                if (users.username == username){
-                                    {console.log("Denna user ska inte läggas till " + users.username)}
+                            {testList.map((user,index) => {
+                                if (user.username == username){
                                 }else{
                             return(
-                                <div class="chat-list-div col-12" > 
-                                    <ul class="chat-list-object" id={index} onClick={() => {
+                                <div key={Math.random()} className="chat-list-div col-12" > 
+                                    <ul key={Math.random()} className="chat-list-object" id={index} onClick={() => {
                                         setChatFriend(document.getElementById(index).textContent)
+                                        setChatFriendImgUrl(user.imgUrl)
                                     }}>
-                                        <img class="portrait-conversation " src ="https://bootdey.com/img/Content/avatar/avatar7.png" ></img>
-                                        {users.username}
+                                        <img key={Math.random()} className="portrait-conversation " src ={user.imgUrl === null ? "https://bootdey.com/img/Content/avatar/avatar7.png" : user.imgUrl} ></img>
+                                        {user.username}
                                     </ul>
                                 </div>
                             )}
@@ -60,16 +102,17 @@ function Channel (){
                     </div>
                         {!showChat ? (
                         <center>  
-                        <div class="col-6"> {chatFriend}</div>
+                        <div className="col-6"> {chatFriend}</div>
                         </center>
                         ) : (
                             <center>
-                            <Chat socket={socket} username={username} chatFriend = {chatFriend} ></Chat>
+                            <Chat socket={socket} username={username} userImgUrl={userImgUrl} chatFriend = {chatFriend} chatFriendImgUrl={chatFriendImgUrl} ></Chat>
                             </center>
                         )}  
                     </div>
-        </body>
+        </div>
     )
 }
 
 export default Channel;
+

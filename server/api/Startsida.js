@@ -9,12 +9,7 @@ const sql1 = "SELECT DISTINCT * FROM MyCourses WHERE (Owner) = (?)"
 
 
 
-router.get('/Startsida', async (req,res) => {
-    let sql = "SELECT DISTINCT * FROM userInfo"
-    let database = await db.allAsync(sql); 
-    return res.json(database);
-    
-}); 
+
 
 router.get('/Startsida/:owner', async (req, res) => {
     const id = req.params; 

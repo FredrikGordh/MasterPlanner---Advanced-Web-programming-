@@ -49,10 +49,12 @@
     "bootstrap-icons": "^1.8.3",
     "cors": "^2.8.5",
     "firebase": "^9.9.0",
+    "firebase-tools": "^11.3.0",
     "mysql": "^2.18.1",
     "nodeenv": "^3.0.74",
     "react-bootstrap-icons": "^1.8.4",
     "react-scroll-to-bottom": "^4.2.0",
-    "socket.io-client": "^4.5.1"
+    "socket.io-client": "^4.5.1",
+    "uuid": "^8.3.2"
   }
 }

@@ -1,32 +1,20 @@
 import React, {useEffect, useState} from 'react'
 import ScrollToBottom from "react-scroll-to-bottom";
 import { getDatabase, ref, onValue, update } from "firebase/database"
-import { initializeApp } from "firebase/app";
 
 
 
 // Compontent for chat functionality within the conversation
 // Fetching and writing conversation to firebase realtime database
 // Using socket.io to simlplify the connection between different users.
-function Chat ({socket, username, chatFriend}){
+function Chat ({socket, username, userImgUrl, chatFriend, chatFriendImgUrl}){
   const [sentMessage, setSentMessage] = useState("");
   const [conversationList, setConversationList] = useState([]);
   const [currentChatFriend, setCurrentChatFriend] = useState("");
 
-  // Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyDkrCNPAxqtYNBfjgBCXcXBkojwavsM7R8",
-  authDomain: "masterplanner-410b7.firebaseapp.com",
-  databaseURL: "https://masterplanner-410b7-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "masterplanner-410b7",
-  storageBucket: "masterplanner-410b7.appspot.com",
-  messagingSenderId: "83476523056",
-  appId: "1:83476523056:web:5a876005b9f386c2fe65f5"
-};
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+const database = getDatabase();
   
   useEffect(() => {
     socket.on("getMessage", (data) => {
@@ -91,7 +79,6 @@ const database = getDatabase(app);
           console.log("there is no old conversation")
         }
       })
-   
     }
 
   // Send message functionality after pressing enter or button
@@ -118,7 +105,6 @@ const database = getDatabase(app);
     } catch(err) {
       console.log(err)
     }
-      
     }
   };
 
@@ -126,25 +112,29 @@ const database = getDatabase(app);
   return (
     <div className="chat-window">
       <div className="chat-header">
-        <p>{" I am user " + username + " chatting with " + chatFriend}</p>
+        <h4>{chatFriend}</h4>
       </div>
       <ScrollToBottom className="message-dialog">
-        {conversationList.map((messageContent) => {
+        {conversationList.map((messageContent,index) => {
           return (
-            <div id={username === messageContent.author ? "you" : "other"} >
-              <div class="message-row row col-12 ">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="portrait-message "></img>
-                    <p class="message-text ">{messageContent.message}</p>
+            <div key={Math.random()} id={username === messageContent.author ? "you" : "other"} >
+              <div key={Math.random()} className="message-row row col-12 ">
+                    {username === messageContent.author ? 
+                    (<img key={Math.random()} src={userImgUrl === null ? "https://bootdey.com/img/Content/avatar/avatar7.png" : userImgUrl} className="portrait-message "></img>) 
+                    :
+                     (<img  key={Math.random()} src={chatFriendImgUrl === null ? "https://bootdey.com/img/Content/avatar/avatar7.png" : chatFriendImgUrl} className="portrait-message "></img>)}
+                    
+                    <p key={Math.random()} className="message-text ">{messageContent.message}</p>
               </div>
-              <div class="time ">{messageContent.time}</div>
+              <div key={Math.random()} className="time ">{messageContent.time}</div>
             </div>
           );
         })}
       </ ScrollToBottom>
       <div className="chat-footer">
-        <div class="chat-input-row row">
+        <div className="chat-input-row row">
           <input
-            class="chat-input"
+            className="chat-input"
             type="text"
             value={sentMessage}
             placeholder="Skriv ett meddelande..."
@@ -155,7 +145,7 @@ const database = getDatabase(app);
               event.key === "Enter" && sendMessage();
             }}
           />
-          <button class="btn btn-chat  " onClick={sendMessage}><i class="bi bi-send-fill"></i></button>
+          <button className="btn btn-chat  " onClick={sendMessage}><i className="bi bi-send-fill"></i></button>
         </div>
       </div>
     </div>

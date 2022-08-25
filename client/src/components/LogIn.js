@@ -1,5 +1,4 @@
 import React, {useEffect, useState, useContext} from 'react' 
-import { io } from 'socket.io-client'
 import {useNavigate} from 'react-router-dom';
 import { SocketContext } from '../context/socket.js'
 
@@ -46,6 +45,10 @@ export const LogIn = ( props ) => {
             body: JSON.stringify(data)
         })
     }
+    
+
+   
+
 
     const handleSubmit  = (e) => {
         e.preventDefault(); 
@@ -100,7 +103,7 @@ return(
     <h1>Logga In</h1>
   <div className="form-group r">
       <div className="row d-flex justify-content-center">
-    <label for="email">E-post:</label>
+    <label >E-post:</label>
     </div>
     <div className="row d-flex justify-content-center">
         <div className="col-4 d-flex justify-content-center">
@@ -115,7 +118,7 @@ return(
   </div>
   <div className="form-group ">
     <div className="row row d-flex justify-content-center">
-    <label for="pwd">Lösenord:</label>
+    <label >Lösenord:</label>
     </div>
     <div className="row row d-flex justify-content-center">
         <div className="col-4" style={{textAlign:"center"}}>

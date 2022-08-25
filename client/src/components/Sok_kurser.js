@@ -32,11 +32,11 @@ function Sok_kurser() {
     
     return(
         <form id = "Kurs-holder" onSubmit={handleSubmit}>
-            <div class="form-outline" style={{marginTop: "20px"}}>
-                <input type="search" id="form1" class="form-control" onChange={event => {setSearchTerm(event.target.value)}} placeholder="Sök kurser/inriktning" aria-label="Search" />
+            <div className="form-outline" style={{marginTop: "20px"}}>
+                <input type="search" id="form1" className="form-control" onChange={event => {setSearchTerm(event.target.value)}} placeholder="Sök kurser/inriktning" aria-label="Search" />
             </div>  
             <div style={{ overflowX: "auto"}}>
-                <table class="table align-middle mb-0 bg-white" id="mycourse-table" >
+                <table className="table align-middle mb-0 bg-white" id="mycourse-table" >
                     <thead>
                         <tr>
                         <th scope="col">Kurskod</th>
@@ -76,7 +76,7 @@ function Sok_kurser() {
                                     <td>{item.Säsong}</td>
                                     <td>{item.Period}</td>
                                     <td>{item.Inriktning}</td>
-                                    <td><button onClick= {() => setCourse(item)} class="btn btn-outline-info">+</button> </td>
+                                    <td><button onClick= {() => setCourse(item)} className="btn btn-outline-info">+</button> </td>
                                 </tr>
                                 ))
                         
