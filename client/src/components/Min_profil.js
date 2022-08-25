@@ -37,21 +37,32 @@ function Min_profil(){
         setDisplay(false); 
     }
 
+    const updateImageUrl = async () => {
+
+        fetch('http://localhost:3000/Update_image', {
+            method: 'POST', 
+            headers: {
+                'Content-Type':'application/json'
+            }, 
+            body: JSON.stringify({imgURL: imageUrl})
+        })
+        .then((response) => response.json())
+        .then((data) => 
+        console.log(data)) 
+    }
+
     useEffect(() => {
         fetchItems(); 
         setUsername(sessionStorage.getItem('email'))
         console.log(userInfo)
     }, []); 
 
-    // useEffect(() => {
-    //     const getImage = async () => {
-    //         getDownloadURL(imgRef).then((fetchedURL) => {
-    //             setImageUrl(fetchedURL)
-    //             console.llg(fetchedURL)
-    //         })
+    useEffect(() => {
+        updateImageUrl()
             
-    //     }
-    // })
+    },[imageUrl])
+
+    
 
 
     const handleEdit = (e) => {
@@ -68,15 +79,13 @@ function Min_profil(){
                 body: JSON.stringify(values)
             })
             .then((response) => response.json())
-            .then((data) => console.log(data))
-            
-            
-
+            .then((data) => console.log(data)) 
 
         }else{
             button.innerHTML = "Spara ändringar"; 
         }
     }
+
 
     function getValues(){
         const idList = ["Name", "ProfileEmail", "LiuID", "Master"]; 
@@ -116,13 +125,13 @@ function Min_profil(){
     }
 
     const handleImageChange = (event) => {
-        console.log("handle välj fil")
         setSelectedFile(event.target.files[0])
         console.log(event.target.files[0])
         setIsSelected(true)
     }
 
     const handleImageUpload = (e) => {
+        let imageURL = ''
         
         e.preventDefault()
         if (selectedFile == null) return;
@@ -134,10 +143,16 @@ function Min_profil(){
 
         getDownloadURL(imageRef).then((downloadedURL) => {
             setImageUrl(downloadedURL)
+            imageURL=downloadedURL
+            console.log(downloadedURL)
+            
+            
         })
         .catch((error) => {
             console.log(error)
         });
+
+
     }
 
 
