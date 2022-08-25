@@ -61,7 +61,6 @@ function Min_profil(){
         updateImageUrl()
             
     },[imageUrl])
-
     
 
 
