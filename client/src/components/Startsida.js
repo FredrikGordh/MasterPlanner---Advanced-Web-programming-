@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import {useLocation} from 'react-router-dom'; 
 import {ref, uploadBytes, getStorage, getDownloadURL} from "firebase/storage"
 import {app} from "../firebase-config.js"
+import Profile_cards from './Profile_cards.js';
 
 
 function Startsida(){
@@ -112,20 +113,15 @@ function Startsida(){
                                 }
                                 }).map(user => {
                                     return (
-                                <div className= "card" style={{width: "300px", marginBottom: "20px"}}>
-                                    <div className= "card-body">
-                                        <div className="d-flex flex-column align-items-center text-center">
-                                            <img src={user.imgUrl === null ? "https://bootdey.com/img/Content/avatar/avatar7.png" : user.imgUrl} alt="Admin" className="rounded-circle" width="150"/>
-                                            <div className= "mt-3">
-                                                <p> {user.Name}</p>
-                                                <p> {user.ProfileEmail}</p>
-                                                <p> {user.LiuID}</p>
-                                                <p> {user.Master}</p>
-                                                <button className= "btn btn-outline-info" onClick = {() => {setOwner(user.Owner)}}> Visa kurser </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <Profile_cards  name={user.Name}
+                                profileEmail={user.ProfileEmail}
+                                liuID = {user.LiuID}
+                                master={user.Master} 
+                                imgUrl = {user.imgUrl} 
+                                owner = {user.Owner} 
+                                onClick={(value) => {setOwner(value)}}>
+
+                                </Profile_cards>
                                 )
                                 })
                             }
