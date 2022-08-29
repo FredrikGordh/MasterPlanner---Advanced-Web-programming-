@@ -37,14 +37,14 @@ function Min_profil(){
         setDisplay(false); 
     }
 
-    const updateImageUrl = async () => {
+    const updateImageUrl = async (url) => {
 
         fetch('http://localhost:3000/Update_image', {
             method: 'POST', 
             headers: {
                 'Content-Type':'application/json'
             }, 
-            body: JSON.stringify({imgURL: imageUrl})
+            body: JSON.stringify({imgURL: url})
         })
         .then((response) => response.json())
         .then((data) => 
@@ -57,10 +57,10 @@ function Min_profil(){
         console.log(userInfo)
     }, []); 
 
-    useEffect(() => {
-        updateImageUrl()
+    // useEffect(() => {
+    //     updateImageUrl()
             
-    },[imageUrl])
+    // },[imageUrl])
     
 
 
@@ -144,7 +144,7 @@ function Min_profil(){
             setImageUrl(downloadedURL)
             imageURL=downloadedURL
             console.log(downloadedURL)
-            
+            updateImageUrl(downloadedURL)
             
         })
         .catch((error) => {
