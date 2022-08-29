@@ -1,8 +1,9 @@
+import CoursesSearchBar from "./CoursesSearchBar.js";
 
 
 function CourseTables (props) {
 
-
+        console.log(props)
         // Loads item master checkbox as checked or unchecked depending on previous actions
         function handleChecked(item){
 
@@ -14,9 +15,29 @@ function CourseTables (props) {
                 element.checked = false; 
             }
         }
+
+        function ifSearchCourses (){
+            if (props.type === "searchCourses"){
+                return(
+                    props.courses.filter((val) =>{
+                        if (props.searchTerm === "") {
+                            return val
+                        }else if (val.Kursnamn.toLowerCase().includes(props.searchTerm.toLowerCase())){
+                            return val
+                        }else if (val.Inriktning.toLowerCase().includes(props.searchTerm.toLowerCase())){
+                            return val
+                        }
+                    })
+                )
+            }else{
+                return(
+                    props.courses
+                )
+            }
+        }
         
     return(
-        <div className = "container-fluid">
+        <div style={{ overflowX: "auto"}}>
             <table className="table align-middle mb-0 bg-white" id = "mycourse-table">
                 <thead className = "bg-light">
                     <tr>
@@ -29,15 +50,17 @@ function CourseTables (props) {
                         <th>VOF</th>
                         <th>Säsong</th>
                         <th>Period</th>
+                        {props.type === "searchCourses" ? 
+                        (
+                        <th scope="col">Inriktning</th>
+                        ) : 
+                        (
                         <th>Master</th>
-                        <th></th>
-
+                        )}
                     </tr>
                 </thead>
                 <tbody>
-                    { 
-                    // Filtering searchbar
-                    props.courses.map(item => (
+                    {ifSearchCourses().map(item => (
                         <tr>
                             <td>{item.Kurskod}</td>
                             <td>{item.Kursnamn}</td>
@@ -48,16 +71,31 @@ function CourseTables (props) {
                             <td align='center'>{item.VOF}</td>
                             <td>{item.Säsong}</td>
                             <td align='center'>{item.Period}</td>
-                            <td align='center'>
-                            <div className="form-check form-switch">
-                                 <input className="form-check-input" type="checkbox" id={JSON.stringify(item)} onChange={(e) => props.onChange(e, item)}>{handleChecked(item)}</input>
-                            </div> 
-                            </td>
-                            <td>
-                            <button onClick = {() => props.onClick(item)}> X </button>
-                            </td> 
+                            {props.type === "searchCourses" ? 
+                            (                          
+                            <div>
+                            <td>{item.Inriktning}</td>
+                            <td><button className="btn btn-outline-info" onClick= {() => props.onClick(item)} >+</button> </td>
+                            </div>         
+                            ) : ("")}
+                            
+                            {props.type==="myCourses" ? 
+                            (
+                                <div>
+                                <td align='center'>
+                                <div className="form-check form-switch">
+                                    <input className="form-check-input" type="checkbox" id={JSON.stringify(item)} onChange={(e) => props.onChange(e, item)}>{handleChecked(item)}</input>
+                                </div> 
+                                </td>
+                                <td align="center">
+                                <button className="btn btn-outline-info" onClick = {() => props.onClick(item)}> X </button>
+                                </td> 
+                                </div>
+                                 
+                            ):("")}
                         </tr>
                     ))
+                
                 }
                 </tbody>
 

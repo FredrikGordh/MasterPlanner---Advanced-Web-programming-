@@ -133,7 +133,7 @@ function Mina_Kurser(){
                     
                 </div>
             </div> 
-            <CourseTables courses={courses} onChange={(e, value) => handleInputChange(e, value)} onClick={(value) => setSingleCourse(value)}></CourseTables>
+            <CourseTables courses={courses} type={"myCourses"} onChange={(e, value) => handleInputChange(e, value)} onClick={(value) => setSingleCourse(value)}></CourseTables>
                
         </form> 
     )

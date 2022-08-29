@@ -119,6 +119,7 @@ const database = getDatabase();
           return (
             <div key={Math.random()} id={username === messageContent.author ? "you" : "other"} >
               <div key={Math.random()} className="message-row row col-12 ">
+                
                     {username === messageContent.author ? 
                     (<img key={Math.random()} src={userImgUrl === null ? "https://bootdey.com/img/Content/avatar/avatar7.png" : userImgUrl} className="portrait-message "></img>) 
                     :

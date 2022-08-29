@@ -22,6 +22,8 @@ import Chat from "./components/Chat.js"
 import Channel from "./components/Channel.js"
 import ProfileCards from "./components/ProfileCards.js";
 import CourseTables from "./components/CourseTables.js"
+import CoursesSearchBar from "./components/CoursesSearchBar.js";
+
 // CSS-files
 import "./App.css";
 import "./components/Chat.css"
