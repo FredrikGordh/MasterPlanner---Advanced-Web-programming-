@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import {useLocation} from 'react-router-dom'; 
 import {ref, uploadBytes, getStorage, getDownloadURL} from "firebase/storage"
 import {app} from "../firebase-config.js"
-import Profile_cards from './Profile_cards.js';
+import ProfileCards from './ProfileCards.js';
 
 
 function Startsida(){
@@ -113,7 +113,7 @@ function Startsida(){
                                 }
                                 }).map(user => {
                                     return (
-                                <Profile_cards  name={user.Name}
+                                <ProfileCards  name={user.Name}
                                 profileEmail={user.ProfileEmail}
                                 liuID = {user.LiuID}
                                 master={user.Master} 
@@ -121,7 +121,7 @@ function Startsida(){
                                 owner = {user.Owner} 
                                 onClick={(value) => {setOwner(value)}}>
 
-                                </Profile_cards>
+                                </ProfileCards>
                                 )
                                 })
                             }

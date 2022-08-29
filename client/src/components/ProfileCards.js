@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Profile_cards (props){
+function ProfileCards (props){
     console.log(props)
     return(
 
@@ -22,7 +22,7 @@ function Profile_cards (props){
 
 }
 
-export default Profile_cards;
+export default ProfileCards;
 
 
                            

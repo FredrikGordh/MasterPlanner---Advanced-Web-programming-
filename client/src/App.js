@@ -20,8 +20,8 @@ import Min_profil from "./components/Min_profil.js"
 import Profiles from "./components/Profiles.js"
 import Chat from "./components/Chat.js"
 import Channel from "./components/Channel.js"
-import Profile_cards from "./components/Profile_cards.js";
-
+import ProfileCards from "./components/ProfileCards.js";
+import CourseTables from "./components/CourseTables.js"
 // CSS-files
 import "./App.css";
 import "./components/Chat.css"
