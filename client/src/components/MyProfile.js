@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {ref, uploadBytes, getStorage, getDownloadURL} from "firebase/storage"
 import {app} from "../firebase-config.js"
+import CourseTables from './CourseTables.js';
 
 
-
-function Min_profil(){
+function MyProfile(){
 
     
     const [username, setUsername] = useState('')
@@ -56,13 +56,6 @@ function Min_profil(){
         setUsername(sessionStorage.getItem('email'))
         console.log(userInfo)
     }, []); 
-
-    // useEffect(() => {
-    //     updateImageUrl()
-            
-    // },[imageUrl])
-    
-
 
     const handleEdit = (e) => {
         const button = document.getElementById("edit-button"); 
@@ -243,43 +236,12 @@ function Min_profil(){
                                 </div>                                
                             </div>
                         </div>
+
                         <div className="row gutters-sm">
                             <div className="col-md-12">
                                 <div className="card mb-3" >
                                     <div className="card-body" style={{width: "100%", overflowX: "auto"}}>
-                                        <table className="table align-middle mb-0 bg-white" style={{fontSize: "13px"}}>
-                                            <thead className = "bg-light">
-                                                <tr>
-                                                    <th>Kurskod</th>
-                                                    <th>Kursnamn</th>
-                                                    <th>HP</th>
-                                                    <th>Nivå</th>
-                                                    <th>Block</th>
-                                                    <th>Typ</th>
-                                                    <th>VOF</th>
-                                                    <th>Säsong</th>
-                                                    <th>Period</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                { 
-                                                // Filtering searchbar
-                                                items.map(item => (
-                                                    <tr>
-                                                        <td>{item.Kurskod}</td>
-                                                        <td>{item.Kursnamn}</td>
-                                                        <td align='center'>{item.HP}</td>
-                                                        <td align='center'>{item.Nivå}</td>
-                                                        <td align='center'>{item.Block}</td>
-                                                        <td>{item.typ}</td>
-                                                        <td align='center'>{item.VOF}</td>
-                                                        <td>{item.Säsong}</td>
-                                                        <td align='center'>{item.Period}</td>
-                                                    </tr>
-                                                ))
-                                            }
-                                            </tbody>
-                                        </table>
+                                    <CourseTables type={"myProfile"} courses={items}></CourseTables>
                                     </div>
                                 </div>
                             </div>
@@ -294,4 +256,4 @@ function Min_profil(){
 
 }
 
-export default Min_profil; 
+export default MyProfile; 

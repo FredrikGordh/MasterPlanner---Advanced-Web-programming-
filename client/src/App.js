@@ -16,7 +16,7 @@ import Sok_kurser from './components/Sok_kurser.js'
 import SignIn from "./components/Signin.js"
 import Mina_kurser from "./components/Mina_kurser.js"
 import LogIn from "./components/LogIn.js"
-import Min_profil from "./components/Min_profil.js"
+import MyProfile from "./components/MyProfile.js"
 import Profiles from "./components/Profiles.js"
 import Chat from "./components/Chat.js"
 import Channel from "./components/Channel.js"
@@ -30,7 +30,7 @@ import "./components/Chat.css"
 import "./components/Channel.css"
 import "./components/Mina_kurser.css"
 import "./components/Startsida.css"
-import "./components/Min_profil.css"
+import "./components/MyProfile.css"
 import "./components/Sok_kurser.css"
 import "./components/Signin.css"
 
@@ -74,7 +74,7 @@ function App() {
               <Route path="/" element={<Startsida/>} />
               <Route path="/Sok_kurser" element={<Sok_kurser/>} />
               <Route path="/Mina_kurser" element={<Mina_kurser/>} />
-              <Route path = "/Min_profil" element={<Min_profil/>}/>
+              <Route path = "/Min_profil" element={<MyProfile/>}/>
               <Route path="/Profiles" element={<Profiles/>}/>
               <Route path="/Channel" element={<Channel/>}/>
               <Route

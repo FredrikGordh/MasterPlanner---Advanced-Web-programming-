@@ -35,10 +35,22 @@ function CourseTables (props) {
                 )
             }
         }
+
+        function tableColumns (){
+            if (props.type ==="searchCourses"){
+                return(
+                    <th scope="col">Inriktning</th>
+                )
+            }else if(props.type === "myCourses"){
+                return(
+                    <th>Master</th>
+                )
+            }
+        }
         
     return(
         <div style={{ overflowX: "auto"}}>
-            <table className="table align-middle mb-0 bg-white" id = "mycourse-table">
+            <table className="table align-middle mb-0 bg-white" style={{fontSize: "13px"}} id="mycourse-table" >
                 <thead className = "bg-light">
                     <tr>
                         <th>Kurskod</th>
@@ -50,13 +62,7 @@ function CourseTables (props) {
                         <th>VOF</th>
                         <th>Säsong</th>
                         <th>Period</th>
-                        {props.type === "searchCourses" ? 
-                        (
-                        <th scope="col">Inriktning</th>
-                        ) : 
-                        (
-                        <th>Master</th>
-                        )}
+                        {tableColumns()}
                     </tr>
                 </thead>
                 <tbody>

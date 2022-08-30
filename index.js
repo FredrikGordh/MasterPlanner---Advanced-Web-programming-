@@ -5,7 +5,7 @@ const mina_kurser = require('./server/api/Mina_kurser')
 const routesHandler = require('./server/api/Sok_kurser')
 const signIn = require('./server/api/SignIn')
 const logIn = require('./server/api/LogIn')
-const my_profile = require('./server/api/My_profile')
+const myProfile = require('./server/api/MyProfile')
 const startsida = require('./server/api/Startsida')
 const channel = require('./server/api/Channel.js')
 const users = require('./server/api/Users.js')
@@ -31,7 +31,7 @@ app.use('/', routesHandler);
 app.use('/', mina_kurser); 
 app.use('/', signIn); 
 app.use('/',logIn);
-app.use('/', my_profile); 
+app.use('/', myProfile); 
 app.use('/', startsida); 
 app.use('/', channel); 
 app.use('/', users)
