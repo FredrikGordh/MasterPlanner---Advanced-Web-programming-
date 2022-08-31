@@ -23,6 +23,7 @@ import Channel from "./components/Channel.js"
 import ProfileCards from "./components/ProfileCards.js";
 import CourseTables from "./components/CourseTables.js"
 import CoursesSearchBar from "./components/CoursesSearchBar.js";
+import UploadImg from "./components/UploadImg.js";
 
 // CSS-files
 import "./App.css";

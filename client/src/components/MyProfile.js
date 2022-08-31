@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {ref, uploadBytes, getStorage, getDownloadURL} from "firebase/storage"
 import {app} from "../firebase-config.js"
 import CourseTables from './CourseTables.js';
+import UploadImg from './UploadImg.js';
 
 
 function MyProfile(){
@@ -37,25 +38,17 @@ function MyProfile(){
         setDisplay(false); 
     }
 
-    const updateImageUrl = async (url) => {
-
-        fetch('http://localhost:3000/Update_image', {
-            method: 'POST', 
-            headers: {
-                'Content-Type':'application/json'
-            }, 
-            body: JSON.stringify({imgURL: url})
-        })
-        .then((response) => response.json())
-        .then((data) => 
-        console.log(data)) 
-    }
 
     useEffect(() => {
         fetchItems(); 
         setUsername(sessionStorage.getItem('email'))
         console.log(userInfo)
     }, []); 
+
+    useEffect(() => {
+        console.log("nu ändras image url")
+        console.log(imageUrl)
+    }, [imageUrl])
 
     const handleEdit = (e) => {
         const button = document.getElementById("edit-button"); 
@@ -116,75 +109,14 @@ function MyProfile(){
         }
     }
 
-    const handleImageChange = (event) => {
-        setSelectedFile(event.target.files[0])
-        console.log(event.target.files[0])
-        setIsSelected(true)
-    }
-
-    const handleImageUpload = (e) => {
-        let imageURL = ''
-        
-        e.preventDefault()
-        if (selectedFile == null) return;
-        const imageRef = ref(storage , 'images/users/' + username + '/' + username)
-        setImgRef(imageRef)
-        uploadBytes(imageRef, selectedFile).then(() => {
-        })
-        .catch((error) => alert(error) )
-
-        getDownloadURL(imageRef).then((downloadedURL) => {
-            setImageUrl(downloadedURL)
-            imageURL=downloadedURL
-            console.log(downloadedURL)
-            updateImageUrl(downloadedURL)
-            
-        })
-        .catch((error) => {
-            console.log(error)
-        });
-
-
-    }
-
 
     return(
         <div className = "container" style={{marginTop: "10px"}}> 
             <div className = "main-body">
                 <div className = "row gutters-sm"> 
                     <div className="col-md-4 mb-3">
-                        <div className="card">
-                            <div className="card-body">
-                                <div className="d-flex flex-column align-items-center text-center">
-                                {imageUrl == null? 
-                                    (<img src={"https://bootdey.com/img/Content/avatar/avatar7.png"} alt="Admin" className="rounded-circle" width="150"/>)
-                                    :
-                                    ( <img src={imageUrl} alt="Admin" className="rounded-circle" width="150"/>)}
-                                   
-                                        <h4>{setValues('Name')}</h4>
-                                        {editPicture ? 
-                                        (  
-                                            
-                                                <form className="photo-form"action="/action_page.php" onSubmit={(event) => {setEditPicture(false) 
-                                                    handleImageUpload(event)
-                                                    }}>
-                                                    <div className="row justify-content-center mb-2">
-                                                        <input className="col-10 " type="file" id="myFile" name="filename" onChange={(event) => {handleImageChange(event)}}/>
-                                                    </div>
-                                                    
-                                                    <div className="row justify-content-center">
-                                                        <button className="btn btn-outline-primary" type ="submit" >Ladda upp</button>
-                                                    </div>
-                                                </form>
-                                                
-                                            
-                                        )
-                                         : (<button className="btn btn-outline-primary" onClick={() => {setEditPicture(true)}} >Edit photo</button>
-                                        )}
-                                </div>
-                            </div>
-                        </div>
-                    
+                        <UploadImg  setValues={setValues} setImageUrl={setImageUrl} username={username} imageUrl={imageUrl}></UploadImg>
+
                     </div>
                     <div className="col-md-8">
                         <div className="card mb-3">
@@ -241,7 +173,7 @@ function MyProfile(){
                             <div className="col-md-12">
                                 <div className="card mb-3" >
                                     <div className="card-body" style={{width: "100%", overflowX: "auto"}}>
-                                    <CourseTables type={"myProfile"} courses={items}></CourseTables>
+                                    <CourseTables type={"myProfile"}  courses={items}></CourseTables>
                                     </div>
                                 </div>
                             </div>

@@ -22,18 +22,16 @@ router.post('/My_profile', async (req,res) => {
 })
 
 router.post('/Update_image', async (req,res) => {
+    user= req.body.username
     let insertQuery = ''; 
     let database = await db.allAsync(sql, user); 
-
     if (database.length > 0){
         insertQuery = 'UPDATE userInfo set (imgURL) = (?) where (Owner) = (?)';  
     }else{
         insertQuery = 'INSERT or IGNORE INTO userInfo(Name, ProfileEmail, LiuID, Master, imgURL, Owner) VALUES (?,?,?,?,?,?)';   
     }
-    console.log(insertQuery)
     const update = await db.runAsync(insertQuery, [req.body.imgURL, user]); 
-    database = await db.allAsync(sql, user); 
-    console.log(database)
+    database = await db.allAsync(sql,user); 
     res.json(database); 
 })
 
