@@ -115,7 +115,7 @@ function MyProfile(){
             <div className = "main-body">
                 <div className = "row gutters-sm"> 
                     <div className="col-md-4 mb-3">
-                        <UploadImg  setValues={setValues} setImageUrl={setImageUrl} username={username} imageUrl={imageUrl}></UploadImg>
+                        <UploadImg  setValues={setValues} setImageUrl={setImageUrl} imageUrl={imageUrl} username={username} ></UploadImg>
 
                     </div>
                     <div className="col-md-8">

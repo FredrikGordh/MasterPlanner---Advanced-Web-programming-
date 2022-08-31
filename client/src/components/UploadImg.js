@@ -13,9 +13,10 @@ function UploadImg (props){
     const storage = getStorage(app)
 
     useEffect(() => {
-        console.log("image url i upload component " + props.imageUrl)
-
-    }, [props.imageUrl]) 
+        console.log("image url i upload component ")
+        console.log(props.imageUrl)
+        props.setImageUrl(imgUrl)
+    }, [imgUrl]) 
 
     const updateImageUrl = async (url) => {
         fetch('http://localhost:3000/Update_image', {
@@ -34,7 +35,7 @@ function UploadImg (props){
 
     const handleImageChange = (event) => {
         setSelectedFile(event.target.files[0])
-        console.log(event.target.files[0])
+        // console.log(event.target.files[0])
         setIsSelected(true)
     }
 
@@ -50,7 +51,7 @@ function UploadImg (props){
         .catch((error) => alert(error) )
 
         getDownloadURL(imageRef).then((downloadedURL) => {
-            props.setImageUrl(downloadedURL)
+            setImgUrl(downloadedURL)
             imageURL=downloadedURL
             console.log(downloadedURL)
             updateImageUrl(downloadedURL)
@@ -69,21 +70,20 @@ function UploadImg (props){
             {props.imageUrl == null? 
                 (<img src={"https://bootdey.com/img/Content/avatar/avatar7.png"} alt="Admin" className="rounded-circle" width="150"/>)
                 :
-                ( <img src={props.imageUrl} alt="Admin" className="rounded-circle" width="150"/>)}
+                ( <img src={props.imageUrl} key={props.imageUrl} alt="Admin" className="rounded-circle" width="150"/>)}
                
                     <h4>{props.setValues('Name')}</h4>
                     {editPicture ? 
                     (  
                         
-                            <form className="photo-form"action="/action_page.php" onSubmit={(event) => {setEditPicture(false) 
-                                handleImageUpload(event)
-                                }}>
+                            <form className="photo-form"action="/action_page.php" >
                                 <div className="row justify-content-center mb-2">
                                     <input className="col-10 " type="file" id="myFile" name="filename" onChange={(event) => {handleImageChange(event)}}/>
                                 </div>
                                 
                                 <div className="row justify-content-center">
-                                    <button className="btn btn-outline-primary" type ="submit" >Ladda upp</button>
+                                    <button className="btn btn-outline-primary" onClick={(event) => {setEditPicture(false) 
+                                handleImageUpload(event)}} >Ladda upp</button>
                                 </div>
                             </form>
                             
