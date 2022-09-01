@@ -37,12 +37,11 @@ router.post('/Update_image', async (req,res) => {
 
 
 router.post('/My_profile/user', async (req,res) => {
-   user = req.body.email; 
+   user = req.body.username; 
 })
 
 router.get('/My_profile', async (req,res) => {
     let database = await db.allAsync(sql, user); 
-    console.log(JSON.stringify(database)); 
     res.json(database); 
  })
  

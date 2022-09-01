@@ -21,7 +21,9 @@ router.get('/Users/Fetch_all_usernames', async(req,res) => {
 router.get('/Users/Fetch_all_userinfo', async (req,res) => {
     let sql = "SELECT DISTINCT * FROM userInfo"
     let database = await db.allAsync(sql); 
+    
     console.log(database)
+    console.log("fetch all")
     return res.json(database);
     
 }); 
