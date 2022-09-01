@@ -8,9 +8,18 @@ function UploadImg (props){
 
     const [editPicture, setEditPicture] = useState(false)
     const [imgRef, setImgRef] = useState()
-    const [imageUrl, setImageUrl] = useState()
+    const [url, setUrl] = useState("https://bootdey.com/img/Content/avatar/avatar7.png")
+    const [image, setImage] = useState(null)
+
+    const allInputs = {imgUrl: ''}
+
+    const [imageAsUrl, setImageAsUrl] = useState(allInputs)
+
     const [isSelected, setIsSelected] = useState(false)
     const [selectedFile, setSelectedFile] = useState()
+    const [update, setUpdate] = useState("")
+    const [fallback, setFallback] = useState(false);
+    
 
     const storage = getStorage(app)
 
@@ -19,9 +28,18 @@ function UploadImg (props){
     useEffect(() => {
         updateImage()
         console.log("database url: ")
-        console.log(props.imageUrl)
+        console.log(imageAsUrl)
         
-    }) 
+    },[imageAsUrl]) 
+
+    const reloadSrc = e => { 
+        if(fallback){
+          e.target.src = "https://bootdey.com/img/Content/avatar/avatar7.png";
+        }else{
+          e.target.src = props.imageUrl
+          setFallback(true)
+        }
+      }
 
 
     const updateImage =  () => {
@@ -32,8 +50,9 @@ function UploadImg (props){
             profilePicture.setAttribute('src', "https://bootdey.com/img/Content/avatar/avatar7.png")
             
         }else {
-            profilePicture.setAttribute('src', props.imageUrl)
-            profilePicture.setAttribute('key', props.imageUrl)
+            // profilePicture.setAttribute('src', "")
+            profilePicture.setAttribute('src', imageAsUrl.imgUrl)
+            // profilePicture.setAttribute('key', props.imageUrl)
            
         }
         // navigate('/Min_profil') 
@@ -62,22 +81,26 @@ function UploadImg (props){
     const handleImageChange = (event) => {
         setSelectedFile(event.target.files[0])
         setIsSelected(true)
+        
     }
 
-    const handleImageUpload =  (e) => {
+    const handleImageUpload =  async (e) => {
+        console.log(selectedFile)
         e.preventDefault()
         if (selectedFile == null) return;
         const imageRef = ref(storage , 'images/users/' + props.username + '/' + props.username)
         setImgRef(imageRef)
-        uploadBytes(imageRef, selectedFile).then(() => {
-        })
-        .catch((error) => alert(error) )
 
-        getDownloadURL(imageRef).then((downloadedURL) => {
-            updateImageUrl(downloadedURL)
-            console.log("firebase url:")
-            console.log(downloadedURL)
-            
+        uploadBytes(imageRef, selectedFile).then(() => {    
+            getDownloadURL(imageRef)
+            .then((firebaseUrl) => {
+                setUrl(firebaseUrl)
+                updateImageUrl(firebaseUrl)
+            })
+            .catch((error) => {
+                console.log(error, "error getting the image url")
+            });
+            setSelectedFile(null)
         })
         .catch((error) => {
             console.log(error)
@@ -90,7 +113,7 @@ function UploadImg (props){
             
             <div className="d-flex flex-column align-items-center text-center">
             
-            <img src={"https://bootdey.com/img/Content/avatar/avatar7.png"} key="" id="profile-picture" alt="Admin" className="rounded-circle" width="150"/>
+            <img src={url} key="" id="profile-picture" alt="Admin" className="rounded-circle" width="150" onError={reloadSrc}/>
                     <h4>{props.setValues('Name')}</h4>
                     {editPicture ? 
                     (  
@@ -101,8 +124,11 @@ function UploadImg (props){
                                 </div>
                                 
                                 <div className="row justify-content-center">
-                                    <button className="btn btn-outline-primary" onClick={(event) => {setEditPicture(false) 
-                                handleImageUpload(event)}} >Ladda upp</button>
+                                    <button className="btn btn-outline-primary" onClick={(event) => {
+                                    
+                                setEditPicture(false) 
+                                handleImageUpload(event) 
+                                setUpdate(0)}} >Ladda upp</button>
                                 </div>
                             </form>
                             

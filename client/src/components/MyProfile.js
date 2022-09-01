@@ -13,10 +13,6 @@ function MyProfile(){
     const [items, setItems] = useState([]); 
     const [display, setDisplay] = useState(false); 
     const [userInfo, setUserInfo] = useState(); 
-    // const [editPicture, setEditPicture] = useState(false)
-    // const [isSelected, setIsSelected] = useState(false)
-    // const [selectedFile, setSelectedFile] = useState()
-    // const [imgRef, setImgRef] = useState()
     const [imageUrl, setImageUrl] = useState()
 
 
