@@ -1,24 +1,47 @@
 import React, {useEffect, useState} from 'react';
 import {ref, uploadBytes, getStorage, getDownloadURL} from "firebase/storage"
 import {app} from "../firebase-config.js"
+import {useNavigate} from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 function UploadImg (props){
 
     const [editPicture, setEditPicture] = useState(false)
     const [imgRef, setImgRef] = useState()
-    const [imgUrl, setImgUrl] = useState()
+    const [imageUrl, setImageUrl] = useState()
     const [isSelected, setIsSelected] = useState(false)
     const [selectedFile, setSelectedFile] = useState()
 
     const storage = getStorage(app)
 
-    useEffect(() => {
-        console.log("image url i upload component ")
-        console.log(props.imageUrl)
-        props.setImageUrl(imgUrl)
-    }, [imgUrl]) 
+    const navigate= useNavigate();
 
-    const updateImageUrl = async (url) => {
+    useEffect(() => {
+        updateImage()
+        console.log("database url: ")
+        console.log(props.imageUrl)
+        
+    }) 
+
+
+    const updateImage =  () => {
+
+        let profilePicture = document.getElementById("profile-picture")
+
+        if(props.imageUrl == null){
+            profilePicture.setAttribute('src', "https://bootdey.com/img/Content/avatar/avatar7.png")
+            
+        }else {
+            profilePicture.setAttribute('src', props.imageUrl)
+            profilePicture.setAttribute('key', props.imageUrl)
+           
+        }
+        // navigate('/Min_profil') 
+
+    }
+
+    const updateImageUrl = async (url)  => {
+        
         fetch('http://localhost:3000/Update_image', {
             method: 'POST', 
             headers: {
@@ -30,18 +53,18 @@ function UploadImg (props){
             })
         })
         .then((response) => response.json())
-        .then((data) =>  {console.log(data)}) 
+        .then((data) =>  {
+            props.setImageUrl(data[0].imgUrl)
+        }) 
+        
     }
 
     const handleImageChange = (event) => {
         setSelectedFile(event.target.files[0])
-        // console.log(event.target.files[0])
         setIsSelected(true)
     }
 
-    const handleImageUpload = (e) => {
-        let imageURL = ''
-        
+    const handleImageUpload =  (e) => {
         e.preventDefault()
         if (selectedFile == null) return;
         const imageRef = ref(storage , 'images/users/' + props.username + '/' + props.username)
@@ -51,10 +74,9 @@ function UploadImg (props){
         .catch((error) => alert(error) )
 
         getDownloadURL(imageRef).then((downloadedURL) => {
-            setImgUrl(downloadedURL)
-            imageURL=downloadedURL
-            console.log(downloadedURL)
             updateImageUrl(downloadedURL)
+            console.log("firebase url:")
+            console.log(downloadedURL)
             
         })
         .catch((error) => {
@@ -67,11 +89,8 @@ function UploadImg (props){
         <div className="card-body">
             
             <div className="d-flex flex-column align-items-center text-center">
-            {props.imageUrl == null? 
-                (<img src={"https://bootdey.com/img/Content/avatar/avatar7.png"} alt="Admin" className="rounded-circle" width="150"/>)
-                :
-                ( <img src={props.imageUrl} key={props.imageUrl} alt="Admin" className="rounded-circle" width="150"/>)}
-               
+            
+            <img src={"https://bootdey.com/img/Content/avatar/avatar7.png"} key="" id="profile-picture" alt="Admin" className="rounded-circle" width="150"/>
                     <h4>{props.setValues('Name')}</h4>
                     {editPicture ? 
                     (  

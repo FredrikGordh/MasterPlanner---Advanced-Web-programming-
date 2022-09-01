@@ -13,27 +13,39 @@ function MyProfile(){
     const [items, setItems] = useState([]); 
     const [display, setDisplay] = useState(false); 
     const [userInfo, setUserInfo] = useState(); 
-    const [editPicture, setEditPicture] = useState(false)
-    const [isSelected, setIsSelected] = useState(false)
-    const [selectedFile, setSelectedFile] = useState()
-    const [imgRef, setImgRef] = useState()
+    // const [editPicture, setEditPicture] = useState(false)
+    // const [isSelected, setIsSelected] = useState(false)
+    // const [selectedFile, setSelectedFile] = useState()
+    // const [imgRef, setImgRef] = useState()
     const [imageUrl, setImageUrl] = useState()
-
-
-    const storage = getStorage(app)
 
 
 
     const fetchItems = async() => {
+
+        fetch('http://localhost:3000/My_profile/user', {
+                method: 'POST', 
+                headers: {
+                    'Content-Type':'application/json'
+                }, 
+                body: JSON.stringify({
+                    username :sessionStorage.getItem('email')
+                })
+            })
+            .then((response) => response.json())
+            .then((data) => console.log(data)) 
+
         const dataCourses = await fetch('/Mina_kurser'); 
         const courses = await dataCourses.json(); 
         setItems(courses); 
-        const dataUserInfo = await fetch('/My_profile'); 
-        const userInfo = await dataUserInfo.json(); 
+        const dataUserInfo = await fetch('/My_profile')
         
+        const userInfo = await dataUserInfo.json(); 
+
         if(userInfo.length != 0){
             setImageUrl(userInfo[0].imgUrl)
         }
+        
         setUserInfo(userInfo); 
         setDisplay(false); 
     }
@@ -42,18 +54,13 @@ function MyProfile(){
     useEffect(() => {
         fetchItems(); 
         setUsername(sessionStorage.getItem('email'))
-        console.log(userInfo)
     }, []); 
 
-    useEffect(() => {
-        console.log("nu ändras image url")
-        console.log(imageUrl)
-    }, [imageUrl])
+
 
     const handleEdit = (e) => {
         const button = document.getElementById("edit-button"); 
         let values = getValues(); 
-        console.log("data: ")
         if (button.innerHTML === "Spara ändringar"){
             button.innerHTML = "Edit"; 
             fetch('http://localhost:3000/My_profile', {
@@ -80,11 +87,11 @@ function MyProfile(){
             let input = document.getElementById(id+"-input"); 
             values.push(input.value); 
         })
-        if (imageUrl == null){
-            values.push("https://bootdey.com/img/Content/avatar/avatar7.png")
-        }else {
-            values.push(imageUrl)
-        }
+        // if (imageUrl == null){
+        //     values.push("https://bootdey.com/img/Content/avatar/avatar7.png")
+        // }else {
+        //     values.push(imageUrl)
+        // }
         return values; 
     }
 
@@ -115,7 +122,7 @@ function MyProfile(){
             <div className = "main-body">
                 <div className = "row gutters-sm"> 
                     <div className="col-md-4 mb-3">
-                        <UploadImg  setValues={setValues} setImageUrl={setImageUrl} imageUrl={imageUrl} username={username} ></UploadImg>
+                        <UploadImg  setValues={setValues}  setImageUrl={setImageUrl} imageUrl={imageUrl} username={username} ></UploadImg>
 
                     </div>
                     <div className="col-md-8">
