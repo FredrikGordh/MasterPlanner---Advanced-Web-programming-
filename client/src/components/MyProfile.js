@@ -1,20 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {ref, uploadBytes, getStorage, getDownloadURL} from "firebase/storage"
-import {app} from "../firebase-config.js"
 import CourseTables from './CourseTables.js';
 import UploadImg from './UploadImg.js';
 
 
 function MyProfile(){
 
-    
     const [username, setUsername] = useState('')
     const [edit, setEdit] = useState(true); 
     const [items, setItems] = useState([]); 
     const [display, setDisplay] = useState(false); 
     const [userInfo, setUserInfo] = useState(); 
     const [imageUrl, setImageUrl] = useState()
-
 
 
     const fetchItems = async() => {
@@ -83,11 +79,6 @@ function MyProfile(){
             let input = document.getElementById(id+"-input"); 
             values.push(input.value); 
         })
-        // if (imageUrl == null){
-        //     values.push("https://bootdey.com/img/Content/avatar/avatar7.png")
-        // }else {
-        //     values.push(imageUrl)
-        // }
         return values; 
     }
 

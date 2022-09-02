@@ -62,7 +62,7 @@ db.getAsync = function (sql, params) {
 };
 
 db.runAsync = function (sql, params) {
-  
+  console.log(sql, params)
   var that = this;
   return new Promise(function (resolve, reject) {
     that.run(sql, params, function (error) {

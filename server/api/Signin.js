@@ -22,10 +22,11 @@ router.post('/SignIn', async (req,res) => {
     console.log('hashed password: ' + hashedPassword)
 
     const sql = 'INSERT or IGNORE INTO users(email, password) VALUES (?,?)'
-    const insertQuery = 'INSERT or IGNORE INTO userInfo(Owner) VALUES (?)';   
-    const user = await db.runAsync(insertQuery, email); 
+    const insertQuery = 'INSERT or IGNORE INTO userInfo(Owner, imgUrl) VALUES (?,?)';   
+    const imgUrl = "https://bootdey.com/img/Content/avatar/avatar7.png"
+    const user = await db.runAsync(insertQuery, [email, imgUrl]); 
     const insert = await db.insertAsync(sql, email, hashedPassword)
-    console.log('This is sent to database.js: ' + email, hashedPassword)
+    console.log("when signing in ")
     
     
 })

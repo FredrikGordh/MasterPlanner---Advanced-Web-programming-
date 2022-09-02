@@ -1,36 +1,18 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {ref, uploadBytes, getStorage, getDownloadURL} from "firebase/storage"
 import {app} from "../firebase-config.js"
-import {useNavigate} from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
+
 
 function UploadImg (props){
 
     const [editPicture, setEditPicture] = useState(false)
     const [imgRef, setImgRef] = useState()
-    const [url, setUrl] = useState("https://bootdey.com/img/Content/avatar/avatar7.png")
-    const [image, setImage] = useState(null)
-
-    const allInputs = {imgUrl: ''}
-
-    const [imageAsUrl, setImageAsUrl] = useState(allInputs)
-
     const [isSelected, setIsSelected] = useState(false)
     const [selectedFile, setSelectedFile] = useState()
-    const [update, setUpdate] = useState("")
     const [fallback, setFallback] = useState(false);
     
-
     const storage = getStorage(app)
 
-    const navigate= useNavigate();
-
-    useEffect(() => {
-        updateImage()
-        console.log("database url: ")
-        console.log(imageAsUrl)
-        
-    },[imageAsUrl]) 
 
     const reloadSrc = e => { 
         if(fallback){
@@ -41,26 +23,8 @@ function UploadImg (props){
         }
       }
 
-
-    const updateImage =  () => {
-
-        let profilePicture = document.getElementById("profile-picture")
-
-        if(props.imageUrl == null){
-            profilePicture.setAttribute('src', "https://bootdey.com/img/Content/avatar/avatar7.png")
-            
-        }else {
-            // profilePicture.setAttribute('src', "")
-            profilePicture.setAttribute('src', imageAsUrl.imgUrl)
-            // profilePicture.setAttribute('key', props.imageUrl)
-           
-        }
-        // navigate('/Min_profil') 
-
-    }
-
     const updateImageUrl = async (url)  => {
-        
+        console.log(props.imgUrl)
         fetch('http://localhost:3000/Update_image', {
             method: 'POST', 
             headers: {
@@ -73,7 +37,7 @@ function UploadImg (props){
         })
         .then((response) => response.json())
         .then((data) =>  {
-            props.setImageUrl(data[0].imgUrl)
+            console.log(data)
         }) 
         
     }
@@ -94,7 +58,7 @@ function UploadImg (props){
         uploadBytes(imageRef, selectedFile).then(() => {    
             getDownloadURL(imageRef)
             .then((firebaseUrl) => {
-                setUrl(firebaseUrl)
+                props.setImageUrl(firebaseUrl)
                 updateImageUrl(firebaseUrl)
             })
             .catch((error) => {
@@ -113,7 +77,7 @@ function UploadImg (props){
             
             <div className="d-flex flex-column align-items-center text-center">
             
-            <img src={url} key="" id="profile-picture" alt="Admin" className="rounded-circle" width="150" onError={reloadSrc}/>
+            <img src={props.imageUrl} key="" id="profile-picture" alt="Admin" className="rounded-circle" width="150" onError={reloadSrc}/>
                     <h4>{props.setValues('Name')}</h4>
                     {editPicture ? 
                     (  
@@ -125,10 +89,8 @@ function UploadImg (props){
                                 
                                 <div className="row justify-content-center">
                                     <button className="btn btn-outline-primary" onClick={(event) => {
-                                    
                                 setEditPicture(false) 
-                                handleImageUpload(event) 
-                                setUpdate(0)}} >Ladda upp</button>
+                                handleImageUpload(event) }} >Ladda upp</button>
                                 </div>
                             </form>
                             
