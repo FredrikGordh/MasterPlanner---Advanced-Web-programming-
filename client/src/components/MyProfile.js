@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import CourseTables from './CourseTables.js';
+import MyProfileForm from './MyProfileForm.js';
 import UploadImg from './UploadImg.js';
 
 
@@ -50,37 +51,7 @@ function MyProfile(){
 
 
 
-    const handleEdit = (e) => {
-        const button = document.getElementById("edit-button"); 
-        let values = getValues(); 
-        if (button.innerHTML === "Spara ändringar"){
-            button.innerHTML = "Edit"; 
-            fetch('http://localhost:3000/My_profile', {
-                method: 'POST', 
-                headers: {
-                    'Content-Type':'application/json'
-                }, 
-                body: JSON.stringify(values)
-            })
-            .then((response) => response.json())
-            .then((data) => console.log(data)) 
 
-        }else{
-            button.innerHTML = "Spara ändringar"; 
-        }
-    }
-
-
-    function getValues(){
-        const idList = ["Name", "ProfileEmail", "LiuID", "Master"]; 
-        let values = []; 
-        idList.forEach(id => {
-  
-            let input = document.getElementById(id+"-input"); 
-            values.push(input.value); 
-        })
-        return values; 
-    }
 
     function setValues(id){
             let input = document.getElementById(id+"-input");   
@@ -94,15 +65,6 @@ function MyProfile(){
             }
     }
 
-    function editInfo(id){
-        let div = document.getElementById(id); 
-        if (edit){
-            return "hidden"; 
-        }else if (div !== null){
-            return "text"; 
-        }
-    }
-
 
     return(
         <div className = "container" style={{marginTop: "10px"}}> 
@@ -113,7 +75,8 @@ function MyProfile(){
 
                     </div>
                     <div className="col-md-8">
-                        <div className="card mb-3">
+                        <MyProfileForm setValues = {setValues} setEdit={setEdit} setDisplay = {setDisplay} ></MyProfileForm>
+                        {/* <div className="card mb-3">
                             <div className="card-body">
                                 <div className="row"> 
                                     <div className="col-sm-3">
@@ -161,7 +124,7 @@ function MyProfile(){
                                     </div>
                                 </div>                                
                             </div>
-                        </div>
+                        </div> */}
 
                         <div className="row gutters-sm">
                             <div className="col-md-12">
@@ -183,3 +146,36 @@ function MyProfile(){
 }
 
 export default MyProfile; 
+
+
+    // const handleEdit = (e) => {
+    //     const button = document.getElementById("edit-button"); 
+    //     let values = getValues(); 
+    //     if (button.innerHTML === "Spara ändringar"){
+    //         button.innerHTML = "Edit"; 
+    //         fetch('http://localhost:3000/My_profile', {
+    //             method: 'POST', 
+    //             headers: {
+    //                 'Content-Type':'application/json'
+    //             }, 
+    //             body: JSON.stringify(values)
+    //         })
+    //         .then((response) => response.json())
+    //         .then((data) => console.log(data)) 
+
+    //     }else{
+    //         button.innerHTML = "Spara ändringar"; 
+    //     }
+    // }
+
+
+    // function getValues(){
+    //     const idList = ["Name", "ProfileEmail", "LiuID", "Master"]; 
+    //     let values = []; 
+    //     idList.forEach(id => {
+  
+    //         let input = document.getElementById(id+"-input"); 
+    //         values.push(input.value); 
+    //     })
+    //     return values; 
+    // }

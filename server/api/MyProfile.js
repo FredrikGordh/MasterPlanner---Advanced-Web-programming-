@@ -12,11 +12,11 @@ router.post('/My_profile', async (req,res) => {
     let database = await db.allAsync(sql, user); 
 
     if (database.length > 0){
-        insertQuery = 'UPDATE userInfo set (Name, ProfileEmail, LiuID, Master, imgURL) = (?,?,?,?,?) where (Owner) = (?)';  
+        insertQuery = 'UPDATE userInfo set (Name, ProfileEmail, LiuID, Master) = (?,?,?,?) where (Owner) = (?)';  
     }else{
-        insertQuery = 'INSERT or IGNORE INTO userInfo(Name, ProfileEmail, LiuID, Master, imgURL, Owner) VALUES (?,?,?,?,?,?)';   
+        insertQuery = 'INSERT or IGNORE INTO userInfo(Name, ProfileEmail, LiuID, Master, Owner) VALUES (?,?,?,?,?)';   
     }
-    const update = await db.runAsync(insertQuery, [req.body[0], req.body[1], req.body[2], req.body[3], req.body[4], user]); 
+    const update = await db.runAsync(insertQuery, [req.body[0], req.body[1], req.body[2], req.body[3], user]); 
     database = await db.allAsync(sql, user); 
     res.json(database); 
 })

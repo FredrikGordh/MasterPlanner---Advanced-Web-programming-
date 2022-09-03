@@ -3,7 +3,6 @@ import CoursesSearchBar from "./CoursesSearchBar.js";
 
 function CourseTables (props) {
 
-        console.log(props)
         // Loads item master checkbox as checked or unchecked depending on previous actions
         function handleChecked(item){
 
