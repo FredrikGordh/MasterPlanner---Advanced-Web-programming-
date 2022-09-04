@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import {useLocation} from 'react-router-dom'; 
 import {ref, uploadBytes, getStorage, getDownloadURL} from "firebase/storage"
-import {app} from "../firebase-config.js"
+import {app} from "../../firebase-config.js"
 import ProfileCards from './ProfileCards.js';
 
 

@@ -11,29 +11,29 @@ import { Socket } from "socket.io-client";
 
 // Components
 import Nav from './components/Nav.js'
-import Startsida from './components/Startsida.js'
-import Sok_kurser from './components/Sok_kurser.js'
-import SignIn from "./components/Signin.js"
-import Mina_kurser from "./components/Mina_kurser.js"
+import Homepage from './components/Homepage/Homepage.js'
+import SearchCourses from './components/Courses/SearchCourses.js'
+import SignIn from "./components/SignIn.js"
+import MyCourses from "./components/Courses/MyCourses.js"
 import LogIn from "./components/LogIn.js"
-import MyProfile from "./components/MyProfile.js"
+import MyProfile from "./components/MyProfile/MyProfile.js"
 import Profiles from "./components/Profiles.js"
-import Chat from "./components/Chat.js"
-import Channel from "./components/Channel.js"
-import ProfileCards from "./components/ProfileCards.js";
-import CourseTables from "./components/CourseTables.js"
-import CoursesSearchBar from "./components/CoursesSearchBar.js";
-import UploadImg from "./components/UploadImg.js";
+import Chat from "./components/Chat/Chat.js"
+import Channel from "./components/Chat/Channel.js"
+import ProfileCards from "./components/Homepage/ProfileCards.js";
+import CourseTables from "./components/Courses/CourseTables.js"
+import CoursesSearchBar from "./components/Courses/CoursesSearchBar.js";
+import UploadImg from "./components/MyProfile/UploadImg.js";
 
 // CSS-files
 import "./App.css";
-import "./components/Chat.css"
-import "./components/Channel.css"
-import "./components/Mina_kurser.css"
-import "./components/Startsida.css"
-import "./components/MyProfile.css"
-import "./components/Sok_kurser.css"
-import "./components/Signin.css"
+import "./components/Chat/Chat.css"
+import "./components/Chat/Channel.css"
+import "./components/Courses/MyCourses.css"
+import "./components/Homepage/Homepage.css"
+import "./components/MyProfile/MyProfile.css"
+import "./components/Courses/SearchCourses.css"
+import "./components/SignIn.css"
 
 
 function App() {
@@ -48,10 +48,10 @@ function App() {
             {console.log('Detta är token: ' + localStorage.getItem('token'))}
             <Nav />
             <Routes>
-              <Route path="/" element={<Startsida/>} onClick={console.log("nu är vi hör")} />
+              <Route path="/" element={<Homepage/>} onClick={console.log("nu är vi hör")} />
               <Route path="/LogIn" element ={<LogIn/>}/>
               <Route path="/SignIn" element ={<SignIn/>}/>
-              <Route path="/Sok_kurser" element={<Sok_kurser/>} />
+              <Route path="/SearchCourses" element={<SearchCourses/>} />
               <Route path="/Profiles" element={<Profiles/>}/>
               <Route
               path="*"
@@ -72,10 +72,10 @@ function App() {
           <Nav />
           <Routes>
             
-              <Route path="/" element={<Startsida/>} />
-              <Route path="/Sok_kurser" element={<Sok_kurser/>} />
-              <Route path="/Mina_kurser" element={<Mina_kurser/>} />
-              <Route path = "/Min_profil" element={<MyProfile/>}/>
+              <Route path="/" element={<Homepage/>} />
+              <Route path="/MyCourses" element={<SearchCourses/>} />
+              <Route path="/MyCourses" element={<MyCourses/>} />
+              <Route path = "/MyProfile" element={<MyProfile/>}/>
               <Route path="/Profiles" element={<Profiles/>}/>
               <Route path="/Channel" element={<Channel/>}/>
               <Route

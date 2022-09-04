@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import CourseTables from './CourseTables.js';
+import CourseTables from '../Courses/CourseTables.js';
 import MyProfileForm from './MyProfileForm.js';
 import UploadImg from './UploadImg.js';
 
@@ -76,56 +76,7 @@ function MyProfile(){
                     </div>
                     <div className="col-md-8">
                         <MyProfileForm setValues = {setValues} setEdit={setEdit} setDisplay = {setDisplay} ></MyProfileForm>
-                        {/* <div className="card mb-3">
-                            <div className="card-body">
-                                <div className="row"> 
-                                    <div className="col-sm-3">
-                                        <h6 className="mb-0"> Namn </h6>
-                                    </div>
-                                    <div className="col-sm-9 text-secondary" id = "Name-div">
-                                        {setValues('Name')}
-
-                                        <input type = {editInfo('Name-div')} id = "Name-input"/>
-                                    </div>
-                                </div>
-                                <hr className="border"/>
-                                <div className="row"> 
-                                    <div className="col-sm-3">
-                                        <h6 className="mb-0">Email</h6>
-                                    </div>
-                                    <div className="col-sm-9 text-secondary" id = "ProfileEmail-div">
-                                        {setValues("ProfileEmail")}
-                                        <input type = {editInfo()} id= "ProfileEmail-input"/>
-                                    </div>
-                                </div>
-                                <hr className = "border"/>
-                                <div className="row"> 
-                                    <div className="col-sm-3">
-                                        <h6 className="mb-0">Liu-id</h6>
-                                    </div>
-                                    <div className="col-sm-9 text-secondary" id = "LiuID-div">
-                                        {setValues("LiuID")}
-                                        <input type ={editInfo()} id = "LiuID-input"/>
-                                    </div>
-                                </div>
-                                <hr className="border"/>
-                                <div className="row"> 
-                                    <div className="col-sm-3">
-                                        <h6 className="mb-0">Master</h6>
-                                    </div>
-                                    <div className="col-sm-9 text-secondary" id = "Master-div">
-                                        {setValues("Master")}
-                                        <input type = {editInfo()} id = "Master-input"/>
-                                    </div>
-                                </div>
-                                <div className="row" style={{ marginTop: "10px"}}>
-                                    <div className="col-sm-12">
-                                        <button className="btn btn-info" id = "edit-button" onClick={() => {setDisplay(true); handleEdit(); setEdit(!edit)}} style={{color: "white"}}>Edit</button>
-                                    </div>
-                                </div>                                
-                            </div>
-                        </div> */}
-
+            
                         <div className="row gutters-sm">
                             <div className="col-md-12">
                                 <div className="card mb-3" >

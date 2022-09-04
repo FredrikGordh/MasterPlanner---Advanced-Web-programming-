@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import ReactDOM from 'react-dom/client';
 import CourseTables from './CourseTables.js';
 
-function Mina_Kurser(){
+function MyCourses(){
 
 
     const [courses, setCourses] = useState([]); 
@@ -139,4 +139,4 @@ function Mina_Kurser(){
     )
 }
 
-export default Mina_Kurser; 
+export default MyCourses; 

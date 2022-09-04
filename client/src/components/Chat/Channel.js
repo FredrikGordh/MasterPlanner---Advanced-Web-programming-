@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useContext} from 'react'
 import Chat from "./Chat.js"
-import "../App.css"
-import { SocketContext } from '../context/socket.js'
+import "../../App.css"
+import { SocketContext } from '../../context/socket.js'
 
 
 function Channel (){

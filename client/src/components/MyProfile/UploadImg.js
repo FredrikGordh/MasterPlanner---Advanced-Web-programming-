@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {ref, uploadBytes, getStorage, getDownloadURL} from "firebase/storage"
-import {app} from "../firebase-config.js"
+import {app} from "../../firebase-config.js"
 
 
 function UploadImg (props){
