@@ -7,7 +7,7 @@ function ProfileCards (props){
     <div className= "card" style={{width: "300px", marginBottom: "20px"}}>
         <div className= "card-body">
             <div className="d-flex flex-column align-items-center text-center">
-                <img src={props.imgUrl} alt="Admin" className="rounded-circle" width="150"/>
+                <img src={props.imgUrl} alt="Admin" className="rounded-circle" id="profileCards-img"width="150"/>
                 <div className= "mt-3">
                     <p> {props.name}</p>
                     <p> {props.profileEmail}</p>

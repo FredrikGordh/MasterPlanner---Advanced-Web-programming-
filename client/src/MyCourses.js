@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import ReactDOM from 'react-dom/client';
-import CourseTables from './CourseTables.js';
+import CourseTables from './components/Courses/CourseTables.js';
 
 function MyCourses(){
 
@@ -17,6 +17,7 @@ function MyCourses(){
 
     useEffect( () => {
         fetchItems(); 
+        console.log("nu är vi i courses")
     }, []); 
 
     const handleSubmit = (e) => {

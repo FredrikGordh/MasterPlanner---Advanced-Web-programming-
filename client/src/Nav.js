@@ -14,6 +14,13 @@ function Nav() {
 
         }
 
+        const handleChat = (event) => {
+            event.preventDefault()
+            navigate('/Channel')
+            window.location.reload()
+
+        }
+
     if (!sessionStorage.getItem('token')) {
 
     return(
@@ -24,10 +31,10 @@ function Nav() {
         </button>
         <div id="navMainMenu" className="navbar-collapse collapse">
             <div className="navbar-nav ml-auto">
-                <Link to='/' className="nav-item nav-link active">Startsida</Link>                
+                <Link to='/' className="nav-item nav-link">Startsida</Link>                
                 <Link to='/LogIn ' className="nav-item nav-link"> Logga in </Link>
                 <Link to='/SignIn ' className="nav-item nav-link"> Bli medlem </Link>
-                <Link to='/Sok_kurser' className="nav-item nav-link"> Sök kurser</Link>
+                <Link to='/SearchCourses' className="nav-item nav-link"> Sök kurser</Link>
                 </div>
         </div>
         </nav>
@@ -44,11 +51,11 @@ function Nav() {
         </button>
         <div id="navMainMenu" className="navbar-collapse collapse">
             <div className="navbar-nav ml-auto">
-                <Link to='/' className="nav-item nav-link active">Startsida</Link>
-                <Link to='/Mina_kurser' className="nav-item nav-link">Mina kurser</Link>
-                <Link to='/Sok_kurser' className="nav-item nav-link">Sök kurser</Link>
-                <Link to ='/Min_profil' className="nav-item nav-link">Min profil</Link>
-                <Link to='/Channel' className="nav-item nav-link">Chatt</Link>
+                <Link to='/' className="nav-item nav-link">Startsida</Link>
+                <Link to='/MyCourses' className="nav-item nav-link">Mina kurser</Link>
+                <Link to='/SearchCourses' className="nav-item nav-link">Sök kurser</Link>
+                <Link to ='/MyProfile' className="nav-item nav-link">Min profil</Link>
+                <Link to='/Channel' className="nav-item nav-link"  onClick={ (e) => handleChat(e)}>Chatt</Link>
                 <Link  to='/' className="nav-item nav-link" onClick={ (e) => handleLogout(e)}>Logga ut </Link>
             </div>
         </div>

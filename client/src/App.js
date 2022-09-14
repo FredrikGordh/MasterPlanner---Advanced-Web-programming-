@@ -10,16 +10,16 @@ import {socket, SocketContext} from './context/socket.js'
 import { Socket } from "socket.io-client";
 
 // Components
-import Nav from './components/Nav.js'
-import Homepage from './components/Homepage/Homepage.js'
-import SearchCourses from './components/Courses/SearchCourses.js'
-import SignIn from "./components/SignIn.js"
-import MyCourses from "./components/Courses/MyCourses.js"
-import LogIn from "./components/LogIn.js"
-import MyProfile from "./components/MyProfile/MyProfile.js"
-import Profiles from "./components/Profiles.js"
+import Nav from './Nav.js'
+import Homepage from './Homepage.js'
+import SearchCourses from './SearchCourses.js'
+import SignIn from "./SignIn.js"
+import MyCourses from "./MyCourses.js"
+import LogIn from "./LogIn.js"
+import MyProfile from "./MyProfile.js"
+import Profiles from "./Profiles.js"
 import Chat from "./components/Chat/Chat.js"
-import Channel from "./components/Chat/Channel.js"
+import Channel from "./Channel.js"
 import ProfileCards from "./components/Homepage/ProfileCards.js";
 import CourseTables from "./components/Courses/CourseTables.js"
 import CoursesSearchBar from "./components/Courses/CoursesSearchBar.js";
@@ -28,12 +28,12 @@ import UploadImg from "./components/MyProfile/UploadImg.js";
 // CSS-files
 import "./App.css";
 import "./components/Chat/Chat.css"
-import "./components/Chat/Channel.css"
-import "./components/Courses/MyCourses.css"
-import "./components/Homepage/Homepage.css"
-import "./components/MyProfile/MyProfile.css"
-import "./components/Courses/SearchCourses.css"
-import "./components/SignIn.css"
+import "./Channel.css"
+import "./MyCourses.css"
+import "./Homepage.css"
+import "./MyProfile.css"
+import "./SearchCourses.css"
+import "./SignIn.css"
 
 
 function App() {
@@ -73,7 +73,7 @@ function App() {
           <Routes>
             
               <Route path="/" element={<Homepage/>} />
-              <Route path="/MyCourses" element={<SearchCourses/>} />
+              <Route path="/SearchCourses" element={<SearchCourses/>} />
               <Route path="/MyCourses" element={<MyCourses/>} />
               <Route path = "/MyProfile" element={<MyProfile/>}/>
               <Route path="/Profiles" element={<Profiles/>}/>

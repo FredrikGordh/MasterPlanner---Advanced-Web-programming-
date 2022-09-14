@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import ScrollToBottom from "react-scroll-to-bottom";
-import { getDatabase, ref, onValue, update } from "firebase/database"
+import { getDatabase, ref, onValue, update, remove } from "firebase/database"
 
 
 
@@ -41,7 +41,11 @@ const database = getDatabase();
   const saveConversation = () => {
     let index = conversationList.length -1
     if( index >= 0){
-      update(ref(database, '/messages/' + username + '/' + chatFriend + '/' + index), {
+      // Removes '.' in the usernames as it is not allowed for the chat function
+      let newUserName = username.replace('.', ' ')
+      let newChatFriend = chatFriend.replace('.', ' ')
+
+      update(ref(database, '/messages/' + newUserName + '/' + newChatFriend + '/' + index), {
         message: conversationList[index].message,
         time: conversationList[index].time,
         author: conversationList[index].author,
@@ -62,7 +66,8 @@ const database = getDatabase();
 
   // Fetching old conversation between the users from firebase Database 
   const getOldConversation = async () => { 
-    const dbRef = ref(database, '/messages/' + username + '/' + chatFriend)
+
+    const dbRef = ref(database, '/messages/' + username.replace('.',' ') + '/' + chatFriend.replace('.', ' '))
       onValue(dbRef, (snapshot) => {
   
         if(snapshot.exists()){

@@ -1,11 +1,11 @@
-import "./MyProfile.css"
+import "../../MyProfile.css"
 
 function MyProfileForm (props){
 
 
     const handleEdit = (e) => {
+        console.log("Props: ", props)
         const button = document.getElementById("edit-button"); 
-        
         let values = getValues(); 
         console.log(values)
         if (button.innerHTML === "Spara ändringar"){
@@ -39,6 +39,7 @@ function MyProfileForm (props){
     
     function editInfo(id){
         let div = document.getElementById(id); 
+        console.log(props.edit)
         if (props.edit){
             return "hidden"; 
         }else if (div !== null){

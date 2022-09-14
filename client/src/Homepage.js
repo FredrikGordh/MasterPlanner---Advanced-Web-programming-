@@ -3,8 +3,9 @@ import React, {useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import {useLocation} from 'react-router-dom'; 
 import {ref, uploadBytes, getStorage, getDownloadURL} from "firebase/storage"
-import {app} from "../../firebase-config.js"
-import ProfileCards from './ProfileCards.js';
+import {app} from "./firebase-config.js"
+import ProfileCards from './components/Homepage/ProfileCards.js';
+import "./components/Homepage/ProfileCards.css"
 
 
 function Startsida(){
@@ -140,8 +141,8 @@ function Startsida(){
                 <button className="btn btn-outline-dark" onClick={() => navigate('/Signin')}> Bli medlem </button>
             </div>                 
             <div className="container" style={{marginTop: "30px"}}> 
-                <div id = "input-field"> 
-                    <input type= "search" id="search" placeholder="Sök användare" onChange={event => {setSearchTerm(event.target.value)}} style={{marginLeft: "10px"}}/>
+                <div className="form-outline" style={{marginBottom: "20px", display: "flex", justifyContent: "center"}}> 
+                    <input type= "search" id="form1"  className="form-control" placeholder="Sök användare" onChange={event => {setSearchTerm(event.target.value)}} style={{marginLeft: "10px"}}/>
                 </div>
             </div> 
         </form>

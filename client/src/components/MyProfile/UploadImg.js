@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {ref, uploadBytes, getStorage, getDownloadURL} from "firebase/storage"
 import {app} from "../../firebase-config.js"
+import "./UploadImg.css"
 
 
 function UploadImg (props){
@@ -77,7 +78,7 @@ function UploadImg (props){
             
             <div className="d-flex flex-column align-items-center text-center">
             
-            <img src={props.imageUrl} key="" id="profile-picture" alt="Admin" className="rounded-circle" width="150" onError={reloadSrc}/>
+            <img src={props.imageUrl} key="" id="myProfile-img" alt="Admin" className="rounded-circle"  width="150" onError={reloadSrc}/>
                     <h4>{props.setValues('Name')}</h4>
                     {editPicture ? 
                     (  

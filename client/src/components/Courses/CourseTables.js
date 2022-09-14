@@ -1,5 +1,5 @@
 import CoursesSearchBar from "./CoursesSearchBar.js";
-
+import "./CourseTables.css"
 
 function CourseTables (props) {
 
@@ -79,7 +79,7 @@ function CourseTables (props) {
                             {props.type === "searchCourses" ? 
                             (                          
                             <div>
-                            <td>{item.Inriktning}</td>
+                            <td id="inriktning">{item.Inriktning}</td>
                             <td><button className="btn btn-outline-info" onClick= {() => props.onClick(item)} >+</button> </td>
                             </div>         
                             ) : ("")}

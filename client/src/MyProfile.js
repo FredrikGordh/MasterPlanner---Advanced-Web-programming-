@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import CourseTables from '../Courses/CourseTables.js';
-import MyProfileForm from './MyProfileForm.js';
-import UploadImg from './UploadImg.js';
+import CourseTables from './components/Courses/CourseTables.js';
+import MyProfileForm from './components/MyProfile/MyProfileForm.js';
+import UploadImg from './components/MyProfile/UploadImg.js';
 
 
 function MyProfile(){
@@ -75,7 +75,7 @@ function MyProfile(){
 
                     </div>
                     <div className="col-md-8">
-                        <MyProfileForm setValues = {setValues} setEdit={setEdit} setDisplay = {setDisplay} ></MyProfileForm>
+                        <MyProfileForm setValues = {setValues} setEdit={setEdit} edit={edit} setDisplay = {setDisplay} ></MyProfileForm>
             
                         <div className="row gutters-sm">
                             <div className="col-md-12">
