@@ -1,18 +1,19 @@
-var sqlite3 = require('sqlite3').verbose(); 
 const express = require('express'); 
-const { json } = require('express/lib/response');
 const router = express.Router(); 
 const db = require('../database')
 const sql = "SELECT DISTINCT * FROM MyCourses"; 
 const sql1 = "SELECT DISTINCT * FROM MyCourses WHERE (Owner) = (?)"
 let user = ''; 
 
+
+//Api requests
+//Fetching course information from MyCourses in sqlite3 database
 router.get('/Mina_kurser', async (req, res) => {
     var courses = await db.allAsync(sql1, user); 
     return res.json(courses);  
 })
 
-
+//Deleting request
 router.delete('/Mina_kurser', async (req, res) => {
     let deleteQuery = 'DELETE FROM MyCourses WHERE (Kurskod, Kursnamn, HP, Nivå, Block, VOF, Säsong, Period) = (?,?,?,?,?,?,?,?)'  
     const myCourses = [
@@ -28,14 +29,9 @@ router.delete('/Mina_kurser', async (req, res) => {
     let remove = await db.runAsync(deleteQuery, myCourses);
     let database = await db.allAsync(sql);
     res.json(database);
-
 })
 
-router.post('/Mina_kurser/user', async (req,res) => {
-    user = req.body.email; 
-
-})
-
+// Adding new course to user database
 router.post('/Mina_kurser', async (req,res) => {
     let insertQuery= '';
     let database = '';
@@ -60,13 +56,8 @@ router.post('/Mina_kurser', async (req,res) => {
         insertQuery = 'UPDATE MyCourses set Master = (?) where (typ, Kurskod, Kursnamn, HP, Nivå, Block, VOF, Säsong, Period, Owner) = (?,?,?,?,?,?,?,?,?,?)';  
         const update = await db.runAsync(insertQuery, [req.body.Master, myCourses[0], myCourses[1], myCourses[2], myCourses[3], myCourses[4], myCourses[5], myCourses[6], myCourses[7], myCourses[8], myCourses[9]]); 
         database = await db.allAsync(sql); 
-
     }
-
         res.json(database); 
 }); 
-
-
-
 
 module.exports = router; 

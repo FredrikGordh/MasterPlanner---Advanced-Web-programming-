@@ -3,7 +3,6 @@ import Chat from "./components/Chat/Chat.js"
 import "./App.css"
 import { SocketContext } from './context/socket.js'
 
-
 function Channel (){
     const socket = useContext(SocketContext)
     const [username, setUsername] = useState("")
@@ -32,20 +31,14 @@ function Channel (){
     useEffect (() => {
         setUsername(sessionStorage.getItem('email'))
         fetchUserInfo()
-       
-
         socket.on("getUsers", users =>{
             setOnlineUsers(users)  
-            console.log("OnlineUser: ", users)
-
         })
-        
     }, [])
 
     useEffect(() => {
         fetchChatFriendImg(onlineUsers)
         console.log("useEffect, on onlineUsers", onlineUsers)
-
     }, [onlineUsers])
     
     // Adding current user to list of online users in api list through socket
@@ -67,7 +60,6 @@ function Channel (){
     const fetchChatFriendImg =  (input) => {
         setTestList([])
         if (input != ""){
-
         onlineUsers.map((onlineUser, index) => {
             usersInfo.map((user, index) => {    
                 if (onlineUser.username == user.Owner && onlineUser != username){
@@ -79,25 +71,15 @@ function Channel (){
                 }
             })
         }) 
-        // window.location.reload()
-        // if(onlineUsers == null){
-            console.log("onlineUsers length:",onlineUsers.length)
-        // }
-        console.log("function fetch: onlineUsers", onlineUsers)
     }
     }
-
-
-
 
     return(
-        
         <div className="body-chat-window">
                 <div className="row">
                     <div className="joinChatContainer col-4">
                         <h3 className="headline-chat">Chattar</h3>
                         <center>
-                        
                             {testList.map((user,index) => {
                                 if (user.username == username){
                                 }else{
@@ -113,8 +95,7 @@ function Channel (){
                                 </div>
                             )}
                             })
-                            }
-                            
+                            }       
                         </center>
                     </div>
                         {!showChat ? (
@@ -130,6 +111,5 @@ function Channel (){
         </div>
     )
 }
-
 export default Channel;
 

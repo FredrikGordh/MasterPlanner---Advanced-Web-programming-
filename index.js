@@ -7,7 +7,6 @@ const signIn = require('./server/api/SignIn')
 const logIn = require('./server/api/LogIn')
 const myProfile = require('./server/api/MyProfile')
 const startsida = require('./server/api/Startsida')
-const channel = require('./server/api/Channel.js')
 const users = require('./server/api/Users.js')
 
 
@@ -24,7 +23,6 @@ const io = socketIo(server,{
     }
 })
 
-
 app.use(bodyParser.urlencoded({extended:false})); 
 app.use(bodyParser.json()); 
 app.use('/', routesHandler); 
@@ -33,11 +31,9 @@ app.use('/', signIn);
 app.use('/',logIn);
 app.use('/', myProfile); 
 app.use('/', startsida); 
-app.use('/', channel); 
 app.use('/', users)
 
 let userList = []
-
 
 const addUser = (username, socketId) => {
     //Javascript function searching for username in array

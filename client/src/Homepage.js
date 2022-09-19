@@ -31,7 +31,6 @@ function Startsida(){
         console.log(user_info)
     }
 
-    
 
     useEffect(() => {
         fetchItems(); 
@@ -39,7 +38,6 @@ function Startsida(){
 
     const handleCourses = async(e) => {
         e.preventDefault(); 
-
         const dataCourses = await fetch(`/Startsida/${owner}`); 
         const userCourses = await dataCourses.json(); 
         setCourses(userCourses); 
