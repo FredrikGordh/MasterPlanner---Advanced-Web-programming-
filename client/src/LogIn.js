@@ -25,7 +25,8 @@ export const LogIn = (props) => {
     });
   };
 
-  // Sends the userdata through a POST request to the server. 
+  // Sends the userdata through a POST request to the server
+  // and receiving a token from server which is added to sessionStorage
   const handleSubmit = (e) => {
     e.preventDefault();
     const myData = { email, password };
