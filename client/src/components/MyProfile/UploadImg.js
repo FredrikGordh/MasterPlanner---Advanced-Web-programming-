@@ -70,7 +70,7 @@ function UploadImg(props) {
         setSelectedFile(null);
       })
       .catch((error) => {
-        console.log(error); // Ta bort
+        alert(error); 
       });
   };
 

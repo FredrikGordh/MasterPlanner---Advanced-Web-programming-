@@ -66,6 +66,7 @@ function Chat({ socket, username, userImgUrl, chatFriend, chatFriendImgUrl }) {
 
   // Fetching old conversation between the users from firebase Database
   const getOldConversation = async () => {
+    console.log("inside old conversation")
     // Writes the reference to the database to get the old conversation
     const dbRef = ref(
       database,
@@ -83,9 +84,7 @@ function Chat({ socket, username, userImgUrl, chatFriend, chatFriendImgUrl }) {
           records.push(data);
         });
         setConversationList(records);
-      } else {
-        console.log("there is no old conversation"); // Ta bort
-      }
+      } 
     });
   };
 
