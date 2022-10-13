@@ -6,8 +6,10 @@ const sql1 = "SELECT DISTINCT * FROM MyCourses WHERE (Owner) = (?)"
 
 // Fetching user's courses from database and sending it to HomePage component
 router.get('/Homepage/:owner', async (req, res) => {
-    const id = req.params; 
-    let database = await db.allAsync(sql1, id.user);
+
+    const owner = req.params.owner; 
+    let database = await db.allAsync(sql1, owner);
+    console.log(database)
     return res.json(database); 
 }); 
 

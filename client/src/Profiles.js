@@ -8,14 +8,14 @@ function Profiles(){
     const [courses, setCourses] = useState([]); 
     const fetchItems = async() =>{
         console.log("Email: " + location.state.id)
-        const courseData = await fetch(`/Startsida/${location.state.id}`); 
+        const courseData = await fetch(`/Homepage/${location.state.id}`); 
         const userCourses = await courseData.json(); 
+        console.log(userCourses)
         setCourses(userCourses); 
     }
 
     useEffect(() => {
         fetchItems(); 
-        console.log("user: " + location.state.id);
     }, []); 
 
     return(
