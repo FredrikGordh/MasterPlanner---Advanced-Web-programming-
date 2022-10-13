@@ -15,7 +15,7 @@ function MyProfile() {
   // Sends the sessionstorage to the database
   // to get the user information
   const fetchItems = async () => {
-    fetch("http://localhost:3000/My_profile/user", {
+    fetch(`http://localhost:3000/My_profile/user`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +27,7 @@ function MyProfile() {
       .then((response) => response.json())
       .then((data) => console.log(data));
 
-    const dataCourses = await fetch("/MyCourses");
+    const dataCourses = await fetch(`/MyCourses/${sessionStorage.getItem("email")}`);
     const courses = await dataCourses.json();
     setItems(courses);
     const dataUserInfo = await fetch("/My_profile");

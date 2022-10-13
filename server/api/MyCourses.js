@@ -8,9 +8,12 @@ let user = '';
 
 //Api requests
 //Fetching course information from MyCourses in sqlite3 database
-router.get('/MyCourses', async (req, res) => {
-    var courses = await db.allAsync(sql1, user);
-    console.log("user in my course api") 
+router.get('/MyCourses/:owner', async (req, res) => {
+    console.log("params")
+    console.log(req.params.owner)
+
+    var courses = await db.allAsync(sql1, req.params.owner);
+    console.log("user in my course") 
     console.log(user)
     return res.json(courses);  
 })
@@ -34,7 +37,7 @@ router.delete('/MyCourses', async (req, res) => {
 })
 
 // Adding new course to user database
-router.post('/MyCourses', async (req,res) => {
+router.post('/MyCourses/:owner', async (req,res) => {
     let insertQuery= '';
     let database = '';
     const myCourses = [
@@ -47,7 +50,7 @@ router.post('/MyCourses', async (req,res) => {
         req.body.VOF,
         req.body.Säsong,
         req.body.Period,
-        user
+        req.params.owner
     ]
 
     if (req.body.Master === undefined){

@@ -24,11 +24,7 @@ function SignIn(){
                 },
                 body: JSON.stringify(myData)
                 
-            }).then(() => {
-
-                console.log('MyData stringified: ' + JSON.stringify(myData))
-                 // Redirecting to homepage after click
-                
+            }).then(() => {                
             })
         }
 

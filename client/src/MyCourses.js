@@ -10,7 +10,7 @@ function MyCourses() {
   
   // Fetches the data from the database (the added courses)
   const fetchItems = async () => {
-    const data = await fetch("/MyCourses");
+    const data = await fetch(`/MyCourses/${sessionStorage.getItem('email')}`);
     const courses = await data.json();
     setCourses(courses);
   };
@@ -36,7 +36,7 @@ function MyCourses() {
 
   // Posts the new master course to the datbase if the box is checked
   const handleMaster = (master) => {
-    fetch("http://localhost:3000/MyCourses", {
+    fetch(`http://localhost:3000/MyCourses/${sessionStorage.getItem('email')}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

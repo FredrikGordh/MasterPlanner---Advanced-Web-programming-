@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 function ProfileCards(props) {
   const navigate = useNavigate();
 
-  function navToProfie(){
+  function navToProfile(){
     navigate("/Profiles", {
             state: {
               owner: props.owner,
@@ -36,7 +36,7 @@ function ProfileCards(props) {
             <p> {props.master}</p>
             <button
               className="btn btn-outline-info"
-              onClick={() => props.onClick(navToProfie)}
+              onClick={() => props.onClick(navToProfile)}
             >
               {" "}
               Visa kurser{" "}

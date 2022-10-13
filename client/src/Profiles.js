@@ -3,19 +3,18 @@ import {useLocation} from 'react-router-dom';
 import CourseTables from "./components/Courses/CourseTables.js";
 
 
+// Profile view of other users than the user itself.
+// View available from the homepage
 function Profiles(){
 
     const location = useLocation(); 
     const [courses, setCourses] = useState([]); 
+
     const fetchItems = async() =>{
-        
-        const courseData = await fetch(`/Homepage`); 
-        // const userCourses = await courseData.json(); 
-
-        // console.log(userCourses)
-        // setCourses(userCourses); 
+        const courseData = await fetch(`/Homepage/${location.state.owner}`); 
+        const userCourses = await courseData.json(); 
+        setCourses(userCourses)
     }
-
 
     useEffect(() => {
         fetchItems(); 
@@ -82,7 +81,7 @@ function Profiles(){
                                 <div class="card mb-3" >
                                     <div class="card-body" style={{width: "100%"}}>
                                     <CourseTables
-                                        type={"myProfile"}
+                                        type={"randomProfile"}
                                         courses={courses}
                                     ></CourseTables>
                                     </div>
