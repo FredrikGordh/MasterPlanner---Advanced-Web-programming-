@@ -27,7 +27,7 @@ function MyProfile() {
       .then((response) => response.json())
       .then((data) => console.log(data));
 
-    const dataCourses = await fetch("/Mina_kurser");
+    const dataCourses = await fetch("/MyCourses");
     const courses = await dataCourses.json();
     setItems(courses);
     const dataUserInfo = await fetch("/My_profile");
@@ -42,7 +42,7 @@ function MyProfile() {
     setDisplay(false);
   };
 
-  // Running fetchItems and setting the usernameState from sessionStorage
+  // Running fetchItems  and setting the usernameState from sessionStorage
   useEffect(() => {
     fetchItems();
     setUsername(sessionStorage.getItem("email"));

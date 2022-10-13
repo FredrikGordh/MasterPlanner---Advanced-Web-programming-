@@ -8,13 +8,13 @@ let user = '';
 
 //Api requests
 //Fetching course information from MyCourses in sqlite3 database
-router.get('/Mina_kurser', async (req, res) => {
+router.get('/MyCourses', async (req, res) => {
     var courses = await db.allAsync(sql1, user); 
     return res.json(courses);  
 })
 
 //Deleting request
-router.delete('/Mina_kurser', async (req, res) => {
+router.delete('/MyCourses', async (req, res) => {
     let deleteQuery = 'DELETE FROM MyCourses WHERE (Kurskod, Kursnamn, HP, Nivå, Block, VOF, Säsong, Period) = (?,?,?,?,?,?,?,?)'  
     const myCourses = [
         req.body.Kurskod, 
@@ -32,7 +32,7 @@ router.delete('/Mina_kurser', async (req, res) => {
 })
 
 // Adding new course to user database
-router.post('/Mina_kurser', async (req,res) => {
+router.post('/MyCourses', async (req,res) => {
     let insertQuery= '';
     let database = '';
     const myCourses = [

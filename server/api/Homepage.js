@@ -9,6 +9,7 @@ router.get('/Homepage/:owner', async (req, res) => {
 
     const owner = req.params.owner; 
     let database = await db.allAsync(sql1, owner);
+    console.log("inside homepage api")
     console.log(database)
     return res.json(database); 
 }); 
