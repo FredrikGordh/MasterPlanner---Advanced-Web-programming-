@@ -38,7 +38,6 @@ export const LogIn = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        fetchItems();
         if (data.auth) {
           sessionStorage.setItem("token", data.token);
           sessionStorage.setItem("email", data.email);
