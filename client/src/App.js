@@ -1,6 +1,6 @@
 
 import React from "react";
-import Files from './file.json';
+// import Files from './file.json';
 
 
 

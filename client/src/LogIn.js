@@ -1,27 +1,11 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { SocketContext } from "./context/socket.js";
 
 // Creates a logIn component and a login view
 export const LogIn = (props) => {
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState(""); // Ta bort
-  const [body, setBody] = useState(""); // Ta bort
   const [password, setPassword] = useState("");
-  const [loginStatus, setLoginStatus] = useState(false); // Ta bort
   const navigate = useNavigate();
-  const [items, setItems] = useState([]); // Ta bort
-  const socket = useContext(SocketContext); // Ta bort
-
-  useEffect(() => {
-    fetchItems();
-  }, []);
-
-  // Ta bort
-  const fetchItems = async () => {
-    const items = await data.json();
-    setItems(items);
-  };
 
   // Adds the user to the database email and password.
   const handleUser = (data) => {
@@ -32,7 +16,6 @@ export const LogIn = (props) => {
       },
       body: JSON.stringify(data),
     });
-
     fetch("http://localhost:3000/My_profile/user", {
       method: "POST",
       headers: {
@@ -56,12 +39,9 @@ export const LogIn = (props) => {
       .then((response) => response.json())
       .then((data) => {
         fetchItems();
-
         if (data.auth) {
           sessionStorage.setItem("token", data.token);
           sessionStorage.setItem("email", data.email);
-          setUsername(data.email);
-          setLoginStatus(true);
           handleUser(myData);
           navigate("/", {
             state: {
@@ -70,11 +50,9 @@ export const LogIn = (props) => {
           });
           window.location.reload();
         } else if (!data.auth) {
-          setLoginStatus(false);
           alert("Wrong password try again.");
         }
       })
-
       .catch((error) => {
         alert("error: " + error);
       });
