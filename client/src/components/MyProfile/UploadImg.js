@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { ref, uploadBytes, getStorage, getDownloadURL } from "firebase/storage";
 import { app } from "../../firebase-config.js";
-import "./UploadImg.css";
 
 // A component that changes and loads the image and saves the img url in the database
 function UploadImg(props) {
@@ -82,7 +81,7 @@ function UploadImg(props) {
           <img
             src={props.imageUrl}
             key=""
-            id="myProfile-img"
+            id="profileCards-img"
             alt="Admin"
             className="rounded-circle"
             width="150"
