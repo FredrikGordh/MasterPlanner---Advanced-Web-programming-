@@ -6,7 +6,6 @@ import CourseTables from "./components/Courses/CourseTables.js";
 function MyCourses() {
   const [courses, setCourses] = useState([]);
   const [singleCourse, setSingleCourse] = useState([]);
-  const [checked, setChecked] = useState(false);
 
   
   // Fetches the data from the database (the added courses)
@@ -15,10 +14,6 @@ function MyCourses() {
     const courses = await data.json();
     setCourses(courses);
   };
-
-  useEffect(() => {
-    
-  }, [checked]);
 
   useEffect(() => {
     fetchItems();
