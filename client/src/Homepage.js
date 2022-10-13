@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { ref, uploadBytes, getStorage, getDownloadURL } from "firebase/storage";
+import { getStorage} from "firebase/storage";
 import { app } from "./firebase-config.js";
 import ProfileCards from "./components/Homepage/ProfileCards.js";
 import "./components/Homepage/ProfileCards.css";
 
 // Creates the homapage of the application
-function Startsida() {
+function Homepage() {
   const location = useLocation();
   const [usersInfo, setUsersInfo] = useState([]);
-  const [allUsernames, setAllUsernames] = useState([]); // Ta bort
+  // const [allUsernames, setAllUsernames] = useState([]); // Ta bort
   const [owner, setOwner] = useState();
   const [course, setCourses] = useState([]); // Ta bort
   const [searchTerm, setSearchTerm] = useState("");
@@ -25,7 +25,7 @@ function Startsida() {
     const all_usernames = await all_usernamesData.json();
     const user_info = await userData.json();
     setUsersInfo(user_info);
-    setAllUsernames(all_usernames.getAllUsers);
+    // setAllUsernames(all_usernames.getAllUsers);
   };
 
   useEffect(() => {
@@ -35,7 +35,7 @@ function Startsida() {
   // Displays the courses of the chosen user that is clicked on the start page. 
   const handleCourses = async (e) => {
     e.preventDefault();
-    const dataCourses = await fetch(`/Startsida/${owner}`);
+    const dataCourses = await fetch(`/Homepage/${owner}`);
     const userCourses = await dataCourses.json();
     setCourses(userCourses);
     usersInfo.map((user) => {
@@ -198,4 +198,4 @@ function Startsida() {
   }
 }
 
-export default Startsida;
+export default Homepage;

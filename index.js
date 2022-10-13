@@ -6,7 +6,7 @@ const routesHandler = require('./server/api/Sok_kurser')
 const signIn = require('./server/api/SignIn')
 const logIn = require('./server/api/LogIn')
 const myProfile = require('./server/api/MyProfile')
-const startsida = require('./server/api/Startsida')
+const homepage = require('./server/api/Homepage')
 const users = require('./server/api/Users.js')
 
 
@@ -30,7 +30,7 @@ app.use('/', mina_kurser);
 app.use('/', signIn); 
 app.use('/',logIn);
 app.use('/', myProfile); 
-app.use('/', startsida); 
+app.use('/', homepage); 
 app.use('/', users)
 
 let userList = []
