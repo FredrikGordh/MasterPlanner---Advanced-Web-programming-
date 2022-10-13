@@ -1,28 +1,19 @@
-var sqlite3 = require('sqlite3').verbose(); 
-const { response } = require('express');
 const express = require('express'); 
-const { json } = require('express/lib/response');
 const router = express.Router(); 
 const db = require('../database')
-var owner; 
+var user; 
 const sql1 = "SELECT DISTINCT * FROM MyCourses WHERE (Owner) = (?)"
 
-
-
-
-
+// Fetching user's courses from database and sending it to HomePage component
 router.get('/Startsida/:owner', async (req, res) => {
     const id = req.params; 
-    let database = await db.allAsync(sql1, id.owner);
+    let database = await db.allAsync(sql1, id.user);
     return res.json(database); 
-
 }); 
 
-
+// Receiving username from component and saving it into variable user
 router.post('/Startsida', async (req,res) => {
-    console.log("Owner: " + req.body); 
-    owner = req.body; 
-
+    user = req.body; 
 }); 
 
 module.exports = router; 

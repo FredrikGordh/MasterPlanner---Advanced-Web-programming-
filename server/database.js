@@ -4,8 +4,7 @@ const fs = require("fs");
 const DBSOURCE = "db.sqlite"; 
 const fillsql = fs.readFileSync("./server/Database.sql").toString();
 const dataArr = fillsql.toString().split(');');
-
-
+ 
 let db = new sqlite3.Database(DBSOURCE, (err) => {
   
     if (err) {
@@ -15,9 +14,7 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
     }
 }); 
 
-
-
-
+// Starting up the database, puts the excecution mode into serialize mode
 db.serialize(() => {
     // db.run runs your SQL query against the DB
     db.run('PRAGMA foreign_keys=OFF;');
@@ -28,18 +25,15 @@ db.serialize(() => {
         // In my case the it was `);`
         query += ');';
         if(query[2] !== ';') {
-
-
         db.run(query, (err) => {
-          
               if(err) console.log("err: " + err);
           });
         }
     });
     db.run('COMMIT;');
 });
- 
 
+// Fetches the whole datatable from the specific database
 db.allAsync = function (sql, params) {
   var that = this;
   return new Promise(function (resolve, reject) {
@@ -50,6 +44,7 @@ db.allAsync = function (sql, params) {
   });
 };
 
+// Sends get queries to database where certain data or data rows are fetched
 db.getAsync = function (sql, params) {
   var that = this;
   console.log('This is what is sent to Login DB API: ' + sql,params)
@@ -61,6 +56,7 @@ db.getAsync = function (sql, params) {
   });
 };
 
+// Sending query to database that changes the database (Update, Delete, Insert)
 db.runAsync = function (sql, params) {
   console.log(sql, params)
   var that = this;
@@ -72,14 +68,7 @@ db.runAsync = function (sql, params) {
   });
 };
 
-db.update = function(sql, param){
-  db.run(sql, param, (err) => {
-    if (err) {
-      return console.log(err); 
-    }
-  })
-}
-
+// Adding course to user when user is adding them in SearchCourse component
 db.insertCourse = function(sql, myCourses) {
   let Kurskod =  myCourses.Kurskod; 
   let Kursnamn = myCourses.Kursnamn; 
@@ -90,7 +79,6 @@ db.insertCourse = function(sql, myCourses) {
   let Säsong = myCourses.Säsong; 
   let Period = myCourses.Period; 
 
-
   db.run(sql, [Kurskod, Kursnamn, HP, Nivå, Block, VOF, Säsong, Period], (err) => {
     if (err) {
       return console.log(err); 
@@ -98,12 +86,10 @@ db.insertCourse = function(sql, myCourses) {
   })
 }
 
+// Adding user to database
 db.insertAsync = function (sql, email, password){
   db.serialize(() => {
-  console.log('This is now in the database: ' + sql, email, password)
-
    return db.run(sql, [email, password], (err)=>{
-
         if(err){
             console.log('Error')
             return console.log(err.message)
