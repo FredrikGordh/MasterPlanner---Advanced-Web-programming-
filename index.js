@@ -1,12 +1,12 @@
 const express = require("express");
 const bodyParser = require('body-parser'); 
 const app = express();
-const mina_kurser = require('./server/api/Mina_kurser')
-const routesHandler = require('./server/api/Sok_kurser')
+const myCourses = require('./server/api/MyCourses')
+const routesHandler = require('./server/api/SearchCourses')
 const signIn = require('./server/api/SignIn')
 const logIn = require('./server/api/LogIn')
 const myProfile = require('./server/api/MyProfile')
-const startsida = require('./server/api/Startsida')
+const homepage = require('./server/api/Homepage')
 const users = require('./server/api/Users.js')
 
 
@@ -26,11 +26,11 @@ const io = socketIo(server,{
 app.use(bodyParser.urlencoded({extended:false})); 
 app.use(bodyParser.json()); 
 app.use('/', routesHandler); 
-app.use('/', mina_kurser); 
+app.use('/', myCourses); 
 app.use('/', signIn); 
 app.use('/',logIn);
 app.use('/', myProfile); 
-app.use('/', startsida); 
+app.use('/', homepage); 
 app.use('/', users)
 
 let userList = []

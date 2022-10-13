@@ -12,7 +12,7 @@ function Channel() {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [userImgUrl, setUserImgUrl] = useState();
   const [chatFriendImgUrl, setChatFriendImgUrl] = useState();
-  const [testList, setTestList] = useState([]);
+  const [displayedOnlineUsers, setDisplayedOnlineUsers] = useState([]);
   const [usersInfo, setUsersInfo] = useState([]);
 
   // Fetches all the user info
@@ -42,7 +42,7 @@ function Channel() {
 
   // Fetches the image of the friend who is online
   useEffect(() => {
-    fetchChatFriendImg(onlineUsers);
+    fetchChatFriends(onlineUsers);
   }, [onlineUsers]);
 
   // Adding current user to list of online users in api list through socket
@@ -63,19 +63,19 @@ function Channel() {
   };
 
   // Adds the icon and the name to the online users. 
-  const fetchChatFriendImg = (input) => {
-    // Ta bort byt variabelnamn 
-    setTestList([]);
+  // And adding these friends to the list that is later displayed in Channel.
+  // Handling so that the user itself will not be displayed among the chat friends
+  const fetchChatFriends = (input) => {
+    setDisplayedOnlineUsers([]);
     if (input != "") {
-      onlineUsers.map((onlineUser, index) => {
-        // Ta bort index?
-        usersInfo.map((user, index) => {
+      onlineUsers.map((onlineUser) => {
+        usersInfo.map((user) => {
           if (onlineUser.username == user.Owner && onlineUser != username) {
             let data = {
               username: user.Owner,
               imgUrl: user.imgUrl,
             };
-            setTestList((prev) => [...prev, data]);
+            setDisplayedOnlineUsers((prev) => [...prev, data]);
           }
         });
       });
@@ -88,7 +88,7 @@ function Channel() {
         <div className="joinChatContainer col-4">
           <h3 className="headline-chat">Chattar</h3>
           <center>
-            {testList.map((user, index) => {
+            {displayedOnlineUsers.map((user, index) => {
               if (user.username == username) {
               } else {
                 return (

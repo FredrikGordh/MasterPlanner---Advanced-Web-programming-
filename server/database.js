@@ -35,6 +35,7 @@ db.serialize(() => {
 
 // Fetches the whole datatable from the specific database
 db.allAsync = function (sql, params) {
+  console.log('This is what is sent to al sync DB API: ' + sql,params)
   var that = this;
   return new Promise(function (resolve, reject) {
     that.all(sql, params, function (error, rows) {

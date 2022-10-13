@@ -1,13 +1,7 @@
 
 import React from "react";
-import Files from './file.json';
-
-
-
-import { ReactDOM } from "react";
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import {socket, SocketContext} from './context/socket.js'
-import { Socket } from "socket.io-client";
 
 // Components
 import Nav from './Nav.js'
@@ -18,12 +12,7 @@ import MyCourses from "./MyCourses.js"
 import LogIn from "./LogIn.js"
 import MyProfile from "./MyProfile.js"
 import Profiles from "./Profiles.js"
-import Chat from "./components/Chat/Chat.js"
 import Channel from "./Channel.js"
-import ProfileCards from "./components/Homepage/ProfileCards.js";
-import CourseTables from "./components/Courses/CourseTables.js"
-import CoursesSearchBar from "./components/Courses/CoursesSearchBar.js";
-import UploadImg from "./components/MyProfile/UploadImg.js";
 
 // CSS-files
 import "./App.css";
@@ -36,12 +25,15 @@ import "./SearchCourses.css"
 import "./SignIn.css"
 
 
+// Main application module
+// Using Router and routes to handle orientation between modules and components
+// If there is no token, the user is not logged in and depending on this the user
+// has access to different components
 function App() {
 
-
+  // If the user is logged in:
   if (!sessionStorage.getItem('token')) {
   return (
-    
       <Router> 
       <div className="App">
             { console.log('Nu är vi i App div i nav') }
@@ -63,9 +55,11 @@ function App() {
       </div>
       </Router>  
     );
-  }else{
-
-  return(
+    
+  }
+  // If the user is not logged in:
+  else{
+    return(
     <SocketContext.Provider value={socket}>
     <Router> 
     <div className="App">
@@ -84,16 +78,13 @@ function App() {
               <main style={{ padding: "1rem" }}>
               <p>There's nothing here!</p>
               </main>}/>
-            
           </Routes>
     </div>
     </Router>
     </SocketContext.Provider>
 
   )}
-}
-
-  
+}  
   
 export default App;
 
