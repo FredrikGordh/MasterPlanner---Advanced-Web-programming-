@@ -9,7 +9,9 @@ let user = '';
 //Api requests
 //Fetching course information from MyCourses in sqlite3 database
 router.get('/MyCourses', async (req, res) => {
-    var courses = await db.allAsync(sql1, user); 
+    var courses = await db.allAsync(sql1, user);
+    console.log("user in my course api") 
+    console.log(user)
     return res.json(courses);  
 })
 

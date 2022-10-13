@@ -16,6 +16,7 @@ function MyCourses() {
   };
 
   useEffect(() => {
+    sessionStorage.getItem('email')
     fetchItems();
   }, []);
 
