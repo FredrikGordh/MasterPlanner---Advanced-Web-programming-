@@ -3,15 +3,16 @@ import "./CourseTables.css"
 
 function CourseTables (props) {
 
+        
+
         // Loads item master checkbox as checked or unchecked depending on previous actions
         function handleChecked(item){
 
-            let element = document.getElementById(JSON.stringify(item)); 
     
-            if (element !== null && item.Master === 1){
-                element.checked = true; 
-            }else if(element !== null){
-                element.checked = false; 
+            if (item.Master === 1){
+                return true; 
+            }else{
+                return false; 
             }
         }
 
@@ -89,7 +90,7 @@ function CourseTables (props) {
                                 <div>
                                 <td align='center'>
                                 <div className="form-check form-switch">
-                                    <input className="form-check-input" type="checkbox" id={JSON.stringify(item)} onChange={(e) => props.onChange(e, item)}>{handleChecked(item)}</input>
+                                    <input className="form-check-input" type="checkbox" id={JSON.stringify(item)} onChange={(e) => props.onChange(e, item)} checked = {handleChecked(item)}></input>
                                 </div> 
                                 </td>
                                 <td align="center">

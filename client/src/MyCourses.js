@@ -6,6 +6,7 @@ import CourseTables from "./components/Courses/CourseTables.js";
 function MyCourses() {
   const [courses, setCourses] = useState([]);
   const [singleCourse, setSingleCourse] = useState([]);
+
   
   // Fetches the data from the database (the added courses)
   const fetchItems = async () => {
@@ -41,6 +42,8 @@ function MyCourses() {
       },
       body: master,
     });
+
+    fetchItems();
   };
 
   // Calculate the HP and in what category the HP should be in. 
@@ -53,26 +56,32 @@ function MyCourses() {
     let AvanceradI = 0;
 
     courses.map((item) => {
+      let HPholder = 0
+      if (item.HP.includes("*")){
+        HPholder = Number(item.HP.replace("*", ""))/2; 
+      }else{
+        HPholder = Number(item.HP)
+      }
+
       if (item.typ === "Matematik") {
-        Math = Math + Number(item.HP);
+        Math = Math + HPholder;
       } else if (item.typ === "Teknisk") {
-        teknisk = teknisk + Number(item.HP);
+        teknisk = teknisk + HPholder;
       }
 
-      if (item.nivå === "A1X") {
-        Avancerad = Avancerad + Number(item.HP);
+      if (item.Nivå === "A1X") {
+        Avancerad = Avancerad + HPholder;
       }
 
-      if (item.Master === 1 && item.nivå === "A1X") {
-        Master = Master + Number(item.HP);
+      if (item.Master === 1 & item.Nivå === "A1X") {
+        Master = Master + HPholder;
       }
 
-      if (item.typ === "Ekonomi" && item.nivå === "A1X") {
-        AvanceradI = AvanceradI + Number(item.HP);
+      if (item.typ === "Ekonomi" && item.Nivå === "A1X") {
+        AvanceradI = AvanceradI + HPholder;
       }
 
-      let int = Number(item.HP);
-      hp = hp + int;
+      hp = hp + HPholder;
     });
     
     let Array = [hp, Math, teknisk, Avancerad, Master, AvanceradI];
@@ -87,11 +96,16 @@ function MyCourses() {
     console.log("Value: " + value);
     if (value) {
       item.Master = 1;
+
     } else {
       item.Master = 0;
     }
 
     handleMaster(JSON.stringify(item));
+
+
+
+
   }
 
   return (
@@ -164,5 +178,6 @@ function MyCourses() {
     </form>
   );
 }
+
 
 export default MyCourses;
