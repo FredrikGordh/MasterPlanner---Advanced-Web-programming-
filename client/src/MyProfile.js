@@ -13,6 +13,7 @@ function MyProfile() {
   const [imageUrl, setImageUrl] = useState();
 
   // Sends the sessionstorage to the database
+  // to get the user information
   const fetchItems = async () => {
     fetch("http://localhost:3000/My_profile/user", {
       method: "POST",
@@ -41,6 +42,7 @@ function MyProfile() {
     setDisplay(false);
   };
 
+  // Running fetchItems and setting the usernameState from sessionStorage
   useEffect(() => {
     fetchItems();
     setUsername(sessionStorage.getItem("email"));
