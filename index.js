@@ -9,6 +9,15 @@ const myProfile = require('./server/api/MyProfile')
 const homepage = require('./server/api/Homepage')
 const users = require('./server/api/Users.js')
 
+app.use(bodyParser.urlencoded({extended:false})); 
+app.use(bodyParser.json()); 
+app.use('/', routesHandler); 
+app.use('/', myCourses); 
+app.use('/', signIn); 
+app.use('/',logIn);
+app.use('/', myProfile); 
+app.use('/', homepage); 
+app.use('/', users)
 
 // Chat and socket functionality
 const cors = require("cors")
@@ -22,16 +31,6 @@ const io = socketIo(server,{
       origin: "http://localhost:3000"
     }
 })
-
-app.use(bodyParser.urlencoded({extended:false})); 
-app.use(bodyParser.json()); 
-app.use('/', routesHandler); 
-app.use('/', myCourses); 
-app.use('/', signIn); 
-app.use('/',logIn);
-app.use('/', myProfile); 
-app.use('/', homepage); 
-app.use('/', users)
 
 let userList = []
 
@@ -47,8 +46,7 @@ const removeUser = (socketId) => {
 
 const getUser = (username) => {
     return userList.find((user) => user.username === username);
-}
-    
+}    
 
 // Chat and socket functionality
 // On connection all online users are added into the UserList array
@@ -61,9 +59,7 @@ io.on('connection', (socket) => {
         console.log(`User ${currentUser} with id ${socket.id} is connected`);
         io.emit('getUsers', userList)
         }
-    })
-    
-    
+    }) 
     
 // Sending and getting messages
     socket.on('send_message', (data) => {
@@ -72,22 +68,16 @@ io.on('connection', (socket) => {
         console.log(userList)
         io.to(user.socketId).emit("getMessage", data)
         console.log( data)
-        
-        
     })
     
     socket.on('disconnect',(reason)=>{
-
         console.log(` User ${socket.id} was disconnected `)
         console.log(reason)
         removeUser(socket.id)
         io.emit('getUsers', userList)
-        
       })
-    
 })
 
-
+// Port of the server
 const PORT = process.env.PORT || 8080;
-
 server.listen(PORT, console.log(`Server started on port ${PORT}`));
