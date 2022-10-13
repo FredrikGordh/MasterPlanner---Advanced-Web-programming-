@@ -9,7 +9,7 @@ function MyCourses() {
   
   // Fetches the data from the database (the added courses)
   const fetchItems = async () => {
-    const data = await fetch("/Mina_kurser");
+    const data = await fetch("/MyCourses");
     const courses = await data.json();
     setCourses(courses);
   };
@@ -21,7 +21,7 @@ function MyCourses() {
   // Handles the delete functionality of the courses. 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3000/Mina_kurser", {
+    fetch("http://localhost:3000/MyCourses", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +34,7 @@ function MyCourses() {
 
   // Posts the new master course to the datbase if the box is checked
   const handleMaster = (master) => {
-    fetch("http://localhost:3000/Mina_kurser", {
+    fetch("http://localhost:3000/MyCourses", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

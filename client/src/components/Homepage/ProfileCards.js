@@ -1,8 +1,23 @@
 import React from "react";
-
+import { useNavigate } from "react-router-dom";
 // Creates a profile card which is used on the homepage this includes the progile image
 // and a button which navigates to the persons homepage
 function ProfileCards(props) {
+  const navigate = useNavigate();
+
+  function navToProfie(){
+    navigate("/Profiles", {
+            state: {
+              owner: props.owner,
+              name: props.name,
+              profileEmail: props.profileEmail,
+              liuID: props.liuID,
+              master: props.master,
+              imgUrl: props.imgUrl
+            },
+          });
+
+  }
   return (
     <div className="card" style={{ width: "300px", marginBottom: "20px" }}>
       <div className="card-body">
@@ -21,7 +36,7 @@ function ProfileCards(props) {
             <p> {props.master}</p>
             <button
               className="btn btn-outline-info"
-              onClick={() => props.onClick(props.owner)}
+              onClick={() => props.onClick(navToProfie)}
             >
               {" "}
               Visa kurser{" "}

@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { getStorage} from "firebase/storage";
-import { app } from "./firebase-config.js";
+import { useNavigate,useLocation } from "react-router-dom";
 import ProfileCards from "./components/Homepage/ProfileCards.js";
 import "./components/Homepage/ProfileCards.css";
 
@@ -10,22 +7,15 @@ import "./components/Homepage/ProfileCards.css";
 function Homepage() {
   const location = useLocation();
   const [usersInfo, setUsersInfo] = useState([]);
-  // const [allUsernames, setAllUsernames] = useState([]); // Ta bort
   const [owner, setOwner] = useState();
-  const [course, setCourses] = useState([]); // Ta bort
   const [searchTerm, setSearchTerm] = useState("");
-
   const navigate = useNavigate();
-  const storage = getStorage(app); // Ta bort
 
   // Fetches user data who are members of the application
   const fetchItems = async () => {
     const userData = await fetch("/Users/Fetch_all_userinfo");
-    const all_usernamesData = await fetch("/Users/Fetch_all_usernames");
-    const all_usernames = await all_usernamesData.json();
     const user_info = await userData.json();
     setUsersInfo(user_info);
-    // setAllUsernames(all_usernames.getAllUsers);
   };
 
   useEffect(() => {
@@ -35,22 +25,6 @@ function Homepage() {
   // Displays the courses of the chosen user that is clicked on the start page. 
   const handleCourses = async (e) => {
     e.preventDefault();
-    const dataCourses = await fetch(`/Homepage/${owner}`);
-    const userCourses = await dataCourses.json();
-    setCourses(userCourses);
-    usersInfo.map((user) => {
-      if (user.Owner === owner) {
-        navigate("/Profiles", {
-          state: {
-            id: owner,
-            ProfileEmail: user.ProfileEmail,
-            Name: user.Name,
-            LiuID: user.LiuID,
-            Master: user.Master,
-          },
-        });
-      }
-    });
   };
 
   // Changes the text for the button if the user has logged in. 
@@ -66,7 +40,6 @@ function Homepage() {
       if (element !== null) {
         element.textContent = "Välkommen till MasterPlanner";
       }
-
       return "Bli medlem";
     }
   }
