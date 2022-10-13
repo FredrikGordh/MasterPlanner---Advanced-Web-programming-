@@ -25,7 +25,13 @@ import "./SearchCourses.css"
 import "./SignIn.css"
 
 
+// Main application module
+// Using Router and routes to handle orientation between modules and components
+// If there is no token, the user is not logged in and depending on this the user
+// has access to different components
 function App() {
+
+  // If the user is logged in:
   if (!sessionStorage.getItem('token')) {
   return (
       <Router> 
@@ -49,9 +55,11 @@ function App() {
       </div>
       </Router>  
     );
-  }else{
-
-  return(
+    
+  }
+  // If the user is not logged in:
+  else{
+    return(
     <SocketContext.Provider value={socket}>
     <Router> 
     <div className="App">
