@@ -99,6 +99,9 @@ function CourseTables (props) {
                                 </div>
                                  
                             ):("")}
+
+                            {/* { props.type ==="randomProfile" ? 
+                            ():()} */}
                         </tr>
                     ))
                 

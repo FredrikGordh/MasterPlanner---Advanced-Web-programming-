@@ -21,7 +21,7 @@ function Sok_kurser() {
     // Sending chosen courses to Mina_kurser
     const handleSubmit = (e) => {
         e.preventDefault(); 
-        fetch('http://localhost:3000/MyCourses', {
+        fetch(`http://localhost:3000/MyCourses/${sessionStorage.getItem('email')}`, {
             method: 'POST', 
             headers: {
                 'Content-Type':'application/json'

@@ -9,16 +9,19 @@ function Profiles(){
     const [courses, setCourses] = useState([]); 
     const fetchItems = async() =>{
         
-        const courseData = await fetch(`/Homepage`); 
-        // const userCourses = await courseData.json(); 
+        const courseData = await fetch(`/Homepage/${location.state.owner}`); 
+        const userCourses = await courseData.json(); 
 
-        // console.log(userCourses)
+        setCourses(userCourses)
+        
+        console.log(userCourses)
         // setCourses(userCourses); 
     }
 
 
     useEffect(() => {
         fetchItems(); 
+        console.log(location.state.owner)
     }, []); 
 
     return(
@@ -82,7 +85,7 @@ function Profiles(){
                                 <div class="card mb-3" >
                                     <div class="card-body" style={{width: "100%"}}>
                                     <CourseTables
-                                        type={"myProfile"}
+                                        type={"randomProfile"}
                                         courses={courses}
                                     ></CourseTables>
                                     </div>
