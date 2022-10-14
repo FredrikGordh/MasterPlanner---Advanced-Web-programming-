@@ -5,18 +5,17 @@ import { useNavigate } from "react-router-dom";
 function ProfileCards(props) {
   const navigate = useNavigate();
 
-  function navToProfile(){
+  function navToProfile() {
     navigate("/Profiles", {
-            state: {
-              owner: props.owner,
-              name: props.name,
-              profileEmail: props.profileEmail,
-              liuID: props.liuID,
-              master: props.master,
-              imgUrl: props.imgUrl
-            },
-          });
-
+      state: {
+        owner: props.owner,
+        name: props.name,
+        profileEmail: props.profileEmail,
+        liuID: props.liuID,
+        master: props.master,
+        imgUrl: props.imgUrl,
+      },
+    });
   }
   return (
     <div className="card" style={{ width: "300px", marginBottom: "20px" }}>

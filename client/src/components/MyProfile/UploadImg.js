@@ -23,7 +23,6 @@ function UploadImg(props) {
 
   // Uploades a new image as the profileimage
   const updateImageUrl = async (url) => {
-    console.log(props.imgUrl);
     fetch("http://localhost:3000/Update_image", {
       method: "POST",
       headers: {
@@ -33,11 +32,7 @@ function UploadImg(props) {
         imgURL: url,
         username: props.username,
       }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data); // Ta bort
-      });
+    }).then((response) => response.json());
   };
 
   // Handles the input change in firebase
@@ -48,7 +43,6 @@ function UploadImg(props) {
 
   // Called when the users clicks the image upload button
   const handleImageUpload = async (e) => {
-    console.log(selectedFile);
     e.preventDefault();
     if (selectedFile == null) return;
     const imageRef = ref(
@@ -70,7 +64,7 @@ function UploadImg(props) {
         setSelectedFile(null);
       })
       .catch((error) => {
-        alert(error); 
+        alert(error);
       });
   };
 

@@ -23,11 +23,11 @@ function MyProfile() {
       body: JSON.stringify({
         username: sessionStorage.getItem("email"),
       }),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+    }).then((response) => response.json());
 
-    const dataCourses = await fetch(`/MyCourses/${sessionStorage.getItem("email")}`);
+    const dataCourses = await fetch(
+      `/MyCourses/${sessionStorage.getItem("email")}`
+    );
     const courses = await dataCourses.json();
     setItems(courses);
     const dataUserInfo = await fetch("/My_profile");

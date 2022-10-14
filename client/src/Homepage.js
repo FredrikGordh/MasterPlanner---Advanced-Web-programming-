@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import ProfileCards from "./components/Homepage/ProfileCards.js";
 import "./components/Homepage/ProfileCards.css";
 
@@ -22,12 +22,12 @@ function Homepage() {
     fetchItems();
   }, []);
 
-  // Displays the courses of the chosen user that is clicked on the start page. 
+  // Displays the courses of the chosen user that is clicked on the start page.
   const handleCourses = async (e) => {
     e.preventDefault();
   };
 
-  // Changes the text for the button if the user has logged in. 
+  // Changes the text for the button if the user has logged in.
   function displayButton() {
     const holder = location.state;
     const element = document.getElementById("Welcome-header");
@@ -44,7 +44,7 @@ function Homepage() {
     }
   }
 
-  // Changes the action of the main button if the user is logged in or not. 
+  // Changes the action of the main button if the user is logged in or not.
   function buttonAction() {
     const holder = location.state;
     if (holder !== null) {
@@ -54,12 +54,13 @@ function Homepage() {
     }
   }
 
-  // Returns different elements if the user is logged in or not. 
+  // Returns different elements if the user is logged in or not.
   if (usersInfo.length > 0) {
     return (
       <form onSubmit={handleCourses}>
         <div id="background">
-          <h3 id="Welcome-header"> Välkommen till MasterPlanner</h3>
+          <h3 id="Welcome-header"> Välkommen till Masterplanner </h3>
+          <h4> {sessionStorage.getItem("email")} </h4>
           <button className="btn btn-info" onClick={() => buttonAction()}>
             {" "}
             {displayButton()}

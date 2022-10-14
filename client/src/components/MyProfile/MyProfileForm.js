@@ -18,9 +18,7 @@ function MyProfileForm(props) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(values),
-      })
-        .then((response) => response.json())
-        .then((data) => console.log(data));
+      }).then((response) => response.json());
     } else {
       button.innerHTML = "Spara ändringar";
     }

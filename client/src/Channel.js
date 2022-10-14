@@ -62,7 +62,7 @@ function Channel() {
     }
   };
 
-  // Adds the icon and the name to the online users. 
+  // Adds the icon and the name to the online users.
   // And adding these friends to the list that is later displayed in Channel.
   // Handling so that the user itself will not be displayed among the chat friends
   const fetchChatFriends = (input) => {

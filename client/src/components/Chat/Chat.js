@@ -37,8 +37,8 @@ function Chat({ socket, username, userImgUrl, chatFriend, chatFriendImgUrl }) {
     let index = conversationList.length - 1;
     if (index >= 0) {
       // Removes '.' in the usernames as it is not allowed for the chat function
-      let newUserName = username.replace(".", " ");
-      let newChatFriend = chatFriend.replace(".", " ");
+      let newUserName = username.replaceAll(".", " ");
+      let newChatFriend = chatFriend.replaceAll(".", " ");
 
       // Writes the message to the firebase database
       update(
@@ -52,9 +52,7 @@ function Chat({ socket, username, userImgUrl, chatFriend, chatFriendImgUrl }) {
           author: conversationList[index].author,
           chatReciever: conversationList[index].chatReciever,
         }
-      ).catch((error) => {
-        console.log(error);
-      });
+      ).catch((error) => {});
     }
   };
 
@@ -66,14 +64,13 @@ function Chat({ socket, username, userImgUrl, chatFriend, chatFriendImgUrl }) {
 
   // Fetching old conversation between the users from firebase Database
   const getOldConversation = async () => {
-    console.log("inside old conversation")
     // Writes the reference to the database to get the old conversation
     const dbRef = ref(
       database,
       "/messages/" +
-        username.replace(".", " ") +
+        username.replaceAll(".", " ") +
         "/" +
-        chatFriend.replace(".", " ")
+        chatFriend.replaceAll(".", " ")
     );
     // Checks if the data exists and get the data if it does
     onValue(dbRef, (snapshot) => {
@@ -84,7 +81,7 @@ function Chat({ socket, username, userImgUrl, chatFriend, chatFriendImgUrl }) {
           records.push(data);
         });
         setConversationList(records);
-      } 
+      }
     });
   };
 
@@ -106,7 +103,7 @@ function Chat({ socket, username, userImgUrl, chatFriend, chatFriendImgUrl }) {
       try {
         socket.emit("send_message", messageData);
         setConversationList((prev) => [...prev, messageData]);
-        setSentMessage(""); // Ta bort
+        setSentMessage("");
       } catch (err) {
         console.log(err);
       }
