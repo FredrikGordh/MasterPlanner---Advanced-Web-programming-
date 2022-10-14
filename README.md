@@ -25,4 +25,4 @@ Client-side: We will use react and redux as the frontend framework including the
 
 Server-side: We will use node.js and express as the backend framework. Furthermore, we will use postman for testing.
 
-Database: The data will be stored using SQLlite.
+Database: The data will be stored using SQLlite for user and course information and Firebase Realtime Database for images and chat information.
