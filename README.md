@@ -1,5 +1,7 @@
 # MasterChooser
 
+## Link to final presentation
+https://vimeo.com/760320086
 
 ## Functional specifications:
 
