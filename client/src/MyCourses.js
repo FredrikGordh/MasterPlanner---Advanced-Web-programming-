@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import CourseTables from "./components/Courses/CourseTables.js";
+import {Card, Box, CardMedia} from '@mui/material';
 
 // Creates the view for the courses that has been added by the user.
 function MyCourses() {
@@ -111,15 +112,15 @@ function MyCourses() {
 
   return (
     <form id="form" onSubmit={handleSubmit}>
-      <div className="container-fluid" id="card-holder">
-        <div className="card" id="total">
+      <Box className="container-fluid" id="card-holder">
+        <Card className="card" id="total">
           <div className="card-body d-flex align-items-stretch"> 300 HP </div>
           <div className="card-body d-flex align-items-stretch">
             {" "}
             {calculateHP()[0]}{" "}
           </div>
-        </div>
-        <div className="card" id="total">
+        </Card>
+        <Card className="card" id="total">
           <div className="card-body d-flex align-items-stretch">
             {" "}
             Matematik 45 HP
@@ -128,8 +129,8 @@ function MyCourses() {
             {" "}
             {calculateHP()[1]}{" "}
           </div>
-        </div>
-        <div className="card" id="total">
+        </Card>
+        <Card className="card" id="total">
           <div className="card-body d-flex align-items-stretch">
             {" "}
             Teknsik 70 HP
@@ -138,8 +139,8 @@ function MyCourses() {
             {" "}
             {calculateHP()[2]}{" "}
           </div>
-        </div>
-        <div className="card" id="total">
+        </Card>
+        <Card className="card" id="total">
           <div className="card-body d-flex align-items-stretch">
             {" "}
             Avancerad 90 HP
@@ -148,8 +149,8 @@ function MyCourses() {
             {" "}
             {calculateHP()[3]}{" "}
           </div>
-        </div>
-        <div className="card" id="total">
+        </Card>
+        <Card className="card" id="total">
           <div className="card-body d-flex align-items-stretch">
             {" "}
             Master 30 HP
@@ -158,24 +159,26 @@ function MyCourses() {
             {" "}
             {calculateHP()[4]}{" "}
           </div>
-        </div>
-        <div className="card" id="total">
-          <div className="card-body d-flex align-items-stretch w-125">
+        </Card>
+        <Card className="card" id="total">
+          <div className="card-body d-flex align-items-stretch">
             {" "}
-            Avancerade Indek 30 HP{" "}
+            Avancerade I 30 HP{" "}
           </div>
           <div className="card-body d-flex align-items-stretch">
             {" "}
             {calculateHP()[5]}{" "}
           </div>
-        </div>
-      </div>
-      <CourseTables
-        courses={courses}
-        type={"myCourses"}
-        onChange={(e, value) => handleInputChange(e, value)}
-        onClick={(value) => setSingleCourse(value)}
-      ></CourseTables>
+        </Card>
+      </Box>
+      <Card id = "card-tableHolder">
+        <CourseTables
+          courses={courses}
+          type={"myCourses"}
+          onChange={(e, value) => handleInputChange(e, value)}
+          onClick={(value) => setSingleCourse(value)}
+        ></CourseTables>
+      </Card>
     </form>
   );
 }

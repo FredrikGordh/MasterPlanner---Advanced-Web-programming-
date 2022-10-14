@@ -14,6 +14,7 @@ function SignIn(){
             
             alert('Congratulations! You have now created a user, and can now log into your user ')
             navigate('/')
+            window.location.reload();
             const myData = {email, password}
 
             // Sending userdata through a POST request to server
