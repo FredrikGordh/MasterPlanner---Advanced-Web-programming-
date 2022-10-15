@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
-import Chat from "./components/Chat/Chat.js";
-import "./App.css";
-import { SocketContext } from "./context/socket.js";
+import Chat from "../components/Chat/Chat.js";
+import "../App.css";
+import { SocketContext } from "../context/socket.js";
 
 // Creates the channel version of the chat view i.e. the left side panel of the chat.
 function Channel() {

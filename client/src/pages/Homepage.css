@@ -6,7 +6,7 @@
     flex-direction: column;
     width: 100%; 
     height: 400px; 
-    background-image: url("./static/frontpage.png");
+    background-image: url("../static/frontpage.png");
     background-size: 100% 100%;
     
 }

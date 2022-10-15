@@ -1,4 +1,4 @@
-import "../../MyProfile.css";
+import "../../pages/MyProfile.css";
 
 // Created the profile form that is used for the user and for other
 // users to be able to see the choosen courses

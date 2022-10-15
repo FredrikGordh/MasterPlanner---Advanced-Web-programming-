@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import CourseTables from "./components/Courses/CourseTables.js";
-import MyProfileForm from "./components/MyProfile/MyProfileForm.js";
-import UploadImg from "./components/MyProfile/UploadImg.js";
+import CourseTables from "../components/Courses/CourseTables.js";
+import MyProfileForm from "../components/MyProfile/MyProfileForm.js";
+import UploadImg from "../components/MyProfile/UploadImg.js";
 
 // Creates the view for the userprofile
 function MyProfile() {

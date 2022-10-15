@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import CourseTables from "./components/Courses/CourseTables.js";
+import CourseTables from "../components/Courses/CourseTables.js";
 import { Card, Box, CardMedia } from "@mui/material";
 
 // Creates the view for the courses that has been added by the user.

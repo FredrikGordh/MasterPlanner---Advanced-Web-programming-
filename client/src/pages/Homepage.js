@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import ProfileCards from "./components/Homepage/ProfileCards.js";
-import "./components/Homepage/ProfileCards.css";
+import ProfileCards from "../components/Homepage/ProfileCards.js";
+import "../components/Homepage/ProfileCards.css";
 
 // Creates the homapage of the application
 function Homepage() {

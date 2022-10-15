@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import CourseTables from "./components/Courses/CourseTables.js";
+import CourseTables from "../components/Courses/CourseTables.js";
 
 // Profile view of other users than the user itself.
 // View available from the homepage

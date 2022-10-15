@@ -3,25 +3,25 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { socket, SocketContext } from "./context/socket.js";
 
 // Components
-import Nav from "./Nav.js";
-import Homepage from "./Homepage.js";
-import SearchCourses from "./SearchCourses.js";
-import SignIn from "./SignIn.js";
-import MyCourses from "./MyCourses.js";
-import LogIn from "./LogIn.js";
-import MyProfile from "./MyProfile.js";
-import Profiles from "./Profiles.js";
-import Channel from "./Channel.js";
+import Nav from "./pages/Nav.js";
+import Homepage from "./pages/Homepage.js";
+import SearchCourses from "./pages/SearchCourses.js";
+import SignIn from "./pages/SignIn.js";
+import MyCourses from "./pages/MyCourses.js";
+import LogIn from "./pages/LogIn.js";
+import MyProfile from "./pages/MyProfile.js";
+import Profiles from "./pages/Profiles.js";
+import Channel from "./pages/Channel.js";
 
 // CSS-files
 import "./App.css";
 import "./components/Chat/Chat.css";
-import "./Channel.css";
-import "./MyCourses.css";
-import "./Homepage.css";
-import "./MyProfile.css";
-import "./SearchCourses.css";
-import "./SignIn.css";
+import "./pages/Channel.css";
+import "./pages/MyCourses.css";
+import "./pages/Homepage.css";
+import "./pages/MyProfile.css";
+import "./pages/SearchCourses.css";
+import "./pages/SignIn.css";
 
 // Main application module
 // Using Router and routes to handle orientation between modules and components

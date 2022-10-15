@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import CourseTables from "./components/Courses/CourseTables.js";
+import CourseTables from "../components/Courses/CourseTables.js";
 
 function Sok_kurser() {
   useEffect(() => {
