@@ -3,6 +3,9 @@
 ## Link to final presentation
 https://vimeo.com/760320086
 
+Albins individual presentation: https://vimeo.com/760614528 
+
+
 ### Functional specifications:
 
 MasterChooser, an app where students can create their own course schedule at Industriell Ekonomi, at LiU for their chosen master.
