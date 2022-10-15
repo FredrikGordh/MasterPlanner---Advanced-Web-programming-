@@ -5,8 +5,6 @@ import { app } from "../../firebase-config.js";
 // A component that changes and loads the image and saves the img url in the database
 function UploadImg(props) {
   const [editPicture, setEditPicture] = useState(false);
-  const [imgRef, setImgRef] = useState(); // Ta bort
-  const [isSelected, setIsSelected] = useState(false); // Ta bort
   const [selectedFile, setSelectedFile] = useState();
   const [fallback, setFallback] = useState(false);
   const storage = getStorage(app);
@@ -38,7 +36,6 @@ function UploadImg(props) {
   // Handles the input change in firebase
   const handleImageChange = (event) => {
     setSelectedFile(event.target.files[0]);
-    setIsSelected(true);
   };
 
   // Called when the users clicks the image upload button
@@ -49,7 +46,6 @@ function UploadImg(props) {
       storage,
       "images/users/" + props.username + "/" + props.username
     );
-    setImgRef(imageRef);
 
     uploadBytes(imageRef, selectedFile)
       .then(() => {
