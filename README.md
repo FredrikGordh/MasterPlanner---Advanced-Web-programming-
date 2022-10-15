@@ -4,6 +4,8 @@
 https://vimeo.com/760320086
 
 Albins individual presentation: https://vimeo.com/760614528 
+Fredriks individual presentation: https://vimeo.com/760624729
+
 
 
 ### Functional specifications:
