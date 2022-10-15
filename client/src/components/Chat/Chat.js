@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
-import { getDatabase, ref, onValue, update, remove } from "firebase/database";
+import { getDatabase, ref, onValue, update} from "firebase/database";
 
 // Compontent for chat functionality within the conversation
 // Fetching and writing conversation to firebase realtime database

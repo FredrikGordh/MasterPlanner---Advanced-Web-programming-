@@ -1,4 +1,3 @@
-import CoursesSearchBar from "./CoursesSearchBar.js";
 import "./CourseTables.css";
 
 function CourseTables(props) {

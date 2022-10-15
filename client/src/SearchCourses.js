@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import CoursesSearchBar from "./components/Courses/CoursesSearchBar.js";
 import CourseTables from "./components/Courses/CourseTables.js";
 
 function Sok_kurser() {

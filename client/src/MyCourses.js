@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom/client";
 import CourseTables from "./components/Courses/CourseTables.js";
 import { Card, Box, CardMedia } from "@mui/material";
 
