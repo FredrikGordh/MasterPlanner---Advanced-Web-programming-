@@ -31,9 +31,9 @@ function Homepage() {
   function displayButton() {
     const holder = location.state;
     const element = document.getElementById("Welcome-header");
-    if (holder !== null) {
+    if (sessionStorage.getItem("email") !== null) {
       if (element !== null) {
-        element.textContent = "Välkommen till MasterPlanner " + holder.id;
+        element.textContent = "Välkommen till MasterPlanner";
       }
       return "Lägg till kurser";
     } else {
@@ -47,8 +47,8 @@ function Homepage() {
   // Changes the action of the main button if the user is logged in or not.
   function buttonAction() {
     const holder = location.state;
-    if (holder !== null) {
-      navigate("/Sok_kurser");
+    if (sessionStorage.getItem("email") !== null) {
+      navigate("/SearchCourses");
     } else {
       navigate("/SignIn");
     }
