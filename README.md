@@ -1,4 +1,4 @@
-# MasterChooser
+# MasterPlanner
 
 ## Link to final presentation
 https://vimeo.com/760320086
@@ -11,7 +11,7 @@ Fredriks individual presentation: https://vimeo.com/760624729
 
 ### Functional specifications:
 
-MasterChooser, an app where students can create their own course schedule at Industriell Ekonomi, at LiU for their chosen master.
+MasterPlanner, an app where students can create their own course schedule at Industriell Ekonomi, at LiU for their chosen master.
 The idea of the app is that it will contain course reiviews, number of credits per course, advancement level of courses, calculator that ensures that the student meets the requirements, chat function with student counselor. In addition, the app will also include a member system with log in feature, where the students can see other member's course plans.
 
 | Requirement |  Description                                                           |
